@@ -55,6 +55,8 @@
 const VALID_EMAIL = 'comunicacion@elevenacademy.pro';
 const VALID_PASSWORD = 'Eleven2026';
 
+console.log('Login system loaded. Valid email:', VALID_EMAIL);
+
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
@@ -64,14 +66,22 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   const successDiv = document.getElementById('success');
   const loadingDiv = document.getElementById('loading');
 
+  console.log('Login attempt - Email:', email, '| Password length:', password.length);
+  console.log('Expected - Email:', VALID_EMAIL, '| Password:', VALID_PASSWORD);
+
   errorDiv.style.display = 'none';
   successDiv.style.display = 'none';
   loadingDiv.style.display = 'block';
 
-  // Simular validación (en producción sería contra un servidor)
+  // Validación
   setTimeout(() => {
-    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-      // Guardar sesión
+    const emailMatch = email === VALID_EMAIL;
+    const passwordMatch = password === VALID_PASSWORD;
+
+    console.log('Email match:', emailMatch, '| Password match:', passwordMatch);
+
+    if (emailMatch && passwordMatch) {
+      console.log('Login successful!');
       localStorage.setItem('eleven_user', email);
       localStorage.setItem('eleven_session', Date.now());
 
@@ -83,7 +93,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         window.location.href = './index.html';
       }, 1500);
     } else {
-      errorDiv.textContent = '✗ Email o contraseña incorrectos';
+      console.log('Login failed - credentials do not match');
+      errorDiv.textContent = '✗ Email o contraseña incorrectos. Verifica los datos.';
       errorDiv.style.display = 'block';
       loadingDiv.style.display = 'none';
     }

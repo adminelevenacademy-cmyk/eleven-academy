@@ -1,0 +1,70 @@
+╔════════════════════════════════════════════════════════════════╗
+║              PRUEBA DE LOGIN - DEBUGGING                       ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+❌ ¿NO FUNCIONA EL LOGIN?
+═════════════════════════════════════════════════════════════════
+
+Sigue estos pasos:
+
+1. ABRE app.html
+
+2. ABRE DEVELOPER TOOLS
+   - Presiona: F12
+   - O: Click derecho > Inspeccionar
+
+3. VE A LA PESTAÑA "Console"
+
+4. INTENTA HACER LOGIN
+   - Email: comunicacion@elevenacademy.pro
+   - Password: Eleven2026
+   - Click: Acceder
+
+5. MIRA LA CONSOLA (Console tab)
+   - Deberías ver mensajes de debug
+   - Si ves "Login attempt - Email: ..."
+   - Verifícaque coincida exactamente con lo esperado
+
+6. SI DICE "incorrectos":
+   - Verifica que NO hay espacios al inicio o final
+   - Copia/pega exactamente:
+     Email: comunicacion@elevenacademy.pro
+     Password: Eleven2026
+
+
+═════════════════════════════════════════════════════════════════
+✅ SI FUNCIONA
+═════════════════════════════════════════════════════════════════
+
+Verás en la consola:
+   "Login successful!"
+
+Y se abrirá la app automáticamente.
+
+
+═════════════════════════════════════════════════════════════════
+🔧 ALTERNATIVA: SIN LOGIN (Acceso directo)
+═════════════════════════════════════════════════════════════════
+
+Si quieres DESACTIVAR el login y entrar directo a index.html:
+
+1. Abre index.html (ya está deshabilitado el check)
+2. Debería funcionar directamente
+3. Si te envía a login, abre Consola (F12)
+4. Ejecuta manualmente:
+   localStorage.setItem('eleven_user', 'comunicacion@elevenacademy.pro');
+5. Recarga la página (F5)
+6. ¡Debería entrar!
+
+
+═════════════════════════════════════════════════════════════════
+
+CREDENCIALES CORRECTAS:
+
+Email:     comunicacion@elevenacademy.pro
+Password:  Eleven2026
+
+(Sin espacios al inicio o final)
+
+═════════════════════════════════════════════════════════════════
