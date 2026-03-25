@@ -1,0 +1,54 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║         ✅ LA APP YA ESTÁ FUNCIONAL - SIN LOGIN               ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+🚀 PARA ABRIR LA APP:
+
+   Doble clic en: index.html
+
+   (Se abre en Chrome automáticamente)
+
+
+═════════════════════════════════════════════════════════════════
+✨ YA FUNCIONA
+═════════════════════════════════════════════════════════════════
+
+✅ Dashboard - Métricas y gráficos
+✅ Prospector - 60+ contactos buscables
+✅ CRM - Tabla + Kanban
+✅ Emails - 10 templates listos
+✅ Mailchimp - Integrado y listo
+✅ Programas - 6 con precios reales
+✅ Configuración - Completa
+✅ Datos - Guardados en tu PC
+
+
+═════════════════════════════════════════════════════════════════
+📋 MAILCHIMP GRATIS
+═════════════════════════════════════════════════════════════════
+
+1. Crea cuenta: https://mailchimp.com (sin tarjeta)
+2. Obtén API Key, Server Prefix, Audience ID
+3. En la app: Configuración > Mailchimp API > Pega datos
+4. ¡Listo! Sincroniza leads automáticamente
+
+
+═════════════════════════════════════════════════════════════════
+🌐 EN INTERNET (VERCEL)
+═════════════════════════════════════════════════════════════════
+
+Lee: DEPLOY_LINK.txt (pasos para poner online)
+
+Tu app estará en: https://eleven-academy.vercel.app
+
+
+═════════════════════════════════════════════════════════════════
+
+ABRE AHORA: index.html
+
+¡La app está lista para usar!
+
+═════════════════════════════════════════════════════════════════
