@@ -1,0 +1,331 @@
+╔════════════════════════════════════════════════════════════════╗
+║              ELEVEN ACADEMY - ÍNDICE COMPLETO                 ║
+║               Todos los archivos y su propósito                ║
+╚════════════════════════════════════════════════════════════════╝
+
+CARPETA: C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE\
+
+═════════════════════════════════════════════════════════════════
+🚀 COMIENZA AQUÍ
+═════════════════════════════════════════════════════════════════
+
+1️⃣  index.html (83 KB)
+    ➜ LA APP PRINCIPAL - ABRE ESTO
+    ➜ Dashboard, Prospector, CRM, Emails, Mailchimp, Programas
+    ➜ Doble clic → Se abre en Chrome
+    ➜ Funciona offline, datos guardados en tu PC
+
+
+═════════════════════════════════════════════════════════════════
+📖 DOCUMENTACIÓN (Lee en este orden)
+═════════════════════════════════════════════════════════════════
+
+2️⃣  START_HERE.txt (9 KB)
+    ➜ LEER PRIMERO
+    ➜ Resumen rápido de todo
+    ➜ Pasos iniciales
+    ➜ Solución de problemas comunes
+    ➜ 5 minutos de lectura
+
+3️⃣  GUÍA_RÁPIDA.txt (7 KB)
+    ➜ Instrucciones simples sin tecnicismos
+    ➜ Cómo usar Mailchimp gratis
+    ➜ Flujo de trabajo paso a paso
+    ➜ 10 minutos de lectura
+
+4️⃣  README.md (6 KB)
+    ➜ Documentación completa
+    ➜ Todas las características
+    ➜ Instalación y configuración
+    ➜ Troubleshooting detallado
+    ➜ 15 minutos de lectura
+
+5️⃣  RESUMEN.txt (17 KB)
+    ➜ Documento detallado de entrega
+    ➜ Características implementadas
+    ➜ Roadmap futuro
+    ➜ Presupuesto y costos
+    ➜ Estadísticas técnicas
+    ➜ 20 minutos de lectura
+
+6️⃣  VALIDACIÓN.txt (14 KB)
+    ➜ Checklist de verificación
+    ➜ Qué está incluido
+    ➜ Cómo probar cada característica
+    ➜ Resolución de problemas
+    ➜ 15 minutos de lectura
+
+7️⃣  INDEX.txt (Este archivo)
+    ➜ Índice de todos los archivos
+    ➜ Qué es cada archivo
+    ➜ Para qué sirve
+
+
+═════════════════════════════════════════════════════════════════
+⚙️ ARCHIVOS TÉCNICOS (Para desarrolladores/avanzados)
+═════════════════════════════════════════════════════════════════
+
+8️⃣  server.js (7 KB)
+    ➜ Servidor Node.js opcional
+    ➜ Para automatización de Mailchimp
+    ➜ NO necesario para usar la app
+    ➜ Solo si quieres: npm install && npm start
+
+9️⃣  package.json (431 B)
+    ➜ Configuración de dependencias Node.js
+    ➜ Define qué paquetes instalar (express, cors, dotenv)
+    ➜ Para: npm install
+
+🔟 .env.example (72 B)
+    ➜ Plantilla de variables de entorno
+    ➜ Copiar como .env si usas servidor
+    ➜ Contiene: PORT, MAILCHIMP_API_KEY, SERVER_PREFIX
+
+1️⃣1️⃣ INSTRUCCIONES.txt (6 KB)
+    ➜ Pasos para instalar Node.js
+    ➜ Cómo configurar el servidor (opcional)
+    ➜ Solo si necesitas servidor local
+
+
+═════════════════════════════════════════════════════════════════
+🧪 ARCHIVOS DE PRUEBA
+═════════════════════════════════════════════════════════════════
+
+1️⃣2️⃣ setup.html (6 KB)
+    ➜ Pantalla de bienvenida (opcional)
+    ➜ Resumen visual de la app
+    ➜ Botones para abrir index.html
+    ➜ No necesario - es solo para presentación
+
+1️⃣3️⃣ test.html (4 KB)
+    ➜ Página de verificación
+    ➜ Verifica que todo funciona
+    ➜ Pruebas automáticas
+    ➜ Abre esto si tienes dudas sobre compatibilidad
+
+
+═════════════════════════════════════════════════════════════════
+📁 ESTRUCTURA DE CARPETAS
+═════════════════════════════════════════════════════════════════
+
+CAPTACIÓN ELEVEN CLAUDE/
+│
+├─ 📄 index.html ..................... ABRE ESTO (app principal)
+│
+├─ 📚 DOCUMENTACIÓN:
+│  ├─ START_HERE.txt ................ Lee primero
+│  ├─ GUÍA_RÁPIDA.txt .............. Instrucciones simples
+│  ├─ README.md .................... Documentación completa
+│  ├─ RESUMEN.txt .................. Entrega detallada
+│  ├─ VALIDACIÓN.txt ............... Checklist
+│  └─ INDEX.txt .................... Este archivo
+│
+├─ ⚙️ TÉCNICO (Opcional):
+│  ├─ server.js .................... Backend Node.js
+│  ├─ package.json ................. Dependencias
+│  ├─ .env.example ................. Variables
+│  └─ INSTRUCCIONES.txt ............ Setup Node.js
+│
+├─ 🧪 PRUEBAS:
+│  ├─ setup.html ................... Bienvenida
+│  └─ test.html .................... Verificación
+│
+└─ 📦 DATOS:
+   └─ unpacked_doc/ ................ Documento maestro (ignorar)
+
+
+═════════════════════════════════════════════════════════════════
+🎯 TABLA RÁPIDA DE REFERENCIA
+═════════════════════════════════════════════════════════════════
+
+QUIERO...                    ABRE...
+─────────────────────────────────────────────────────────────
+Usar la app ahora           → index.html
+                              (Doble clic)
+
+Ver instrucciones cortas     → GUÍA_RÁPIDA.txt
+
+Leer documentación           → README.md
+
+Entender todo del proyecto  → RESUMEN.txt
+
+Verificar que funciona      → test.html
+
+Revisar checklist            → VALIDACIÓN.txt
+
+Instalar servidor (opcional) → INSTRUCCIONES.txt
+                               npm install && npm start
+
+Ver pantalla de inicio      → setup.html
+
+
+═════════════════════════════════════════════════════════════════
+💾 TAMAÑO Y DETALLES
+═════════════════════════════════════════════════════════════════
+
+ARCHIVO                    TAMAÑO    TIPO        DESCRIPCIÓN
+─────────────────────────────────────────────────────────────
+index.html                 83 KB     HTML+JS     APP (TODO INCLUIDO)
+setup.html                 6 KB      HTML        Bienvenida
+test.html                  4 KB      HTML        Pruebas
+RESUMEN.txt               17 KB      Texto      Documentación
+VALIDACIÓN.txt            14 KB      Texto      Checklist
+START_HERE.txt             9 KB      Texto      Inicio rápido
+GUÍA_RÁPIDA.txt            7 KB      Texto      Instrucciones
+README.md                  6 KB      Markdown   Documentación
+server.js                  7 KB      JavaScript Backend (opt)
+INSTRUCCIONES.txt          6 KB      Texto      Setup Node
+package.json             431 B      JSON       Dependencias
+.env.example              72 B      Texto      Variables
+INDEX.txt                (ESTE)     Texto      Este índice
+
+TOTAL: ~190 KB
+
+
+═════════════════════════════════════════════════════════════════
+🔧 CÓMO USAR CADA ARCHIVO
+═════════════════════════════════════════════════════════════════
+
+index.html:
+  1. Doble clic
+  2. Se abre en Chrome
+  3. ¡Listo!
+
+*.txt files (documentación):
+  1. Abre con Bloc de notas o tu editor favorito
+  2. Lee el contenido
+  3. Sigue las instrucciones
+
+server.js (opcional):
+  1. Abre terminal en esta carpeta
+  2. Ejecuta: npm install
+  3. Ejecuta: npm start
+  4. Abre: http://localhost:3000
+
+setup.html y test.html:
+  1. Doble clic
+  2. Se abre en navegador
+  3. Úsalos para bienvenida o verificación
+
+
+═════════════════════════════════════════════════════════════════
+⏱️ TIEMPO DE LECTURA
+═════════════════════════════════════════════════════════════════
+
+Mínimo (para empezar):
+  • START_HERE.txt: 5 minutos
+  • TOTAL: 5 minutos
+  • Después: Abre index.html y usa la app
+
+Recomendado:
+  • START_HERE.txt: 5 minutos
+  • GUÍA_RÁPIDA.txt: 10 minutos
+  • TOTAL: 15 minutos
+  • Después: Abre index.html y usa la app
+
+Completo (para entender todo):
+  • START_HERE.txt: 5 minutos
+  • GUÍA_RÁPIDA.txt: 10 minutos
+  • README.md: 15 minutos
+  • RESUMEN.txt: 20 minutos
+  • TOTAL: 50 minutos
+
+
+═════════════════════════════════════════════════════════════════
+✅ VERIFICACIÓN RÁPIDA
+═════════════════════════════════════════════════════════════════
+
+Todos los archivos están presentes: ✓
+Archivo index.html existe: ✓
+Documentación completa: ✓
+Servidor (opcional) incluido: ✓
+Ejemplos de datos incluidos: ✓
+Mailchimp configurado: ✓
+App lista para usar: ✓
+
+Estado: 100% FUNCIONAL Y LISTO
+
+
+═════════════════════════════════════════════════════════════════
+🎓 FLUJO RECOMENDADO
+═════════════════════════════════════════════════════════════════
+
+PASO 1: LEE ESTO
+  → START_HERE.txt (5 min)
+
+PASO 2: ABRE LA APP
+  → index.html
+
+PASO 3: EXPLORA
+  → Dashboard, Prospector, CRM, Emails
+
+PASO 4: AGREGA DATOS
+  → Prospector: Busca contactos
+  → CRM: Agrega leads
+
+PASO 5: PRUEBA MAILCHIMP (opcional)
+  → Configuración: Mailchimp API
+  → Mailchimp.com: Crea cuenta
+  → Configura tus credenciales
+
+PASO 6: ENVÍA EMAILS
+  → Emails de Captación: Copia emails
+  → Gmail: Pega y personaliza
+  → ¡Envía!
+
+PASO 7: AMPLÍA
+  → Agrega más contactos
+  → Sincroniza con Mailchimp
+  → Analiza conversión en Dashboard
+
+
+═════════════════════════════════════════════════════════════════
+📞 PREGUNTAS FRECUENTES
+═════════════════════════════════════════════════════════════════
+
+P: ¿Por dónde empiezo?
+R: Lee START_HERE.txt y luego abre index.html
+
+P: ¿Es gratis?
+R: Sí, 100% gratis. Solo descarga y usa.
+
+P: ¿Necesito instalar algo?
+R: No, la app funciona directamente abriendo index.html
+   (Servidor Node.js es opcional)
+
+P: ¿Mis datos se envían a internet?
+R: No, se guardan en tu PC (localStorage)
+   Mailchimp solo si TÚ lo configuras
+
+P: ¿Puedo personalizar la app?
+R: Sí, abre index.html en un editor de código
+
+P: ¿Hay soporte?
+R: Abre F12 en Chrome para ver errores técnicos
+   Contacta si necesitas ayuda
+
+P: ¿Qué navegadores funciona?
+R: Chrome, Firefox, Safari, Edge (modernos)
+
+P: ¿Funciona en móvil?
+R: Sí, pero mejor en desktop
+   PWA (app móvil) viene después
+
+
+═════════════════════════════════════════════════════════════════
+🚀 COMIENZA AHORA
+═════════════════════════════════════════════════════════════════
+
+1. Lee START_HERE.txt (5 minutos)
+
+2. Doble clic en index.html
+
+3. ¡Usa la app!
+
+═════════════════════════════════════════════════════════════════
+
+Eleven Academy © 2026
+Vilanova i la Geltrú, Barcelona
+elevenacademy.pro
+
+═════════════════════════════════════════════════════════════════

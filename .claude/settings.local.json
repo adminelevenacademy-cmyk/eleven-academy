@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Pirri/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/96ab144e-b471-4ae8-b612-d5c59104ebe8/3d2cb3ba-080b-4173-b1e5-c08495a4c06f/skills/docx/**)",
+      "Bash(pandoc \"C:\\\\Users\\\\Pirri\\\\Downloads\\\\Eleven_Academy_Documento_Maestro_Traspaso.docx\" -o output.md)",
+      "Bash(where pandoc:*)",
+      "Bash(python \"C:\\\\Users\\\\Pirri\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\96ab144e-b471-4ae8-b612-d5c59104ebe8\\\\3d2cb3ba-080b-4173-b1e5-c08495a4c06f\\\\skills\\\\docx\\\\scripts\\\\office\\\\unpack.py\" \"C:\\\\Users\\\\Pirri\\\\Downloads\\\\Eleven_Academy_Documento_Maestro_Traspaso.docx\" \"C:\\\\Users\\\\Pirri\\\\Desktop\\\\CAPTACIÓN ELEVEN CLAUDE\\\\unpacked_doc\")",
+      "Bash(where python3:*)",
+      "Bash(where py:*)",
+      "Bash(where python:*)",
+      "Bash(ls /c/Python*/python.exe)",
+      "Read(//c/Users/Pirri/AppData/Local/Programs/**)",
+      "Bash(node -e \":*)",
+      "Bash(where node:*)",
+      "Bash(where npm:*)",
+      "Bash(node -e \"try { require\\(''adm-zip''\\); console.log\\(''adm-zip available''\\); } catch\\(e\\) { console.log\\(''adm-zip not available''\\); }\")",
+      "Read(//c/Program Files/nodejs/**)",
+      "Read(//c/Users/Pirri/AppData/Roaming/**)",
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(cmd.exe /c \"node --version\")",
+      "Bash(grep -o section-[a-z]* '/c/Users/Pirri/Desktop/CAPTACIÓN ELEVEN CLAUDE/index.html')",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" --version)"
+    ]
+  }
+}

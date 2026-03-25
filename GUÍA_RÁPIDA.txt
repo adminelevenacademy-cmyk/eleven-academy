@@ -1,0 +1,174 @@
+╔════════════════════════════════════════════════════════════════╗
+║          ELEVEN ACADEMY - VERSIÓN SIN SERVIDOR                ║
+║          (Funcional inmediatamente sin instalaciones)          ║
+╚════════════════════════════════════════════════════════════════╝
+
+LA APP YA ESTÁ LISTA PARA USAR.
+
+No necesitas instalar nada. Solo abre:
+
+    C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE\index.html
+
+Doble clic en index.html → Se abre en Chrome → ¡Listo!
+
+═════════════════════════════════════════════════════════════════
+
+🎯 QUÉ FUNCIONA AHORA (SIN SERVIDOR)
+═════════════════════════════════════════════════════════════════
+
+✅ Dashboard con métricas
+✅ Prospector: 60+ contactos pre-cargados
+✅ Buscador con filtros
+✅ CRM completo (tabla + Kanban)
+✅ 10 emails listos para copiar/pegar
+✅ Todos los datos se guardan en tu navegador
+✅ Exportar/Importar datos (JSON)
+✅ Tema claro/oscuro
+
+📧 PARA ENVIAR EMAILS:
+  1. Ve a "Emails de Captación"
+  2. Elige un email
+  3. Completa [Nombre], [Correo], etc
+  4. Haz clic en "Copiar"
+  5. Pega en Gmail/Outlook y envía
+
+═════════════════════════════════════════════════════════════════
+
+⚙️ MAILCHIMP DIRECTO (Sin servidor, sin código)
+═════════════════════════════════════════════════════════════════
+
+Opción A: Añadir contactos manualmente en Mailchimp
+  1. Crea cuenta gratis: mailchimp.com
+  2. Ve a Audience → Contacts
+  3. Importa CSV con tus contactos
+  4. ¡Listo! Envía desde Mailchimp
+
+Opción B: Usar Zapier (GRATIS hasta 100 tareas/mes)
+  1. Crea cuenta: zapier.com
+  2. Crea Zap: Formulario → Mailchimp
+  3. Conecta tu app con Zapier
+  4. Los leads se sincronizan automáticamente
+  5. Planes: Free (100 tareas), Professional ($15/mes)
+
+
+Opción C: Server Node.js (Para integradores)
+  Si necesitas un backend completo:
+  - Instala Node.js en tu PC
+  - npm install
+  - npm start
+  - El servidor proxy funcionará automáticamente
+
+
+═════════════════════════════════════════════════════════════════
+
+📋 PASOS INICIALES (SIN CÓDIGO)
+═════════════════════════════════════════════════════════════════
+
+1. ABRE LA APP
+   - Doble clic en index.html
+   - Se abre en Chrome
+
+2. EXPLORA EL PROSPECTOR
+   - Busca academias de fútbol en España
+   - Busca por país (Nigeria, Ghana, etc)
+   - Haz clic en contactos para ver detalles
+
+3. AGREGA LEADS AL CRM
+   - En Prospector, haz clic "Agregar a CRM"
+   - El contacto aparece en CRM
+   - Edita detalles
+
+4. MUEVE LEADS POR PIPELINE
+   - Arrastra entre etapas (Nuevo → Contactado → etc)
+   - O edita y cambia el estado
+
+5. COPIA EMAILS
+   - Ve a "Emails de Captación"
+   - Elige el email (Día 0, Día 3, etc)
+   - Haz clic "Copiar"
+   - Pega en Gmail
+
+6. EXPORTA TUS DATOS
+   - Configuración → Exportar JSON
+   - Guarda tu archivo
+   - Nunca pierdes datos
+
+
+═════════════════════════════════════════════════════════════════
+
+💡 USO CON MAILCHIMP (RECOMENDADO)
+═════════════════════════════════════════════════════════════════
+
+GRATUITO:
+  - 500 contactos
+  - 1,000 envíos/mes
+  - Soporte por email
+
+FLUJO:
+  1. En la app: Agrega leads al CRM
+  2. Exporta como JSON
+  3. Convierte JSON a CSV online (tools.knightlab.com)
+  4. En Mailchimp: Audience → Contacts → Import
+  5. Envía desde Mailchimp
+
+CSV simple (para Mailchimp):
+  Email,Nombre,País,Programa
+  juan@example.com,Juan García,España,3 Meses
+  kwame@example.com,Kwame Adom,Ghana,6 Meses
+
+
+═════════════════════════════════════════════════════════════════
+
+🚀 PARA IMPLEMENTACIÓN COMPLETA (FUTURO)
+═════════════════════════════════════════════════════════════════
+
+Si necesitas:
+  ✓ Integración automática Mailchimp
+  ✓ WhatsApp Business API
+  ✓ Envío automático de emails
+  ✓ Webhooks de formularios web
+  ✓ App online (no solo local)
+
+Opciones:
+  1. Contratar un desarrollador (Fiverr, Upwork)
+  2. Railway.app + Node.js (hosting $5/mes)
+  3. Zapier PRO ($15/mes) para automatizar
+
+Presupuesto referencial: $300-1000 para versión profesional
+
+
+═════════════════════════════════════════════════════════════════
+
+📱 ACCESO MÓVIL
+═════════════════════════════════════════════════════════════════
+
+Actualmente: Solo en el PC donde abres index.html
+
+Para usar en cualquier lado:
+  1. Despliega en Vercel/Railway (gratis)
+  2. Accede desde cualquier dispositivo
+  3. Los datos se sincronizan en la nube
+
+Guía: Pide un video cuando necesites esto
+
+
+═════════════════════════════════════════════════════════════════
+
+✉️ SOPORTE
+═════════════════════════════════════════════════════════════════
+
+Problema: [Describe qué sucede]
+
+Abre F12 (Developer Tools) en Chrome:
+  - Ve a Console
+  - Copia el error en rojo
+  - Envía la captura
+
+
+═════════════════════════════════════════════════════════════════
+
+¡LISTO! Comienza ahora.
+
+Abre: C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE\index.html
+
+═════════════════════════════════════════════════════════════════

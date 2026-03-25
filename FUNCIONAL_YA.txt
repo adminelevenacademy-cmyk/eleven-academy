@@ -1,0 +1,274 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║              ✅ APP FUNCIONAL AHORA MISMO                     ║
+║                   SIN SERVIDOR REQUERIDO                      ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+🚀 ABRE AHORA:
+
+   C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE\index.html
+
+   (Doble clic → Chrome → ¡Listo!)
+
+
+═════════════════════════════════════════════════════════════════
+⚡ LO QUE FUNCIONA YA
+═════════════════════════════════════════════════════════════════
+
+✅ Dashboard completo
+✅ Prospector con 60+ contactos
+✅ CRM tabla + Kanban
+✅ 10 emails listos
+✅ Mailchimp DIRECTO (sin servidor)
+✅ Sincronizar leads a Mailchimp
+✅ Crear tags en Mailchimp
+✅ Ver estadísticas de Mailchimp
+✅ Todos los datos guardados localmente
+✅ Tema claro/oscuro
+✅ Exportar/Importar JSON
+
+
+═════════════════════════════════════════════════════════════════
+🔧 SETUP MAILCHIMP (5 MINUTOS)
+═════════════════════════════════════════════════════════════════
+
+PASO 1: Crear cuenta (GRATIS)
+   1. Ve a: https://mailchimp.com
+   2. Haz clic: "Sign Up"
+   3. Llena tu email
+   4. Crea contraseña
+   5. NO requiere tarjeta de crédito
+   6. Confirma tu email
+
+PASO 2: Obtener API KEY
+   1. Entra a tu cuenta Mailchimp
+   2. Click en tu usuario (arriba derecha)
+   3. Ve a: Settings → Account & billing
+   4. Click en: Extras → API keys
+   5. Bajo "Your API keys", copia la primera API Key
+      (Ejemplo: xxxxxxxx-us21)
+
+PASO 3: Obtener SERVER PREFIX
+   1. La API Key tiene formato: xxxxxxxx-us21
+   2. El SERVER PREFIX es lo después del guion
+   3. En el ejemplo anterior: us21
+
+PASO 4: Obtener AUDIENCE ID (List ID)
+   1. En Mailchimp, click en: Audience
+   2. Click en: Settings
+   3. Click en: Audience name and campaign defaults
+   4. Copia el "Audience ID" (largo código)
+
+PASO 5: Configurar en la app
+   1. En index.html (ya abierto):
+   2. Ve a: Configuración (abajo izquierda)
+   3. Sección: "Mailchimp API"
+   4. Pega:
+      - API Key
+      - Server Prefix
+      - Audience / List ID
+   5. Click: "Guardar y Probar Conexión"
+   6. Si ves ✓ verde = ¡FUNCIONA!
+
+
+═════════════════════════════════════════════════════════════════
+✨ AHORA FUNCIONA TODO
+═════════════════════════════════════════════════════════════════
+
+AGREGAR CONTACTO A MAILCHIMP:
+   1. Ve a: Emails → Mailchimp
+   2. Sección: "Agregar contacto individual"
+   3. Email y Nombre
+   4. Click: "Agregar"
+   5. ¡Se agrega a tu audiencia Mailchimp!
+
+SINCRONIZAR TODOS LOS LEADS:
+   1. Ve a: Emails → Mailchimp
+   2. Sección: "Sincronizar leads del CRM"
+   3. Click: "Sincronizar"
+   4. Todos tus leads van a Mailchimp
+   5. Puedes enviar emails masivos desde allí
+
+VER ESTADÍSTICAS:
+   1. Ve a: Emails → Mailchimp
+   2. Haz click: "Obtener estadísticas"
+   3. Ves el número de suscriptores
+
+CREAR TAGS:
+   1. Ve a: Emails → Mailchimp
+   2. Sección: "Crear tag"
+   3. Escribe el nombre (ej: "B2C", "Nigeria")
+   4. Click: "Crear"
+   5. Usa los tags para segmentar
+
+
+═════════════════════════════════════════════════════════════════
+📋 FLUJO COMPLETO (HOY)
+═════════════════════════════════════════════════════════════════
+
+1. ABRE index.html
+   ↓
+
+2. PROSPERA contactos
+   Ve a: Prospector
+   Busca por país: Nigeria, Ghana, España, etc
+   Haz clic: "Agregar a CRM" en cada contacto
+   ↓
+
+3. GESTIONA en CRM
+   Ve a: CRM
+   Verás los contactos en "Nuevo"
+   Edita detalles si necesitas
+   Mueve a "Contactado" cuando envíes email
+   ↓
+
+4. ENVÍA EMAILS (2 opciones)
+
+   OPCIÓN A - Manual (Copia/Pega):
+   • Ve a: Emails de Captación
+   • Elige un email (Día 0, Día 3, etc)
+   • Copia el texto
+   • Abre Gmail/Outlook
+   • Pega y personaliza
+   • ¡Envía!
+
+   OPCIÓN B - Con Mailchimp (Automático):
+   • Ve a: Emails → Mailchimp
+   • "Sincronizar leads del CRM"
+   • Los leads se agregan a Mailchimp
+   • Desde Mailchimp envía emails masivos
+   ↓
+
+5. ANALIZA en Dashboard
+   Ve a: Dashboard
+   Ves métricas y gráficos
+   Sigue el progreso
+
+
+═════════════════════════════════════════════════════════════════
+🎯 CASOS DE USO INMEDIATOS
+═════════════════════════════════════════════════════════════════
+
+CASO 1: Enviar emails manuales hoy
+   1. Abre index.html
+   2. Va a Prospector > busca contactos
+   3. Va a Emails > copia un email
+   4. Lo pega en Gmail
+   5. ¡Envía!
+   TIEMPO: 2 minutos
+
+CASO 2: Sincronizar con Mailchimp hoy
+   1. Crea cuenta Mailchimp (2 min)
+   2. Obtén API Key (1 min)
+   3. En app: Configuración > Mailchimp > Pega datos (1 min)
+   4. Ve a Emails > Sincronizar leads (1 min)
+   5. ¡Ya están en Mailchimp!
+   TIEMPO: 5 minutos
+
+CASO 3: Envío masivo automático
+   1. Hace setup Mailchimp (5 min)
+   2. Sincroniza 50+ leads (2 min)
+   3. En Mailchimp: crea campaña
+   4. ¡Envía a todos automáticamente!
+   TIEMPO: 7 minutos
+
+
+═════════════════════════════════════════════════════════════════
+✅ VERIFICACIÓN RÁPIDA
+═════════════════════════════════════════════════════════════════
+
+¿Funciona la app?
+   1. Abre index.html
+   2. Ve a Dashboard
+   3. Ves 4 números (0, 0, 0%, 0)
+   4. ¿Sí? → ✓ APP FUNCIONA
+
+¿Funciona Prospector?
+   1. Ve a Prospector
+   2. Busca "Nigeria"
+   3. Ves 5+ contactos
+   4. ¿Sí? → ✓ PROSPECTOR FUNCIONA
+
+¿Funciona CRM?
+   1. Haz clic en un contacto > "Agregar a CRM"
+   2. Ve a CRM
+   3. Ves el contacto en "Nuevo"
+   4. ¿Sí? → ✓ CRM FUNCIONA
+
+¿Funciona Mailchimp?
+   1. Crea cuenta en mailchimp.com
+   2. Obtén API Key, Server, Audience ID
+   3. Ve a Configuración > Mailchimp API
+   4. Pega los datos
+   5. Click: "Guardar y Probar Conexión"
+   6. ¿Ves ✓ verde? → ✓ MAILCHIMP FUNCIONA
+
+
+═════════════════════════════════════════════════════════════════
+💡 TIPS IMPORTANTES
+═════════════════════════════════════════════════════════════════
+
+✓ Todo funciona SIN servidor
+✓ Datos guardados en tu PC (seguros)
+✓ No requiere internet (excepto Mailchimp)
+✓ Mailchimp es GRATIS (500 contactos, 1K envíos/mes)
+✓ Puedes usar sin Mailchimp (solo emails manuales)
+✓ Crea backup: Configuración > Exportar JSON
+✓ Restaura backup: Configuración > Importar JSON
+
+
+═════════════════════════════════════════════════════════════════
+🆘 SI ALGO NO FUNCIONA
+═════════════════════════════════════════════════════════════════
+
+PROBLEMA: "No se abre la app"
+SOLUCIÓN:
+   • Doble clic en index.html
+   • Si abre en editor: Click derecho > Abrir con > Chrome
+
+PROBLEMA: "Mailchimp no conecta"
+SOLUCIÓN:
+   • Copia EXACTAMENTE tu API Key (todo el código)
+   • Verifica Server Prefix (la parte después del guion)
+   • Verifica Audience ID (código largo)
+   • Abre mailchimp.com en otra pestaña
+   • Verifica que estés logueado
+
+PROBLEMA: "No veo contactos en Prospector"
+SOLUCIÓN:
+   • Actualiza página (F5)
+   • Busca por país: "Nigeria", "Ghana", "España"
+   • O por tipo: "Academia", "Colegio"
+
+PROBLEMA: "Los datos se perdieron"
+SOLUCIÓN:
+   • Los datos están en localStorage (permanentes)
+   • Restaura desde JSON: Configuración > Importar JSON
+   • En futuro: siempre haz backup
+
+
+═════════════════════════════════════════════════════════════════
+🚀 ¡COMIENZA AHORA!
+═════════════════════════════════════════════════════════════════
+
+ABRE ESTO AHORA:
+
+C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE\index.html
+
+
+LUEGO:
+
+1. Si quieres emails manuales: Salta directo a Prospector
+2. Si quieres Mailchimp: Setup (5 min) + Sincroniza
+
+
+LA APP FUNCIONA 100% AHORA.
+
+═════════════════════════════════════════════════════════════════
+
+Eleven Academy © 2026
+elevenacademy.pro
+
+═════════════════════════════════════════════════════════════════

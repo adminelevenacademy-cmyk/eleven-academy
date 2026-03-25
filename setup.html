@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eleven Academy - Setup</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #C9A84C 0%, #F8F7F4 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .setup-box {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      color: #6B6965;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+    .step {
+      margin-bottom: 32px;
+      padding: 20px;
+      background: #F8F7F4;
+      border-radius: 12px;
+      border-left: 4px solid #C9A84C;
+    }
+    .step-num {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: #C9A84C;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 32px;
+      font-weight: 700;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+    .step h3 {
+      display: inline-block;
+      color: #1a1a1a;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .step p {
+      color: #6B6965;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+    .code {
+      background: white;
+      border: 1px solid #E8E6E0;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #1a1a1a;
+      overflow-x: auto;
+    }
+    .link {
+      color: #C9A84C;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .link:hover { text-decoration: underline; }
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .btn {
+      flex: 1;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: #C9A84C;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #b8943f;
+    }
+    .btn-secondary {
+      background: #E8E6E0;
+      color: #1a1a1a;
+    }
+    .btn-secondary:hover {
+      background: #d5d1c5;
+    }
+    .warning {
+      background: #fff9e6;
+      border: 1px solid #e8d5a0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      color: #6B6965;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .success {
+      background: #e8f5e9;
+      border: 1px solid #a8d5a8;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      color: #2e7d32;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="setup-box">
+  <h1>🚀 Bienvenido a Eleven Academy</h1>
+  <p class="subtitle">App de captación de clientes - Guía de inicio</p>
+
+  <div class="warning">
+    ⚠️ La app YA ESTÁ LISTA. Este es un resumen rápido de lo que tienes.
+  </div>
+
+  <div class="step">
+    <span class="step-num">1</span>
+    <h3>App Web Funcional</h3>
+    <p>Tienes una aplicación web completamente funcional con:</p>
+    <p style="margin-top: 8px;">
+      ✅ Dashboard con métricas<br>
+      ✅ Prospector de 60+ contactos<br>
+      ✅ CRM con Kanban<br>
+      ✅ 10 emails pre-hechos<br>
+      ✅ Datos guardados localmente<br>
+    </p>
+  </div>
+
+  <div class="step">
+    <span class="step-num">2</span>
+    <h3>Abre la app</h3>
+    <p>Solo necesitas abrir el archivo <strong>index.html</strong> en Chrome:</p>
+    <div class="code">C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE\index.html</div>
+    <p style="margin-top: 8px;"><em>Doble clic → Chrome abre automáticamente</em></p>
+  </div>
+
+  <div class="step">
+    <span class="step-num">3</span>
+    <h3>Configurar Mailchimp (Opcional pero recomendado)</h3>
+    <p>Para enviar emails automáticos:</p>
+    <p style="margin-top: 8px;">
+      1. Crea cuenta gratis: <a href="https://mailchimp.com" class="link" target="_blank">mailchimp.com</a><br>
+      2. Obtén tu API Key (Settings → API keys)<br>
+      3. Obtén tu Audience ID<br>
+      4. En la app: Configuración → Mailchimp API → Pega datos
+    </p>
+  </div>
+
+  <div class="step">
+    <span class="step-num">4</span>
+    <h3>Comienza a prospectar</h3>
+    <p>Acciones principales:</p>
+    <p style="margin-top: 8px;">
+      • <strong>Prospector:</strong> Busca contactos por país/categoría<br>
+      • <strong>Agrega a CRM:</strong> Haz clic en contacto → "Agregar a CRM"<br>
+      • <strong>Gestiona:</strong> Mueve leads en el pipeline<br>
+      • <strong>Emails:</strong> Copia los 10 emails listos y envía<br>
+      • <strong>Sincroniza:</strong> Opcional - envía a Mailchimp
+    </p>
+  </div>
+
+  <div class="success">
+    ✓ Todo funciona sin instalar nada ni escribir código.
+  </div>
+
+  <div class="button-group">
+    <button class="btn btn-secondary" onclick="abrirGuidaRapida()">📖 Leer guía</button>
+    <button class="btn btn-primary" onclick="abrirApp()">🚀 Abrir app ahora</button>
+  </div>
+
+  <p style="text-align: center; color: #6B6965; font-size: 12px; margin-top: 24px;">
+    Eleven Academy © 2026 | <a href="#" class="link">Soporte</a>
+  </p>
+</div>
+
+<script>
+function abrirApp() {
+  // Abre index.html en la misma carpeta
+  window.location.href = './index.html';
+}
+
+function abrirGuidaRapida() {
+  // Abre el archivo de guía rápida (se descargará o abrirá en editor)
+  fetch('./GUÍA_RÁPIDA.txt')
+    .then(() => window.location.href = './GUÍA_RÁPIDA.txt')
+    .catch(() => alert('Archivo GUÍA_RÁPIDA.txt no encontrado en la carpeta'));
+}
+</script>
+
+</body>
+</html>

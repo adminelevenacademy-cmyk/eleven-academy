@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eleven Academy - Captacion</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F8F7F4;--sidebar-bg:#FFFFFF;--border:#E8E6E0;--card:#FFFFFF;--text:#1a1a1a;--text2:#6B6965;--gold:#C9A84C;--hover:#F3F1EC;--shadow:0 1px 3px rgba(0,0,0,0.08);--danger:#e74c3c;--success:#27ae60;--info:#3498db;--radius:8px}
+[data-theme="dark"]{--bg:#1a1a1a;--sidebar-bg:#222;--border:#333;--card:#2a2a2a;--text:#e0e0e0;--text2:#999;--hover:#333;--shadow:0 1px 3px rgba(0,0,0,0.3)}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;transition:background .3s,color .3s}
+a{color:var(--gold);text-decoration:none}
+/* Sidebar */
+.sidebar{width:240px;min-width:240px;background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s}
+.sidebar-logo{padding:24px 20px;display:flex;align-items:center;gap:4px;font-size:16px;font-weight:700;letter-spacing:1px}
+.sidebar-logo .dot{color:var(--gold);font-size:24px}
+.sidebar-nav{flex:1;padding:8px 12px}
+.nav-label{font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text2);padding:16px 8px 6px;letter-spacing:.5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:500;transition:all .15s}
+.nav-item:hover{background:var(--hover);color:var(--text)}
+.nav-item.active{background:var(--hover);color:var(--text);font-weight:600}
+.nav-item svg{width:18px;height:18px;flex-shrink:0}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);font-size:11px;color:var(--text2)}
+/* Main */
+.main{margin-left:240px;flex:1;min-width:0}
+.topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);padding:12px 32px;display:flex;align-items:center;justify-content:space-between;z-index:50}
+.topbar h1{font-size:18px;font-weight:600}
+.topbar-actions{display:flex;gap:8px;align-items:center}
+.content{padding:24px 32px;max-width:1400px}
+/* Section */
+.section{display:none}
+.section.active{display:block}
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.card-title{font-size:12px;font-weight:600;text-transform:uppercase;color:var(--text2);letter-spacing:.5px;margin-bottom:8px}
+.metric{font-size:28px;font-weight:700;color:var(--gold)}
+.metric-sm{font-size:12px;color:var(--text2);margin-top:2px}
+/* Grid */
+.grid{display:grid;gap:16px}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(400px,1fr))}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:all .15s;font-family:inherit}
+.btn:hover{background:var(--hover)}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-gold:hover{background:#b8943f}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+.btn-success{background:var(--success);color:#fff;border-color:var(--success)}
+/* Inputs */
+input,select,textarea{font-family:inherit;font-size:13px;padding:8px 12px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);width:100%;transition:border .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{resize:vertical;min-height:80px}
+label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bottom:4px}
+.form-group{margin-bottom:14px}
+/* Table */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text2);border-bottom:2px solid var(--border);letter-spacing:.3px}
+td{padding:10px 12px;border-bottom:1px solid var(--border)}
+tr:hover{background:var(--hover)}
+/* Badges */
+.badge{display:inline-block;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.badge-nuevo{background:#e8f4fd;color:#2980b9}
+.badge-contactado{background:#fef3e2;color:#e67e22}
+.badge-interesado{background:#eafaf1;color:#27ae60}
+.badge-negociacion{background:#f4ecf7;color:#8e44ad}
+.badge-inscrito{background:#d5f5e3;color:#1e8449}
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px}
+.tab{padding:10px 20px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--text2);transition:all .15s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+/* Search */
+.search-box{position:relative}
+.search-box input{padding-left:36px}
+.search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text2)}
+/* Contact card */
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.contact-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.contact-card .meta{font-size:12px;color:var(--text2);margin-bottom:8px}
+.contact-card .actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+/* Kanban */
+.kanban{display:flex;gap:16px;overflow-x:auto;padding-bottom:16px}
+.kanban-col{min-width:260px;flex:1;background:var(--bg);border-radius:var(--radius);padding:12px}
+.kanban-col-header{font-size:12px;font-weight:600;text-transform:uppercase;padding:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.kanban-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:8px;cursor:grab;box-shadow:var(--shadow)}
+.kanban-card h5{font-size:13px;font-weight:600;margin-bottom:4px}
+.kanban-card p{font-size:11px;color:var(--text2)}
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--card);border-radius:12px;padding:28px;width:90%;max-width:560px;max-height:85vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,.15)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-header h3{font-size:16px;font-weight:600}
+.modal-close{cursor:pointer;font-size:20px;color:var(--text2);background:none;border:none}
+/* Toast */
+.toast-container{position:fixed;top:20px;right:20px;z-index:300;display:flex;flex-direction:column;gap:8px}
+.toast{padding:12px 20px;border-radius:8px;font-size:13px;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15);animation:slideIn .3s ease}
+.toast-success{background:var(--success)}
+.toast-error{background:var(--danger)}
+.toast-info{background:var(--info)}
+@keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+/* Email preview */
+.email-preview{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-size:13px;line-height:1.7}
+.email-list-item{padding:14px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;cursor:pointer;background:var(--card);transition:all .15s}
+.email-list-item:hover{border-color:var(--gold)}
+.email-list-item.active{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.email-list-item h5{font-size:13px;font-weight:600;margin-bottom:2px}
+.email-list-item p{font-size:11px;color:var(--text2)}
+/* Programs */
+.program-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.program-card h4{font-size:16px;font-weight:600;margin-bottom:8px}
+.program-price{font-size:22px;font-weight:700;color:var(--gold)}
+.program-detail{font-size:12px;color:var(--text2);margin:4px 0}
+/* Filters row */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:end}
+.filters .form-group{margin-bottom:0;min-width:150px}
+/* Hamburger */
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger svg{width:24px;height:24px;color:var(--text)}
+/* Responsive */
+@media(max-width:768px){
+.sidebar{transform:translateX(-100%)}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0}
+.hamburger{display:block}
+.content{padding:16px}
+.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+.kanban{flex-direction:column}
+.kanban-col{min-width:100%}
+}
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+/* Chart container */
+.chart-container{position:relative;height:280px}
+/* Disclaimer */
+.disclaimer{background:#fff8e1;border:1px solid #ffe082;padding:12px;border-radius:6px;font-size:12px;color:#795548;margin-bottom:16px}
+[data-theme="dark"] .disclaimer{background:#332b00;border-color:#554400;color:#ffe082}
+</style>
+</head>
+<body>
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-logo">ELEVEN ACADEMY<span class="dot">.</span></div>
+<nav class="sidebar-nav">
+<div class="nav-label">Principal</div>
+<div class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+Dashboard
+</div>
+<div class="nav-item" data-section="prospector" onclick="showSection('prospector')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+Prospector
+</div>
+<div class="nav-item" data-section="crm" onclick="showSection('crm')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+CRM / Leads
+</div>
+<div class="nav-label">Marketing</div>
+<div class="nav-item" data-section="emails" onclick="showSection('emails')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+Campanas Email
+</div>
+<div class="nav-item" data-section="mailchimp" onclick="showSection('mailchimp')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+Mailchimp
+</div>
+<div class="nav-label">Catalogo</div>
+<div class="nav-item" data-section="programs" onclick="showSection('programs')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+Programas
+</div>
+<div class="nav-item" data-section="settings" onclick="showSection('settings')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+Ajustes
+</div>
+</nav>
+<div class="sidebar-footer">Eleven Academy &copy; 2025<br>Vilanova i la Geltru</div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+<div class="topbar">
+<div style="display:flex;align-items:center;gap:12px">
+<button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+</button>
+<h1 id="pageTitle">Dashboard</h1>
+</div>
+<div class="topbar-actions">
+<button class="btn btn-sm" onclick="exportData()" title="Exportar datos">Exportar</button>
+<button class="btn btn-gold btn-sm" onclick="openAddLeadModal()">+ Nuevo Lead</button>
+</div>
+</div>
+<div class="content">
+
+<!-- ==================== DASHBOARD ==================== -->
+<div class="section active" id="sec-dashboard">
+<div class="grid grid-4" style="margin-bottom:20px">
+<div class="card"><div class="card-title">Total Leads</div><div class="metric" id="m-total">0</div><div class="metric-sm">En la base de datos</div></div>
+<div class="card"><div class="card-title">Leads Este Mes</div><div class="metric" id="m-month">0</div><div class="metric-sm">Nuevos este mes</div></div>
+<div class="card"><div class="card-title">Tasa Conversion</div><div class="metric" id="m-conv">0%</div><div class="metric-sm">Inscritos / Total</div></div>
+<div class="card"><div class="card-title">Emails Enviados</div><div class="metric" id="m-emails">0</div><div class="metric-sm">Total campanas</div></div>
+</div>
+<div class="grid grid-2">
+<div class="card"><div class="card-title">Leads por Pais</div><div class="chart-container"><canvas id="chartCountry"></canvas></div></div>
+<div class="card"><div class="card-title">Leads por Programa</div><div class="chart-container"><canvas id="chartProgram"></canvas></div></div>
+</div>
+<div class="card" style="margin-top:4px"><div class="card-title">Tendencia Mensual de Captacion</div><div class="chart-container"><canvas id="chartTrend"></canvas></div></div>
+<div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn btn-gold" onclick="showSection('prospector')">Buscar Contactos</button>
+<button class="btn" onclick="showSection('emails')">Enviar Campana</button>
+<button class="btn" onclick="showSection('crm')">Ver Pipeline</button>
+</div>
+</div>
+
+<!-- ==================== PROSPECTOR ==================== -->
+<div class="section" id="sec-prospector">
+<div class="filters">
+<div class="form-group" style="flex:2;min-width:250px">
+<label>Buscar</label>
+<div class="search-box">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<input type="text" id="prospectorSearch" placeholder="Buscar por nombre, pais, ciudad..." oninput="filterProspector()">
+</div>
+</div>
+<div class="form-group"><label>Pais</label><select id="filterCountry" onchange="filterProspector()"><option value="">Todos</option></select></div>
+<div class="form-group"><label>Categoria</label><select id="filterCategory" onchange="filterProspector()"><option value="">Todas</option><option value="Academia">Academia</option><option value="Colegio">Colegio / Instituto</option><option value="Agente">Agente</option><option value="Federacion">Federacion</option><option value="Club">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option></select></div>
+<div class="form-group"><label>Region</label><select id="filterRegion" onchange="filterProspector()"><option value="">Todas</option></select></div>
+</div>
+<div id="prospectorCount" style="font-size:12px;color:var(--text2);margin-bottom:12px"></div>
+<div class="grid grid-3" id="prospectorGrid"></div>
+</div>
+
+<!-- ==================== CRM ==================== -->
+<div class="section" id="sec-crm">
+<div class="tabs" id="crmTabs">
+<div class="tab active" onclick="setCrmView('list')">Lista</div>
+<div class="tab" onclick="setCrmView('kanban')">Kanban</div>
+</div>
+<div class="filters">
+<div class="form-group" style="flex:2;min-width:200px">
+<label>Buscar</label>
+<input type="text" id="crmSearch" placeholder="Buscar lead..." oninput="renderCRM()">
+</div>
+<div class="form-group"><label>Pais</label><select id="crmFilterCountry" onchange="renderCRM()"><option value="">Todos</option></select></div>
+<div class="form-group"><label>Programa</label><select id="crmFilterProgram" onchange="renderCRM()"><option value="">Todos</option><option value="Trial 1 Semana">Trial 1 Semana</option><option value="1 Mes">1 Mes</option><option value="3 Meses">3 Meses</option><option value="6 Meses">6 Meses</option><option value="Anual">Anual</option><option value="Euro Trip">Euro Trip</option></select></div>
+<div class="form-group"><label>Etapa</label><select id="crmFilterStage" onchange="renderCRM()"><option value="">Todas</option><option value="Nuevo">Nuevo</option><option value="Contactado">Contactado</option><option value="Interesado">Interesado</option><option value="Negociacion">Negociacion</option><option value="Inscrito">Inscrito</option></select></div>
+</div>
+<div id="crmListView">
+<div class="card table-wrap">
+<table>
+<thead><tr><th>Nombre</th><th>Email</th><th>Pais</th><th>Programa</th><th>Fuente</th><th>Etapa</th><th>Fecha</th><th>Acciones</th></tr></thead>
+<tbody id="crmTableBody"></tbody>
+</table>
+</div>
+</div>
+<div id="crmKanbanView" style="display:none">
+<div class="kanban" id="kanbanBoard"></div>
+</div>
+</div>
+
+<!-- ==================== EMAIL CAMPAIGNS ==================== -->
+<div class="section" id="sec-emails">
+<div class="tabs" id="emailTabs">
+<div class="tab active" onclick="setEmailTab('b2c')">B2C (Familias)</div>
+<div class="tab" onclick="setEmailTab('b2b')">B2B (Agentes Africa)</div>
+<div class="tab" onclick="setEmailTab('composer')">Compositor</div>
+</div>
+<div id="emailB2C" class="grid grid-2">
+<div><div id="b2cEmailList"></div></div>
+<div>
+<div class="card">
+<div class="card-title">Vista Previa</div>
+<div id="b2cPreview" class="email-preview" style="margin-top:10px">Selecciona un email de la izquierda para ver la vista previa.</div>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn btn-sm btn-gold" onclick="sendCurrentEmail()">Enviar (mailto)</button>
+<button class="btn btn-sm" onclick="copyEmailToClipboard()">Copiar</button>
+</div>
+</div>
+</div>
+</div>
+<div id="emailB2B" style="display:none" class="grid grid-2">
+<div><div id="b2bEmailList"></div></div>
+<div>
+<div class="card">
+<div class="card-title">Preview</div>
+<div id="b2bPreview" class="email-preview" style="margin-top:10px">Select an email from the left to preview.</div>
+<div style="margin-top:12px;display:flex;gap:8px">
+<button class="btn btn-sm btn-gold" onclick="sendCurrentEmail()">Send (mailto)</button>
+<button class="btn btn-sm" onclick="copyEmailToClipboard()">Copy</button>
+</div>
+</div>
+</div>
+</div>
+<div id="emailComposer" style="display:none">
+<div class="card">
+<div class="grid grid-2">
+<div>
+<div class="form-group"><label>Para (Email)</label><input type="email" id="compTo" placeholder="destinatario@email.com"></div>
+<div class="form-group"><label>Asunto</label><input type="text" id="compSubject" placeholder="Asunto del email"></div>
+<div class="form-group"><label>Variables disponibles: [Nombre], [Name], [Programa], [Precio]</label></div>
+<div class="form-group"><label>Cuerpo</label><textarea id="compBody" rows="14" placeholder="Escribe el cuerpo del email..."></textarea></div>
+<div style="display:flex;gap:8px">
+<button class="btn btn-gold" onclick="sendComposedEmail()">Enviar (mailto)</button>
+<button class="btn" onclick="previewComposed()">Vista Previa</button>
+</div>
+</div>
+<div>
+<div class="card-title">Vista Previa</div>
+<div id="compPreview" class="email-preview" style="margin-top:10px">Escribe un email y haz clic en Vista Previa.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ==================== MAILCHIMP ==================== -->
+<div class="section" id="sec-mailchimp">
+<div class="disclaimer">
+<strong>Nota:</strong> Las llamadas a la API de Mailchimp desde el navegador pueden requerir un proxy/backend debido a restricciones CORS. Configura un proxy en Ajustes si es necesario.
+</div>
+<div class="grid grid-3" style="margin-bottom:20px">
+<div class="card">
+<div class="card-title">Estado Conexion</div>
+<div id="mcStatus" style="font-size:14px;font-weight:600;color:var(--text2)">No configurado</div>
+</div>
+<div class="card">
+<div class="card-title">Audiencia</div>
+<div id="mcAudience" style="font-size:14px;font-weight:600;color:var(--text2)">-</div>
+</div>
+<div class="card">
+<div class="card-title">Suscriptores</div>
+<div class="metric" id="mcSubscribers">-</div>
+</div>
+</div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Acciones Mailchimp</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+<button class="btn btn-gold" onclick="mcTestConnection()">Probar Conexion</button>
+<button class="btn" onclick="mcSyncLeads()">Sincronizar Leads CRM</button>
+<button class="btn" onclick="mcGetAudienceStats()">Obtener Estadisticas</button>
+</div>
+<div class="form-group" style="max-width:400px">
+<label>Anadir contacto individual</label>
+<div style="display:flex;gap:8px">
+<input type="email" id="mcSingleEmail" placeholder="email@ejemplo.com">
+<input type="text" id="mcSingleName" placeholder="Nombre" style="width:160px">
+<button class="btn btn-sm btn-gold" onclick="mcAddSingle()">Anadir</button>
+</div>
+</div>
+<div class="form-group" style="max-width:400px">
+<label>Gestionar Tags</label>
+<div style="display:flex;gap:8px">
+<input type="text" id="mcTagName" placeholder="Nombre del tag (ej: B2C, Nigeria)">
+<button class="btn btn-sm" onclick="mcCreateTag()">Crear Tag</button>
+</div>
+</div>
+<div id="mcLog" style="margin-top:16px;max-height:200px;overflow-y:auto;font-size:12px;font-family:monospace;background:var(--bg);padding:12px;border-radius:6px;border:1px solid var(--border)"></div>
+</div>
+</div>
+
+<!-- ==================== PROGRAMS ==================== -->
+<div class="section" id="sec-programs">
+<div class="grid grid-3" id="programsGrid"></div>
+</div>
+
+<!-- ==================== SETTINGS ==================== -->
+<div class="section" id="sec-settings">
+<div class="grid grid-2">
+<div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Mailchimp API</h3>
+<div style="background:#fff9e6;border:1px solid #e8d5a0;border-radius:6px;padding:12px;margin-bottom:16px;font-size:12px;color:#6B6965">
+<strong>⚠️ Configura aquí tus credenciales de Mailchimp.</strong> El servidor local enviará peticiones seguras sin exponer tu API Key.
+</div>
+<div class="form-group"><label>API Key</label><input type="password" id="setMcKey" placeholder="xxxxxxxx-us21"></div>
+<div class="form-group"><label>Server Prefix</label><input type="text" id="setMcServer" placeholder="us21" title="Ej: us21, eu1, etc"></div>
+<div class="form-group"><label>Audience / List ID</label><input type="text" id="setMcList" placeholder="abc1234def"></div>
+<button class="btn btn-gold" onclick="mcSaveConfig()">Guardar y Probar Conexión</button>
+</div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Proxy CORS (opcional)</h3>
+<div class="form-group"><label>URL del Proxy</label><input type="text" id="setProxy" placeholder="https://tu-proxy.com/api/mailchimp"></div>
+<div class="metric-sm">Si configuras un proxy, las llamadas a Mailchimp se redirigiran a traves de el.</div>
+<button class="btn" onclick="saveSettings()" style="margin-top:10px">Guardar</button>
+</div>
+</div>
+<div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Email Remitente</h3>
+<div class="form-group"><label>Nombre</label><input type="text" id="setSenderName" placeholder="Eleven Academy"></div>
+<div class="form-group"><label>Email</label><input type="email" id="setSenderEmail" placeholder="info@elevenacademy.com"></div>
+<button class="btn" onclick="saveSettings()">Guardar</button>
+</div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Anthropic API (IA)</h3>
+<div class="form-group"><label>API Key</label><input type="password" id="setAnthropicKey" placeholder="sk-ant-..."></div>
+<button class="btn" onclick="saveSettings()">Guardar</button>
+</div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Tema</h3>
+<div style="display:flex;gap:10px">
+<button class="btn" onclick="setTheme('light')">Claro</button>
+<button class="btn" onclick="setTheme('dark')">Oscuro</button>
+</div>
+</div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Datos</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn" onclick="exportData()">Exportar JSON</button>
+<button class="btn" onclick="document.getElementById('importFile').click()">Importar JSON</button>
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+<button class="btn btn-danger" onclick="resetData()">Resetear Todo</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- /content -->
+</div><!-- /main -->
+
+<!-- Modal: Add/Edit Lead -->
+<div class="modal-overlay" id="leadModal">
+<div class="modal">
+<div class="modal-header">
+<h3 id="leadModalTitle">Nuevo Lead</h3>
+<button class="modal-close" onclick="closeModal('leadModal')">&times;</button>
+</div>
+<input type="hidden" id="leadEditId">
+<div class="form-group"><label>Nombre completo</label><input type="text" id="leadName"></div>
+<div class="form-group"><label>Email</label><input type="email" id="leadEmail"></div>
+<div class="form-group"><label>Telefono</label><input type="text" id="leadPhone"></div>
+<div class="form-group"><label>Pais</label><input type="text" id="leadCountry"></div>
+<div class="form-group"><label>Programa de interes</label>
+<select id="leadProgram"><option value="Trial 1 Semana">Trial 1 Semana</option><option value="1 Mes">1 Mes</option><option value="3 Meses">3 Meses</option><option value="6 Meses">6 Meses</option><option value="Anual">Anual</option><option value="Euro Trip">Euro Trip</option></select>
+</div>
+<div class="form-group"><label>Fuente</label>
+<select id="leadSource"><option value="Prospector">Prospector</option><option value="Web">Web</option><option value="Instagram">Instagram</option><option value="Referido">Referido</option><option value="Agente">Agente</option><option value="Feria">Feria</option><option value="Otro">Otro</option></select>
+</div>
+<div class="form-group"><label>Etapa</label>
+<select id="leadStage"><option value="Nuevo">Nuevo</option><option value="Contactado">Contactado</option><option value="Interesado">Interesado</option><option value="Negociacion">Negociacion</option><option value="Inscrito">Inscrito</option></select>
+</div>
+<div class="form-group"><label>Notas</label><textarea id="leadNotes" rows="3"></textarea></div>
+<div style="display:flex;gap:10px;justify-content:flex-end">
+<button class="btn" onclick="closeModal('leadModal')">Cancelar</button>
+<button class="btn btn-gold" onclick="saveLead()">Guardar</button>
+</div>
+</div>
+</div>
+
+<!-- Modal: Proposal -->
+<div class="modal-overlay" id="proposalModal">
+<div class="modal">
+<div class="modal-header">
+<h3>Propuesta Comercial</h3>
+<button class="modal-close" onclick="closeModal('proposalModal')">&times;</button>
+</div>
+<div id="proposalContent" style="line-height:1.8;font-size:13px"></div>
+<div style="margin-top:16px;display:flex;gap:8px">
+<button class="btn btn-gold" onclick="copyProposal()">Copiar</button>
+<button class="btn" onclick="closeModal('proposalModal')">Cerrar</button>
+</div>
+</div>
+</div>
+
+<script>
+// ============================= DATA =============================
+const STAGES = ['Nuevo','Contactado','Interesado','Negociacion','Inscrito'];
+const STAGE_COLORS = {Nuevo:'badge-nuevo',Contactado:'badge-contactado',Interesado:'badge-interesado',Negociacion:'badge-negociacion',Inscrito:'badge-inscrito'};
+
+// Pre-built contact database
+const CONTACTS_DB = [
+// Spain Academies
+{name:"Academia MarcetBCN",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@marcet.es",phone:"+34 93 XXX XXXX",web:"marcet.es",notes:"Academia reconocida en Barcelona"},
+{name:"Soccer Inter-Action",type:"Academia",country:"Espana",city:"Valencia",region:"Comunidad Valenciana",email:"info@soccerinteraction.com",phone:"+34 96 XXX XXXX",web:"soccerinteraction.com",notes:"Academia con alojamiento en Valencia"},
+{name:"Kaptiva Sports Academy",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@kaptivasports.com",phone:"+34 93 XXX XXXX",web:"kaptivasports.com",notes:"Alianzas con LaLiga"},
+{name:"FC Barcelona Escola",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"escola@fcbarcelona.cat",phone:"+34 93 XXX XXXX",web:"fcbarcelona.com",notes:"Metodologia Barca"},
+{name:"Real Madrid Foundation Campus",type:"Academia",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"campus@realmadrid.es",phone:"+34 91 XXX XXXX",web:"realmadrid.com",notes:"Programas internacionales"},
+{name:"Academia Miguel Angel Lotina",type:"Academia",country:"Espana",city:"Bilbao",region:"Pais Vasco",email:"info@academialotina.com",phone:"+34 94 XXX XXXX",web:"academialotina.com",notes:"Formacion juvenil"},
+{name:"IFA (International Football Academy)",type:"Academia",country:"Espana",city:"Alicante",region:"Comunidad Valenciana",email:"info@ifafootball.com",phone:"+34 96 XXX XXXX",web:"ifafootball.com",notes:"Programa residencial"},
+{name:"La Liga Academy Villarreal",type:"Academia",country:"Espana",city:"Villarreal",region:"Comunidad Valenciana",email:"academy@villarrealcf.es",phone:"+34 964 XXX XXX",web:"villarrealcf.es",notes:"Cantera Villarreal"},
+// Nigeria
+{name:"Pepsi Football Academy Lagos",type:"Academia",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"info@pepsiacademy.ng",phone:"+234 XXX XXXX",web:"pepsifootballacademy.com",notes:"Mayor academia de Nigeria"},
+{name:"FC Ebedei Academy",type:"Academia",country:"Nigeria",city:"Sagamu",region:"Africa Occidental",email:"info@fcebedei.com",phone:"+234 XXX XXXX",web:"fcebedei.com",notes:"Cantera reconocida"},
+{name:"Kwara Football Academy",type:"Academia",country:"Nigeria",city:"Ilorin",region:"Africa Occidental",email:"info@kwaraFA.com",phone:"+234 XXX XXXX",web:"kwarafootball.com",notes:"Academia estatal"},
+{name:"Goal Plus Academy",type:"Academia",country:"Nigeria",city:"Abuja",region:"Africa Occidental",email:"info@goalplusacademy.com",phone:"+234 XXX XXXX",web:"goalplusacademy.com",notes:"Talento juvenil en Abuja"},
+// Ghana
+{name:"Right to Dream Academy",type:"Academia",country:"Ghana",city:"Akosombo",region:"Africa Occidental",email:"info@righttodream.com",phone:"+233 XXX XXXX",web:"righttodream.com",notes:"Elite, conexion con FC Nordsjaelland"},
+{name:"WAFA (West African Football Academy)",type:"Academia",country:"Ghana",city:"Sogakope",region:"Africa Occidental",email:"info@wafa.com.gh",phone:"+233 XXX XXXX",web:"wafa.com.gh",notes:"Cantera reconocida GFA"},
+{name:"Feyenoord Academy Ghana",type:"Academia",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"info@feyenoordghana.com",phone:"+233 XXX XXXX",web:"feyenoord.com",notes:"Alianza con Feyenoord"},
+// Senegal
+{name:"Diambars Institute",type:"Academia",country:"Senegal",city:"Saly",region:"Africa Occidental",email:"info@diambars.com",phone:"+221 XXX XXXX",web:"diambars.com",notes:"Academia de elite, formaron a Idrissa Gueye"},
+{name:"Generation Foot",type:"Academia",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"info@generationfoot.com",phone:"+221 XXX XXXX",web:"generationfoot.com",notes:"Alianza con FC Metz"},
+// Morocco
+{name:"Academie Mohammed VI",type:"Academia",country:"Marruecos",city:"Sale",region:"Norte Africa",email:"info@academie-m6.ma",phone:"+212 XXX XXXX",web:"academie-m6.ma",notes:"Academia real, top en Africa"},
+{name:"AS FAR Academy",type:"Academia",country:"Marruecos",city:"Rabat",region:"Norte Africa",email:"academy@asfar.ma",phone:"+212 XXX XXXX",web:"asfar.ma",notes:"Cantera militar"},
+{name:"Wydad Academy",type:"Academia",country:"Marruecos",city:"Casablanca",region:"Norte Africa",email:"academy@wydad.com",phone:"+212 XXX XXXX",web:"wydad.com",notes:"Top academia en Casablanca"},
+// Ivory Coast
+{name:"ASEC Mimosas Academy",type:"Academia",country:"Costa de Marfil",city:"Abidjan",region:"Africa Occidental",email:"info@asecmimosas.com",phone:"+225 XXX XXXX",web:"asecmimosas.com",notes:"Formaron a Yaya Toure, Kolo Toure"},
+{name:"Africa Sports Academy",type:"Academia",country:"Costa de Marfil",city:"Abidjan",region:"Africa Occidental",email:"info@africasports.ci",phone:"+225 XXX XXXX",web:"africasports.ci",notes:"Tradicion formativa"},
+// Brazil
+{name:"Santos FC Youth Academy",type:"Academia",country:"Brasil",city:"Santos",region:"Sudamerica",email:"base@santosfc.com.br",phone:"+55 13 XXXX XXXX",web:"santosfc.com.br",notes:"Cantera de Pele, Neymar"},
+{name:"Flamengo Academy",type:"Academia",country:"Brasil",city:"Rio de Janeiro",region:"Sudamerica",email:"base@flamengo.com.br",phone:"+55 21 XXXX XXXX",web:"flamengo.com.br",notes:"Mayor club de Brasil"},
+{name:"Sao Paulo FC Cotia",type:"Academia",country:"Brasil",city:"Sao Paulo",region:"Sudamerica",email:"base@saopaulofc.net",phone:"+55 11 XXXX XXXX",web:"saopaulofc.net",notes:"CFA Cotia, cantera top"},
+// Argentina
+{name:"River Plate Infantiles",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Sudamerica",email:"inferiores@cariverplate.com.ar",phone:"+54 11 XXXX XXXX",web:"cariverplate.com.ar",notes:"La mejor cantera de Argentina"},
+{name:"Boca Juniors Youth",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Sudamerica",email:"inferiores@bocajuniors.com.ar",phone:"+54 11 XXXX XXXX",web:"bocajuniors.com.ar",notes:"Cantera historica"},
+{name:"Velez Sarsfield Fortin",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Sudamerica",email:"inferiores@velez.com.ar",phone:"+54 11 XXXX XXXX",web:"velez.com.ar",notes:"Reconocida formacion"},
+// Colombia
+{name:"Envigado FC Cantera",type:"Academia",country:"Colombia",city:"Envigado",region:"Sudamerica",email:"cantera@envigadofc.com",phone:"+57 4 XXX XXXX",web:"envigadofc.com",notes:"Mejor cantera de Colombia, James Rodriguez"},
+{name:"Atletico Nacional Juvenil",type:"Academia",country:"Colombia",city:"Medellin",region:"Sudamerica",email:"juvenil@atlnacional.com.co",phone:"+57 4 XXX XXXX",web:"atlnacional.com.co",notes:"Formacion de elite"},
+// UAE
+{name:"Al Wahda FC Academy",type:"Academia",country:"EAU",city:"Abu Dhabi",region:"Golfo",email:"academy@alwahda.ae",phone:"+971 2 XXX XXXX",web:"alwahda.ae",notes:"Pro League academy"},
+{name:"Aspire Academy",type:"Academia",country:"EAU",city:"Doha",region:"Golfo",email:"info@aspire.qa",phone:"+974 XXX XXXX",web:"aspire.qa",notes:"Elite sports academy"},
+{name:"Dubai Sports City Football Academy",type:"Academia",country:"EAU",city:"Dubai",region:"Golfo",email:"info@dubaisportscity.ae",phone:"+971 4 XXX XXXX",web:"dubaisportscity.ae",notes:"Hub deportivo"},
+// Schools Spain
+{name:"Colegio SEK Catalunya",type:"Colegio",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@sek.es",phone:"+34 93 XXX XXXX",web:"sek.es",notes:"Colegio privado, familias alto nivel"},
+{name:"Instituto Vilanova i la Geltru",type:"Colegio",country:"Espana",city:"Vilanova i la Geltru",region:"Catalunya",email:"info@insvilanova.cat",phone:"+34 93 XXX XXXX",web:"insvilanova.cat",notes:"Instituto local, proximidad"},
+{name:"Colegio Montserrat Barcelona",type:"Colegio",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@cmontserrat.es",phone:"+34 93 XXX XXXX",web:"cmontserrat.es",notes:"Innovacion educativa"},
+{name:"Colegio Agora International",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@agoraschool.es",phone:"+34 93 XXX XXXX",web:"agoraschool.es",notes:"Escuela intl con programa deportivo"},
+{name:"American School of Barcelona",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@asbarcelona.com",phone:"+34 93 XXX XXXX",web:"asbarcelona.com",notes:"Comunidad internacional"},
+{name:"British School of Barcelona",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@bsb.edu.es",phone:"+34 93 XXX XXXX",web:"bsb.edu.es",notes:"Familias britanicas expatriadas"},
+{name:"Lycee Francais de Barcelone",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@lfb.es",phone:"+34 93 XXX XXXX",web:"lfb.es",notes:"Comunidad francesa"},
+{name:"IES La Merce Sitges",type:"Colegio",country:"Espana",city:"Sitges",region:"Catalunya",email:"info@iesmerce.cat",phone:"+34 93 XXX XXXX",web:"","notes":"Instituto cercano a Vilanova"},
+{name:"Colegio San Jose Madrid",type:"Colegio",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"info@sanjose.es",phone:"+34 91 XXX XXXX",web:"sanjose.es",notes:"Programa deportivo fuerte"},
+// International Schools
+{name:"Enko Education Accra",type:"Escuela Internacional",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"accra@enko.education",phone:"+233 XXX XXXX",web:"enko.education",notes:"IB school, familias alto nivel"},
+{name:"Lagos Preparatory School",type:"Escuela Internacional",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"info@lagosprep.com.ng",phone:"+234 XXX XXXX",web:"lagosprep.com.ng",notes:"Escuela privada elite"},
+{name:"Lycee Jean Mermoz Dakar",type:"Escuela Internacional",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"info@lyceemermozdakar.org",phone:"+221 XXX XXXX",web:"lyceemermozdakar.org",notes:"Comunidad francesa expatriada"},
+// Agents (Real)
+{name:"Diomansy Kamara",type:"Agente",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"contact@dkamara.com",phone:"+221 XXX XXXX",web:"",notes:"Ex-jugador profesional, agente conectado con clubes europeos"},
+{name:"Oliver Arthur (Dreams FC)",type:"Agente",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"info@dreamsfc.com.gh",phone:"+233 XXX XXXX",web:"dreamsfc.com.gh",notes:"Propietario Dreams FC, red de scouting amplia"},
+{name:"Ojo Paul",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"ojopaul@agency.ng",phone:"+234 XXX XXXX",web:"",notes:"Agente nigeriano con contactos en Europa"},
+{name:"Daniel Eke",type:"Agente",country:"Nigeria",city:"Abuja",region:"Africa Occidental",email:"daniel.eke@sports.ng",phone:"+234 XXX XXXX",web:"",notes:"Agente de talento juvenil nigeriano"},
+{name:"Michael Sodeke",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"m.sodeke@agency.ng",phone:"+234 XXX XXXX",web:"",notes:"Conectado con academias en Lagos"},
+{name:"John Shittu",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"j.shittu@sports.ng",phone:"+234 XXX XXXX",web:"",notes:"Experiencia en transferencias juveniles"},
+{name:"AFAA (Africa Football Agent Association)",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"info@afaa.org",phone:"+234 XXX XXXX",web:"afaa.org",notes:"Asociacion de agentes, red amplia en Africa"},
+// Federations
+{name:"Nigeria Football Federation (NFF)",type:"Federacion",country:"Nigeria",city:"Abuja",region:"Africa Occidental",email:"info@thenff.com",phone:"+234 XXX XXXX",web:"thenff.com",notes:"Federacion nacional"},
+{name:"Ghana Football Association (GFA)",type:"Federacion",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"info@ghanafa.org",phone:"+233 XXX XXXX",web:"ghanafa.org",notes:"Federacion ghanesa"},
+{name:"Federation Senegalaise de Football",type:"Federacion",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"info@fsf.sn",phone:"+221 XXX XXXX",web:"fsf.sn",notes:"Federacion senegalesa"},
+{name:"Federation Royale Marocaine de Football",type:"Federacion",country:"Marruecos",city:"Rabat",region:"Norte Africa",email:"info@frmf.ma",phone:"+212 XXX XXXX",web:"frmf.ma",notes:"Federacion marroqui"},
+{name:"Federacion Espanola de Futbol (RFEF)",type:"Federacion",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"info@rfef.es",phone:"+34 91 XXX XXXX",web:"rfef.es",notes:"Federacion espanola"},
+{name:"Federacio Catalana de Futbol",type:"Federacion",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@fcf.cat",phone:"+34 93 XXX XXXX",web:"fcf.cat",notes:"Federacion catalana - local"},
+// Youth Clubs
+{name:"CF Vilanova i la Geltru",type:"Club",country:"Espana",city:"Vilanova i la Geltru",region:"Catalunya",email:"info@cfvilanova.cat",phone:"+34 93 XXX XXXX",web:"cfvilanova.cat",notes:"Club local - alianza potencial"},
+{name:"UE Sitges",type:"Club",country:"Espana",city:"Sitges",region:"Catalunya",email:"info@uesitges.cat",phone:"+34 93 XXX XXXX",web:"uesitges.cat",notes:"Club cercano"},
+{name:"CE Europa Barcelona",type:"Club",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@ceeuropa.cat",phone:"+34 93 XXX XXXX",web:"ceeuropa.cat",notes:"Club historico, cantera activa"},
+{name:"CF Damm",type:"Club",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@cfdamm.cat",phone:"+34 93 XXX XXXX",web:"cfdamm.cat",notes:"Cantera reconocida en Barcelona"},
+];
+
+// Email Templates B2C
+const B2C_EMAILS = [
+{day:0,subject:"Bienvenido a Eleven Academy - Tu camino hacia el futbol profesional",body:`Hola [Nombre],
+
+Gracias por tu interes en Eleven Academy. Somos una academia de alto rendimiento ubicada en Vilanova i la Geltru, a solo 40 minutos de Barcelona.
+
+Nuestro programa combina:
+- Entrenamiento tecnico y tactico diario con entrenadores UEFA Pro
+- Preparacion fisica y mental personalizada
+- Competicion en ligas oficiales catalanas
+- Formacion academica compatible (para programas largos)
+
+Te adjuntamos nuestro dossier completo con toda la informacion sobre programas, instalaciones y precios.
+
+Estamos a tu disposicion para resolver cualquier duda.
+
+Un saludo,
+Eleven Academy
+Vilanova i la Geltru, Barcelona`},
+{day:3,subject:"Un dia en Eleven Academy",body:`Hola [Nombre],
+
+Queremos que conozcas como es un dia tipico en nuestra academia:
+
+7:30 - Desayuno en la residencia
+9:00 - Sesion tecnica individual
+10:30 - Sesion tactica en grupo
+12:30 - Almuerzo
+14:00 - Analisis de video y teoria
+15:30 - Sesion de entrenamiento en campo
+17:30 - Gimnasio / recuperacion
+19:00 - Cena
+20:00 - Tiempo libre / estudio
+
+Nuestros jugadores entrenan en instalaciones de primer nivel con cesped natural y artificial, gimnasio completo y zona de recuperacion.
+
+Te gustaria conocernos en persona? Organizamos visitas todos los viernes.
+
+Un saludo,
+Eleven Academy`},
+{day:7,subject:"Lo que dicen nuestros jugadores y familias",body:`Hola [Nombre],
+
+Nada habla mejor de nosotros que las experiencias de quienes ya han pasado por Eleven Academy:
+
+"Mi hijo llego con 14 anos sin experiencia en academia y en 6 meses ficharon por un club de Division de Honor. El cambio fue increible." - Maria G., madre de jugador
+
+"La combinacion de entrenamiento intensivo con la experiencia de vivir cerca de Barcelona hace que Eleven sea unica." - Carlos R., padre de jugador
+
+"Gracias a Eleven consegui una oportunidad en un club profesional. Los entrenadores no solo mejoran tu juego, sino que te preparan mentalmente." - Andre K., ex-alumno
+
+Quieres ser parte de estas historias? Reserva tu plaza ahora.
+
+Un saludo,
+Eleven Academy`},
+{day:10,subject:"Programas y precios - Eleven Academy",body:`Hola [Nombre],
+
+Te detallamos nuestros programas disponibles:
+
+TRIAL 1 SEMANA - Prueba sin compromiso
+Ideal para conocer la academia y evaluar el nivel.
+
+1 MES
+- Solo training: 1.200 EUR
+- Con alojamiento: 2.400 EUR
+
+3 MESES
+- Solo training: 2.700 EUR
+- Con alojamiento: 7.200 EUR
+
+6 MESES
+- Solo training: 7.200 EUR
+- Con alojamiento: 14.400 EUR
+
+PROGRAMA ANUAL - Consultar
+
+Todos los programas incluyen: entrenamiento diario, preparacion fisica, analisis de video, competicion oficial y seguimiento personalizado.
+
+Opciones de pago flexibles disponibles. Contactanos para un plan personalizado.
+
+Un saludo,
+Eleven Academy`},
+{day:14,subject:"Experiencia Camp Nou y Santiago Bernabeu",body:`Hola [Nombre],
+
+Una de las ventajas unicas de estar en nuestra ubicacion es la proximidad a los templos del futbol espanol.
+
+Nuestros jugadores disfrutan de:
+- Visitas al Camp Nou y Museo del FC Barcelona
+- Asistencia a partidos de LaLiga
+- Tours por las instalaciones del Espanyol
+- Excursiones al Santiago Bernabeu en Madrid
+
+Ademas, organizamos clinics y actividades especiales donde los jugadores pueden vivir el futbol espanol de primera mano.
+
+Estas experiencias son parte integral de la formacion en Eleven Academy: no solo entrenamos jugadores, creamos experiencias que cambian vidas.
+
+Reserva tu plaza y vive esta experiencia.
+
+Un saludo,
+Eleven Academy`},
+{day:17,subject:"Euro Trip - Conoce el futbol europeo desde dentro",body:`Hola [Nombre],
+
+Presentamos nuestro programa exclusivo EURO TRIP:
+
+Un viaje formativo por las principales ciudades y academias del futbol europeo:
+- Barcelona: entrenamiento en Eleven Academy + visita Camp Nou
+- Madrid: Santiago Bernabeu + clinics
+- Londres: visita a academias inglesas
+- Paris: experiencia en el futbol frances
+
+El Euro Trip combina entrenamiento, turismo deportivo y una inmersion total en la cultura del futbol europeo.
+
+Plazas muy limitadas. Consulta fechas y disponibilidad.
+
+Un saludo,
+Eleven Academy`},
+{day:21,subject:"ULTIMAS PLAZAS - No pierdas esta oportunidad",body:`Hola [Nombre],
+
+Te escribimos porque quedan MUY POCAS PLAZAS para la proxima temporada en Eleven Academy.
+
+La demanda ha superado nuestras expectativas y queremos asegurarnos de que no pierdas esta oportunidad.
+
+Para reservar tu plaza:
+1. Responde a este email confirmando tu interes
+2. Te enviaremos el formulario de inscripcion
+3. Reserva con una senal de 300 EUR
+
+Recuerda que ofrecemos:
+- Garantia de satisfaccion en el Trial de 1 semana
+- Planes de pago flexibles
+- Descuentos por inscripcion anticipada
+
+No dejes pasar esta oportunidad. Las plazas se agotan cada temporada.
+
+Un saludo,
+Eleven Academy`}
+];
+
+// Email Templates B2B (English for African agents)
+const B2B_EMAILS = [
+{id:'b2b1',subject:"Partnership Opportunity - Eleven Academy Spain",body:`Dear [Name],
+
+I hope this message finds you well. My name is [SenderName] from Eleven Academy, a high-performance football academy located in Vilanova i la Geltru, just 40 minutes from Barcelona, Spain.
+
+We are reaching out to establish a strategic partnership with agents and scouts in Africa who share our vision of developing young football talent.
+
+What we offer your players:
+- Professional UEFA-licensed coaching
+- Full residential program with accommodation
+- Official competition in Catalan leagues
+- Exposure to Spanish and European football clubs
+- Complete player development (technical, tactical, physical, mental)
+- Video analysis and scouting reports for club presentations
+
+Our programs range from 1-week trials to full annual programs. We have special partnership rates for agents who consistently send quality players.
+
+We would love to schedule a call to discuss how we can work together.
+
+Best regards,
+[SenderName]
+Eleven Academy
+Vilanova i la Geltru, Barcelona, Spain`},
+{id:'b2b2',subject:"Eleven Academy - Programs & Agent Commission Structure",body:`Dear [Name],
+
+Thank you for your interest in Eleven Academy. As discussed, here are our current programs and the agent partnership structure:
+
+PROGRAMS:
+- 1 Week Trial: Evaluation period (free for agent-referred players)
+- 1 Month: 1,200 EUR (training only) / 2,400 EUR (with accommodation)
+- 3 Months: 2,700 EUR (training only) / 7,200 EUR (with accommodation)
+- 6 Months: 7,200 EUR (training only) / 14,400 EUR (with accommodation)
+- Annual: Contact us for special rates
+
+AGENT PARTNERSHIP BENEFITS:
+- Commission on each enrolled player
+- Free trial week for evaluation
+- Regular video reports on player progress
+- Direct line to coaching staff
+- Priority placement in competitions and showcases
+- Networking opportunities with European clubs
+
+We believe in long-term partnerships built on trust and results. Many of our agent partners have been with us since the beginning.
+
+Let me know if you would like to schedule a video call to discuss further details.
+
+Best regards,
+[SenderName]
+Eleven Academy`},
+{id:'b2b3',subject:"Player Development Update & New Intake Dates",body:`Dear [Name],
+
+I wanted to share an exciting update from Eleven Academy.
+
+NEW INTAKE DATES:
+We are now accepting players for the following periods. Early registration is recommended as spots fill quickly.
+
+RECENT SUCCESS STORIES:
+Several players who came through our agent partnership program have been signed by professional clubs in Spain and Europe. We are proud of these results and committed to continuing this track record.
+
+WHAT WE NEED FROM YOU:
+- Player profiles (age, position, experience)
+- Video highlights (minimum 3 minutes)
+- Passport copy and medical clearance
+
+We handle all visa documentation and airport transfers for international players.
+
+Looking forward to welcoming your next group of talented players.
+
+Best regards,
+[SenderName]
+Eleven Academy`}
+];
+
+// Programs catalog
+const PROGRAMS = [
+{name:"Trial 1 Semana",price:"Gratuito / Consultar",priceTraining:"",priceAccom:"",duration:"1 semana",desc:"Periodo de prueba para evaluar el nivel del jugador y conocer la academia. Sin compromiso.",features:["Entrenamiento diario","Evaluacion tecnica","Informe final del jugador","Alojamiento incluido"]},
+{name:"1 Mes",price:"Desde 1.200 EUR",priceTraining:"1.200 EUR",priceAccom:"2.400 EUR",duration:"1 mes",desc:"Programa intensivo de un mes para mejora rapida y experiencia internacional.",features:["Entrenamiento diario doble sesion","Preparacion fisica","Analisis de video","Competicion oficial","Alojamiento opcional"]},
+{name:"3 Meses",price:"Desde 2.700 EUR",priceTraining:"2.700 EUR",priceAccom:"7.200 EUR",duration:"3 meses",desc:"Programa trimestral para desarrollo integral del jugador.",features:["Entrenamiento diario","Preparacion fisica personalizada","Competicion en liga oficial","Seguimiento nutricional","Informes mensuales","Alojamiento opcional"]},
+{name:"6 Meses",price:"Desde 7.200 EUR",priceTraining:"7.200 EUR",priceAccom:"14.400 EUR",duration:"6 meses",desc:"Programa semestral completo con maxima inmersion en el futbol espanol.",features:["Entrenamiento intensivo diario","Plan de desarrollo individual","Competicion oficial completa","Exposicion a clubes profesionales","Preparacion fisica y mental","Analisis de video semanal","Alojamiento VIP disponible"]},
+{name:"Programa Anual",price:"A consultar",priceTraining:"A consultar",priceAccom:"A consultar",duration:"10-12 meses",desc:"El programa mas completo. Formacion integral para jugadores comprometidos con su carrera profesional.",features:["Todo lo incluido en 6 meses","Formacion academica compatible","Acceso prioritario a showcases","Red de contactos con clubes europeos","Alojamiento VIP","Descuento especial"]},
+{name:"Euro Trip",price:"A consultar",priceTraining:"","priceAccom":"",duration:"2-3 semanas",desc:"Experiencia unica: entrenamiento en Espana + tour por las principales ciudades del futbol europeo.",features:["Entrenamiento en Eleven Academy","Visita Camp Nou y Bernabeu","Tour por academias europeas","Clinics internacionales","Alojamiento y transporte incluidos"]}
+];
+
+// ============================= STATE =============================
+let state = {
+leads: [],
+settings: {mcKey:'',mcServer:'',mcList:'',proxy:'',senderName:'Eleven Academy',senderEmail:'info@elevenacademy.com',anthropicKey:'',theme:'light'},
+emailsSent: 0,
+contactedProspectors: {}
+};
+
+function loadState() {
+try {
+const s = localStorage.getItem('eleven_state');
+if (s) { const parsed = JSON.parse(s); Object.assign(state, parsed); }
+} catch(e) {}
+if (state.leads.length === 0) seedDemoLeads();
+applyTheme();
+}
+
+function saveState() {
+localStorage.setItem('eleven_state', JSON.stringify(state));
+}
+
+function seedDemoLeads() {
+const demoLeads = [
+{id:genId(),name:"Ahmed Okafor",email:"ahmed.okafor@email.ng",phone:"+234 801 XXX XXXX",country:"Nigeria",program:"3 Meses",source:"Agente",stage:"Interesado",notes:"Referido por Daniel Eke, 16 anos, mediocampista",date:"2025-03-01"},
+{id:genId(),name:"Kwame Mensah",email:"kwame.mensah@email.gh",phone:"+233 24 XXX XXXX",country:"Ghana",program:"6 Meses",source:"Web",stage:"Contactado",notes:"Padre contacto via web, quiere programa largo",date:"2025-03-05"},
+{id:genId(),name:"Pablo Martinez",email:"pablo.martinez@email.es",phone:"+34 612 XXX XXX",country:"Espana",program:"1 Mes",source:"Instagram",stage:"Nuevo",notes:"Vio post en Instagram, 15 anos, lateral derecho",date:"2025-03-18"},
+{id:genId(),name:"Moussa Diallo",email:"moussa.diallo@email.sn",phone:"+221 77 XXX XXXX",country:"Senegal",program:"Trial 1 Semana",source:"Agente",stage:"Negociacion",notes:"Recomendado por Diomansy Kamara, 17 anos delantero",date:"2025-02-20"},
+{id:genId(),name:"Lucas Silva",email:"lucas.silva@email.br",phone:"+55 11 XXXX XXXX",country:"Brasil",program:"6 Meses",source:"Referido",stage:"Inscrito",notes:"Ya confirmo, llega en abril, extremo izquierdo",date:"2025-01-15"},
+{id:genId(),name:"Youssef El Amrani",email:"youssef.ea@email.ma",phone:"+212 6 XXX XXXX",country:"Marruecos",program:"3 Meses",source:"Web",stage:"Interesado",notes:"Contacto desde Casablanca, portero, 16 anos",date:"2025-03-10"},
+{id:genId(),name:"Santiago Gomez",email:"sgomez@email.co",phone:"+57 3 XXX XXXX",country:"Colombia",program:"1 Mes",source:"Feria",stage:"Contactado",notes:"Conocio en feria en Medellin",date:"2025-02-28"},
+{id:genId(),name:"Ibrahim Kone",email:"ibrahim.k@email.ci",phone:"+225 07 XXX XXXX",country:"Costa de Marfil",program:"Trial 1 Semana",source:"Agente",stage:"Nuevo",notes:"ASEC Mimosas contacto, 15 anos prometedor",date:"2025-03-20"},
+{id:genId(),name:"Marc Puig",email:"marc.puig@email.cat",phone:"+34 677 XXX XXX",country:"Espana",program:"Anual",source:"Referido",stage:"Negociacion",notes:"De Sitges, quiere programa anual completo",date:"2025-02-10"},
+{id:genId(),name:"Emeka Nwosu",email:"emeka.n@email.ng",phone:"+234 803 XXX XXXX",country:"Nigeria",program:"Euro Trip",source:"Agente",stage:"Interesado",notes:"Interesado en Euro Trip, via John Shittu",date:"2025-03-12"},
+{id:genId(),name:"Amadou Ba",email:"amadou.ba@email.sn",phone:"+221 78 XXX XXXX",country:"Senegal",program:"3 Meses",source:"Web",stage:"Nuevo",notes:"Contacto directo, defensa central, 17 anos",date:"2025-03-22"},
+{id:genId(),name:"Carlos Fernandez",email:"carlos.f@email.es",phone:"+34 654 XXX XXX",country:"Espana",program:"Trial 1 Semana",source:"Instagram",stage:"Inscrito",notes:"Ya reservo trial para abril",date:"2025-03-08"},
+];
+state.leads = demoLeads;
+state.emailsSent = 47;
+saveState();
+}
+
+function genId() { return 'id_' + Date.now().toString(36) + Math.random().toString(36).substr(2,6); }
+
+// ============================= NAVIGATION =============================
+const pageTitles = {dashboard:'Dashboard',prospector:'Buscador de Contactos',crm:'CRM / Gestion de Leads',emails:'Campanas de Email',mailchimp:'Integracion Mailchimp',programs:'Catalogo de Programas',settings:'Ajustes'};
+
+function showSection(id) {
+document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+document.getElementById('sec-'+id).classList.add('active');
+document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.section===id));
+document.getElementById('pageTitle').textContent = pageTitles[id] || id;
+document.getElementById('sidebar').classList.remove('open');
+if (id==='dashboard') refreshDashboard();
+if (id==='prospector') renderProspector();
+if (id==='crm') renderCRM();
+if (id==='emails') renderEmails();
+if (id==='programs') renderPrograms();
+if (id==='settings') loadSettings();
+if (id==='mailchimp') refreshMailchimp();
+}
+
+// ============================= TOAST =============================
+function toast(msg, type='success') {
+const t = document.createElement('div');
+t.className = 'toast toast-'+type;
+t.textContent = msg;
+document.getElementById('toastContainer').appendChild(t);
+setTimeout(() => t.remove(), 3500);
+}
+
+// ============================= MODALS =============================
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+function openAddLeadModal() {
+document.getElementById('leadModalTitle').textContent = 'Nuevo Lead';
+document.getElementById('leadEditId').value = '';
+['leadName','leadEmail','leadPhone','leadCountry','leadNotes'].forEach(f => document.getElementById(f).value='');
+document.getElementById('leadProgram').value='Trial 1 Semana';
+document.getElementById('leadSource').value='Prospector';
+document.getElementById('leadStage').value='Nuevo';
+openModal('leadModal');
+}
+
+function openEditLeadModal(id) {
+const lead = state.leads.find(l => l.id===id);
+if (!lead) return;
+document.getElementById('leadModalTitle').textContent = 'Editar Lead';
+document.getElementById('leadEditId').value = id;
+document.getElementById('leadName').value = lead.name;
+document.getElementById('leadEmail').value = lead.email;
+document.getElementById('leadPhone').value = lead.phone||'';
+document.getElementById('leadCountry').value = lead.country;
+document.getElementById('leadProgram').value = lead.program;
+document.getElementById('leadSource').value = lead.source;
+document.getElementById('leadStage').value = lead.stage;
+document.getElementById('leadNotes').value = lead.notes||'';
+openModal('leadModal');
+}
+
+function saveLead() {
+const editId = document.getElementById('leadEditId').value;
+const data = {
+name: document.getElementById('leadName').value.trim(),
+email: document.getElementById('leadEmail').value.trim(),
+phone: document.getElementById('leadPhone').value.trim(),
+country: document.getElementById('leadCountry').value.trim(),
+program: document.getElementById('leadProgram').value,
+source: document.getElementById('leadSource').value,
+stage: document.getElementById('leadStage').value,
+notes: document.getElementById('leadNotes').value.trim()
+};
+if (!data.name) { toast('El nombre es obligatorio','error'); return; }
+if (editId) {
+const idx = state.leads.findIndex(l => l.id===editId);
+if (idx>=0) Object.assign(state.leads[idx], data);
+toast('Lead actualizado');
+} else {
+data.id = genId();
+data.date = new Date().toISOString().slice(0,10);
+state.leads.push(data);
+toast('Lead creado');
+}
+saveState();
+closeModal('leadModal');
+renderCRM();
+refreshDashboard();
+}
+
+function deleteLead(id) {
+if (!confirm('Eliminar este lead?')) return;
+state.leads = state.leads.filter(l => l.id !== id);
+saveState();
+renderCRM();
+refreshDashboard();
+toast('Lead eliminado');
+}
+
+// ============================= DASHBOARD =============================
+let chartCountry, chartProgram, chartTrend;
+
+function refreshDashboard() {
+const leads = state.leads;
+const now = new Date();
+const thisMonth = leads.filter(l => {
+const d = new Date(l.date);
+return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear();
+});
+const inscrito = leads.filter(l => l.stage==='Inscrito').length;
+document.getElementById('m-total').textContent = leads.length;
+document.getElementById('m-month').textContent = thisMonth.length;
+document.getElementById('m-conv').textContent = leads.length ? Math.round(inscrito/leads.length*100)+'%' : '0%';
+document.getElementById('m-emails').textContent = state.emailsSent;
+
+// Country chart
+const countryCounts = {};
+leads.forEach(l => { countryCounts[l.country] = (countryCounts[l.country]||0)+1; });
+const cLabels = Object.keys(countryCounts);
+const cData = Object.values(countryCounts);
+const colors = ['#C9A84C','#3498db','#e74c3c','#27ae60','#9b59b6','#e67e22','#1abc9c','#34495e','#f39c12','#d35400'];
+if (chartCountry) chartCountry.destroy();
+chartCountry = new Chart(document.getElementById('chartCountry'), {
+type:'doughnut',
+data:{labels:cLabels,datasets:[{data:cData,backgroundColor:colors.slice(0,cLabels.length)}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:11,family:'Inter'}}}}}
+});
+
+// Program chart
+const progCounts = {};
+leads.forEach(l => { progCounts[l.program] = (progCounts[l.program]||0)+1; });
+if (chartProgram) chartProgram.destroy();
+chartProgram = new Chart(document.getElementById('chartProgram'), {
+type:'bar',
+data:{labels:Object.keys(progCounts),datasets:[{label:'Leads',data:Object.values(progCounts),backgroundColor:'#C9A84C'}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}
+});
+
+// Trend chart
+const months = [];
+const monthData = [];
+for (let i=5;i>=0;i--) {
+const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+const label = d.toLocaleDateString('es',{month:'short',year:'2-digit'});
+months.push(label);
+const count = leads.filter(l => {
+const ld = new Date(l.date);
+return ld.getMonth()===d.getMonth() && ld.getFullYear()===d.getFullYear();
+}).length;
+monthData.push(count);
+}
+if (chartTrend) chartTrend.destroy();
+chartTrend = new Chart(document.getElementById('chartTrend'), {
+type:'line',
+data:{labels:months,datasets:[{label:'Nuevos Leads',data:monthData,borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.1)',fill:true,tension:.4}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}
+});
+}
+
+// ============================= PROSPECTOR =============================
+function getUniqueCountries() {
+return [...new Set(CONTACTS_DB.map(c => c.country))].sort();
+}
+function getUniqueRegions() {
+return [...new Set(CONTACTS_DB.map(c => c.region))].sort();
+}
+
+function initProspectorFilters() {
+const cs = document.getElementById('filterCountry');
+getUniqueCountries().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cs.appendChild(o); });
+const rs = document.getElementById('filterRegion');
+getUniqueRegions().forEach(r => { const o=document.createElement('option'); o.value=r; o.textContent=r; rs.appendChild(o); });
+// CRM country filter
+const cc = document.getElementById('crmFilterCountry');
+[...new Set(state.leads.map(l=>l.country))].sort().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cc.appendChild(o); });
+}
+
+function filterProspector() {
+const search = document.getElementById('prospectorSearch').value.toLowerCase();
+const country = document.getElementById('filterCountry').value;
+const category = document.getElementById('filterCategory').value;
+const region = document.getElementById('filterRegion').value;
+const filtered = CONTACTS_DB.filter(c => {
+if (country && c.country !== country) return false;
+if (category && c.type !== category) return false;
+if (region && c.region !== region) return false;
+if (search) {
+const hay = (c.name+c.country+c.city+c.type+c.notes+c.region).toLowerCase();
+if (!hay.includes(search)) return false;
+}
+return true;
+});
+renderProspectorCards(filtered);
+}
+
+function renderProspector() {
+filterProspector();
+}
+
+function renderProspectorCards(contacts) {
+const grid = document.getElementById('prospectorGrid');
+document.getElementById('prospectorCount').textContent = contacts.length + ' contactos encontrados';
+grid.innerHTML = contacts.map(c => {
+const contacted = state.contactedProspectors[c.name] ? ' style="border-left:3px solid var(--success)"' : '';
+return `<div class="contact-card"${contacted}>
+<h4>${esc(c.name)}</h4>
+<div class="meta">${esc(c.type)} &middot; ${esc(c.country)}, ${esc(c.city)}</div>
+${c.region?`<div class="meta">${esc(c.region)}</div>`:''}
+<div style="font-size:12px;margin:4px 0"><strong>Email:</strong> ${esc(c.email)}</div>
+<div style="font-size:12px;margin:2px 0"><strong>Tel:</strong> ${esc(c.phone)}</div>
+${c.web?`<div style="font-size:12px;margin:2px 0"><strong>Web:</strong> <a href="https://${esc(c.web)}" target="_blank">${esc(c.web)}</a></div>`:''}
+${c.notes?`<div style="font-size:11px;color:var(--text2);margin-top:6px">${esc(c.notes)}</div>`:''}
+<div class="actions">
+<button class="btn btn-sm btn-gold" onclick="addContactToLead('${esc(c.name)}','${esc(c.email)}','${esc(c.country)}','${esc(c.type)}')">+ CRM</button>
+<button class="btn btn-sm" onclick="composeEmailTo('${esc(c.email)}','${esc(c.name)}')">Email</button>
+<button class="btn btn-sm" onclick="mcAddFromProspector('${esc(c.email)}','${esc(c.name)}')">Mailchimp</button>
+<button class="btn btn-sm ${state.contactedProspectors[c.name]?'btn-success':''}" onclick="markContacted('${esc(c.name)}')">${state.contactedProspectors[c.name]?'Contactado':'Marcar'}</button>
+</div>
+</div>`;
+}).join('');
+}
+
+function addContactToLead(name, email, country, type) {
+document.getElementById('leadEditId').value = '';
+document.getElementById('leadModalTitle').textContent = 'Nuevo Lead desde Prospector';
+document.getElementById('leadName').value = name;
+document.getElementById('leadEmail').value = email;
+document.getElementById('leadCountry').value = country;
+document.getElementById('leadPhone').value = '';
+document.getElementById('leadProgram').value = 'Trial 1 Semana';
+document.getElementById('leadSource').value = type==='Agente'?'Agente':'Prospector';
+document.getElementById('leadStage').value = 'Nuevo';
+document.getElementById('leadNotes').value = 'Anadido desde Prospector - ' + type;
+openModal('leadModal');
+}
+
+function composeEmailTo(email, name) {
+showSection('emails');
+setEmailTab('composer');
+document.getElementById('compTo').value = email;
+document.getElementById('compBody').value = `Hola ${name},\n\nEscribo desde Eleven Academy...\n\nUn saludo,\n${state.settings.senderName}`;
+}
+
+function markContacted(name) {
+state.contactedProspectors[name] = true;
+saveState();
+renderProspector();
+toast('Contacto marcado');
+}
+
+function mcAddFromProspector(email, name) {
+if (!state.settings.mcKey) { toast('Configura Mailchimp en Ajustes primero','error'); return; }
+mcApiCall('POST', `/lists/${state.settings.mcList}/members`, {
+email_address: email,
+status: 'subscribed',
+merge_fields: {FNAME: name}
+}).then(r => {
+if (r.ok || r.status===400) toast('Contacto enviado a Mailchimp');
+else toast('Error al enviar a Mailchimp','error');
+}).catch(() => toast('Error de conexion','error'));
+}
+
+// ============================= CRM =============================
+let crmView = 'list';
+
+function setCrmView(view) {
+crmView = view;
+document.querySelectorAll('#crmTabs .tab').forEach((t,i) => t.classList.toggle('active', (i===0&&view==='list')||(i===1&&view==='kanban')));
+document.getElementById('crmListView').style.display = view==='list'?'block':'none';
+document.getElementById('crmKanbanView').style.display = view==='kanban'?'block':'none';
+renderCRM();
+}
+
+function getFilteredLeads() {
+let leads = [...state.leads];
+const search = document.getElementById('crmSearch').value.toLowerCase();
+const country = document.getElementById('crmFilterCountry').value;
+const program = document.getElementById('crmFilterProgram').value;
+const stage = document.getElementById('crmFilterStage').value;
+if (search) leads = leads.filter(l => (l.name+l.email+l.country+l.notes).toLowerCase().includes(search));
+if (country) leads = leads.filter(l => l.country===country);
+if (program) leads = leads.filter(l => l.program===program);
+if (stage) leads = leads.filter(l => l.stage===stage);
+return leads;
+}
+
+function renderCRM() {
+if (crmView==='list') renderCRMList();
+else renderKanban();
+}
+
+function renderCRMList() {
+const leads = getFilteredLeads();
+const tbody = document.getElementById('crmTableBody');
+tbody.innerHTML = leads.map(l => `<tr>
+<td><strong>${esc(l.name)}</strong></td>
+<td>${esc(l.email)}</td>
+<td>${esc(l.country)}</td>
+<td>${esc(l.program)}</td>
+<td>${esc(l.source)}</td>
+<td><span class="badge ${STAGE_COLORS[l.stage]||''}">${esc(l.stage)}</span></td>
+<td>${esc(l.date)}</td>
+<td>
+<button class="btn btn-sm" onclick="openEditLeadModal('${l.id}')">Editar</button>
+<button class="btn btn-sm btn-danger" onclick="deleteLead('${l.id}')" style="margin-left:4px">X</button>
+</td>
+</tr>`).join('');
+}
+
+function renderKanban() {
+const board = document.getElementById('kanbanBoard');
+const leads = getFilteredLeads();
+board.innerHTML = STAGES.map(stage => {
+const stageLeads = leads.filter(l => l.stage===stage);
+return `<div class="kanban-col" ondragover="event.preventDefault()" ondrop="kanbanDrop(event,'${stage}')">
+<div class="kanban-col-header">
+<span>${stage}</span>
+<span class="badge ${STAGE_COLORS[stage]}">${stageLeads.length}</span>
+</div>
+${stageLeads.map(l => `<div class="kanban-card" draggable="true" ondragstart="event.dataTransfer.setData('text','${l.id}')">
+<h5>${esc(l.name)}</h5>
+<p>${esc(l.country)} &middot; ${esc(l.program)}</p>
+<p style="margin-top:4px">${esc(l.email)}</p>
+<div style="margin-top:6px"><button class="btn btn-sm" onclick="openEditLeadModal('${l.id}')">Editar</button></div>
+</div>`).join('')}
+</div>`;
+}).join('');
+}
+
+function kanbanDrop(e, stage) {
+e.preventDefault();
+const id = e.dataTransfer.getData('text');
+const lead = state.leads.find(l => l.id===id);
+if (lead) { lead.stage = stage; saveState(); renderKanban(); toast('Etapa actualizada'); }
+}
+
+// ============================= EMAILS =============================
+let currentEmailTab = 'b2c';
+let selectedEmail = null;
+
+function setEmailTab(tab) {
+currentEmailTab = tab;
+document.querySelectorAll('#emailTabs .tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='b2c')||(i===1&&tab==='b2b')||(i===2&&tab==='composer')));
+document.getElementById('emailB2C').style.display = tab==='b2c'?'grid':'none';
+document.getElementById('emailB2B').style.display = tab==='b2b'?'grid':'none';
+document.getElementById('emailComposer').style.display = tab==='composer'?'block':'none';
+}
+
+function renderEmails() {
+// B2C
+const b2cList = document.getElementById('b2cEmailList');
+b2cList.innerHTML = B2C_EMAILS.map((e,i) => `<div class="email-list-item ${selectedEmail===('b2c'+i)?'active':''}" onclick="selectEmail('b2c',${i})">
+<h5>Dia ${e.day} - Email ${i+1}</h5>
+<p>${esc(e.subject)}</p>
+</div>`).join('');
+
+// B2B
+const b2bList = document.getElementById('b2bEmailList');
+b2bList.innerHTML = B2B_EMAILS.map((e,i) => `<div class="email-list-item ${selectedEmail===('b2b'+i)?'active':''}" onclick="selectEmail('b2b',${i})">
+<h5>Email B2B ${i+1}</h5>
+<p>${esc(e.subject)}</p>
+</div>`).join('');
+}
+
+function selectEmail(type, idx) {
+selectedEmail = type+idx;
+const email = type==='b2c' ? B2C_EMAILS[idx] : B2B_EMAILS[idx];
+const preview = document.getElementById(type==='b2c'?'b2cPreview':'b2bPreview');
+const body = replaceVars(email.body);
+preview.innerHTML = `<div style="margin-bottom:12px"><strong>Asunto:</strong> ${esc(email.subject)}</div><div style="white-space:pre-wrap">${esc(body)}</div>`;
+renderEmails();
+}
+
+function replaceVars(text) {
+text = text.replace(/\[Nombre\]/g, 'Juan').replace(/\[Name\]/g, 'John');
+text = text.replace(/\[SenderName\]/g, state.settings.senderName);
+text = text.replace(/\[Programa\]/g, '3 Meses').replace(/\[Precio\]/g, '2.700 EUR');
+return text;
+}
+
+function sendCurrentEmail() {
+if (!selectedEmail) { toast('Selecciona un email primero','error'); return; }
+const type = selectedEmail.startsWith('b2c') ? 'b2c' : 'b2b';
+const idx = parseInt(selectedEmail.replace(type,''));
+const email = type==='b2c' ? B2C_EMAILS[idx] : B2B_EMAILS[idx];
+const body = replaceVars(email.body);
+const mailto = `mailto:?subject=${encodeURIComponent(email.subject)}&body=${encodeURIComponent(body)}`;
+window.open(mailto);
+state.emailsSent++;
+saveState();
+toast('Email abierto en cliente de correo');
+}
+
+function copyEmailToClipboard() {
+if (!selectedEmail) { toast('Selecciona un email primero','error'); return; }
+const type = selectedEmail.startsWith('b2c') ? 'b2c' : 'b2b';
+const idx = parseInt(selectedEmail.replace(type,''));
+const email = type==='b2c' ? B2C_EMAILS[idx] : B2B_EMAILS[idx];
+const text = `Asunto: ${email.subject}\n\n${replaceVars(email.body)}`;
+navigator.clipboard.writeText(text).then(() => toast('Email copiado al portapapeles'));
+}
+
+function sendComposedEmail() {
+const to = document.getElementById('compTo').value;
+const subject = document.getElementById('compSubject').value;
+const body = replaceVars(document.getElementById('compBody').value);
+if (!to) { toast('Introduce un destinatario','error'); return; }
+const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+window.open(mailto);
+state.emailsSent++;
+saveState();
+toast('Email abierto en cliente de correo');
+}
+
+function previewComposed() {
+const body = replaceVars(document.getElementById('compBody').value);
+const subject = document.getElementById('compSubject').value;
+document.getElementById('compPreview').innerHTML = `<div style="margin-bottom:12px"><strong>Para:</strong> ${esc(document.getElementById('compTo').value)}</div><div style="margin-bottom:12px"><strong>Asunto:</strong> ${esc(subject)}</div><div style="white-space:pre-wrap">${esc(body)}</div>`;
+}
+
+// ============================= MAILCHIMP =============================
+function refreshMailchimp() {
+if (state.settings.mcKey) {
+document.getElementById('mcStatus').textContent = 'Configurado';
+document.getElementById('mcStatus').style.color = 'var(--success)';
+} else {
+document.getElementById('mcStatus').textContent = 'No configurado';
+document.getElementById('mcStatus').style.color = 'var(--text2)';
+}
+}
+
+function mcLog(msg) {
+const log = document.getElementById('mcLog');
+const time = new Date().toLocaleTimeString();
+log.innerHTML += `<div>[${time}] ${msg}</div>`;
+log.scrollTop = log.scrollHeight;
+}
+
+// Mailchimp Direct API (SIN servidor backend)
+async function mcApiCall(method, path, body) {
+const s = state.settings;
+if (!s.mcKey || !s.mcServer) {
+  toast('Configura Mailchimp primero','error');
+  return null;
+}
+const url = `https://${s.mcServer}.api.mailchimp.com/3.0${path}`;
+const auth = btoa(`anystring:${s.mcKey}`);
+const opts = {
+  method,
+  headers: {
+    'Authorization': `Basic ${auth}`,
+    'Content-Type': 'application/json'
+  }
+};
+if (body) opts.body = JSON.stringify(body);
+
+try {
+  const r = await fetch(url, opts);
+  const data = await r.json();
+  return {ok: r.ok, status: r.status, data};
+} catch(e) {
+  return {ok: false, error: e.message};
+}
+}
+
+function mcSaveConfig() {
+const key = document.getElementById('setMcKey').value.trim();
+const server = document.getElementById('setMcServer').value.trim();
+const list = document.getElementById('setMcList').value.trim();
+
+if (!key || !server || !list) {
+  toast('Completa todos los campos','error');
+  return;
+}
+
+state.settings.mcKey = key;
+state.settings.mcServer = server;
+state.settings.mcList = list;
+saveState();
+mcLog('Configuración guardada localmente');
+toast('Configuración guardada');
+}
+
+async function mcTestConnection() {
+if (!state.settings.mcKey) {
+  toast('Configura Mailchimp primero','error');
+  return;
+}
+mcLog('Probando conexion...');
+const res = await mcApiCall('GET', '/');
+if (res.ok && res.data.account_name) {
+  mcLog('✓ Conectado: ' + res.data.account_name);
+  toast('¡Conexion exitosa a Mailchimp!');
+} else {
+  mcLog('✗ Error: ' + (res.data?.detail || res.error || 'No se pudo conectar'));
+  toast('Error de conexion','error');
+}
+}
+
+async function mcGetAudienceStats() {
+if (!state.settings.mcKey || !state.settings.mcList) {
+  toast('Configura Mailchimp primero','error');
+  return;
+}
+mcLog('Obteniendo estadisticas...');
+const res = await mcApiCall('GET', `/lists/${state.settings.mcList}`);
+if (res.ok && res.data.stats) {
+  document.getElementById('mcSubscribers').textContent = res.data.stats.member_count||0;
+  document.getElementById('mcAudience').textContent = res.data.name||'-';
+  mcLog(`✓ ${res.data.name}: ${res.data.stats.member_count} suscriptores`);
+} else {
+  mcLog('Error: ' + (res.data?.detail || res.error || ''));
+}
+}
+
+async function mcAddSingle() {
+const email = document.getElementById('mcSingleEmail').value.trim();
+const name = document.getElementById('mcSingleName').value.trim();
+if (!email) { toast('Introduce un email','error'); return; }
+if (!state.settings.mcList) { toast('Configura Mailchimp primero','error'); return; }
+
+mcLog('Anadiendo ' + email + '...');
+const res = await mcApiCall('POST', `/lists/${state.settings.mcList}/members`, {
+  email_address: email,
+  status: 'subscribed',
+  merge_fields: {FNAME: name}
+});
+
+if (res.ok || res.status === 400) {
+  mcLog('✓ Anadido: ' + email);
+  toast('✓ Contacto anadido a Mailchimp');
+  document.getElementById('mcSingleEmail').value = '';
+  document.getElementById('mcSingleName').value = '';
+} else {
+  mcLog('✗ Error: ' + (res.data?.detail || res.error || ''));
+}
+}
+
+async function mcSyncLeads() {
+if (!state.settings.mcList || state.leads.length === 0) {
+  toast('No hay leads para sincronizar','error');
+  return;
+}
+mcLog('Sincronizando ' + state.leads.length + ' leads...');
+let ok=0, err=0;
+for (const lead of state.leads) {
+  if (!lead.email) continue;
+  const res = await mcApiCall('POST', `/lists/${state.settings.mcList}/members`, {
+    email_address: lead.email,
+    status: 'subscribed',
+    merge_fields: {
+      FNAME: lead.name.split(' ')[0],
+      LNAME: lead.name.split(' ').slice(1).join(' ')
+    }
+  });
+  if (res.ok || res.status === 400) ok++;
+  else err++;
+}
+mcLog(`✓ ${ok} OK, ${err} errores`);
+toast(`✓ Sincronizados ${ok} leads a Mailchimp`);
+}
+
+async function mcCreateTag() {
+const tag = document.getElementById('mcTagName').value.trim();
+if (!tag) return;
+if (!state.settings.mcList) { toast('Configura Mailchimp primero','error'); return; }
+mcLog('Creando tag: ' + tag);
+const res = await mcApiCall('POST', `/lists/${state.settings.mcList}/segments`, {
+  name: tag,
+  options: {match: 'any'}
+});
+if (res.ok || res.status === 400) {
+  mcLog('✓ Tag creado: ' + tag);
+  toast('✓ Tag creado');
+  document.getElementById('mcTagName').value = '';
+} else {
+  mcLog('✗ Error: ' + (res.data?.detail || res.error || ''));
+}
+}
+
+// ============================= PROGRAMS =============================
+function renderPrograms() {
+const grid = document.getElementById('programsGrid');
+grid.innerHTML = PROGRAMS.map(p => `<div class="program-card">
+<h4>${esc(p.name)}</h4>
+<div class="program-price">${esc(p.price)}</div>
+<div class="program-detail">Duracion: ${esc(p.duration)}</div>
+${p.priceTraining ? `<div class="program-detail">Solo training: <strong>${esc(p.priceTraining)}</strong></div>` : ''}
+${p.priceAccom ? `<div class="program-detail">Con alojamiento: <strong>${esc(p.priceAccom)}</strong></div>` : ''}
+<p style="font-size:13px;margin:12px 0;color:var(--text2)">${esc(p.desc)}</p>
+<ul style="font-size:12px;margin:8px 0 16px 16px;color:var(--text2)">
+${p.features.map(f => `<li style="margin:3px 0">${esc(f)}</li>`).join('')}
+</ul>
+<div style="display:flex;gap:8px">
+<button class="btn btn-gold btn-sm" onclick="generateProposal('${esc(p.name)}')">Generar Propuesta</button>
+<button class="btn btn-sm" onclick="addContactToLead('','','','');document.getElementById('leadProgram').value='${esc(p.name)}'">Crear Lead</button>
+</div>
+</div>`).join('');
+
+// Accommodation info
+grid.innerHTML += `<div class="program-card" style="grid-column:1/-1">
+<h4>Alojamiento</h4>
+<div class="grid grid-2" style="margin-top:12px">
+<div>
+<h5 style="font-size:14px;font-weight:600;margin-bottom:8px">Standard</h5>
+<ul style="font-size:13px;color:var(--text2);margin-left:16px">
+<li>Habitacion compartida (2-3 personas)</li>
+<li>Pension completa</li>
+<li>Wifi y lavanderia</li>
+<li>Transporte a instalaciones</li>
+<li>Supervision 24h</li>
+</ul>
+</div>
+<div>
+<h5 style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--gold)">VIP</h5>
+<ul style="font-size:13px;color:var(--text2);margin-left:16px">
+<li>Habitacion individual o doble</li>
+<li>Pension completa premium</li>
+<li>Wifi, TV, aire acondicionado</li>
+<li>Transporte privado</li>
+<li>Supervision 24h</li>
+<li>Excursiones incluidas</li>
+<li>Suplemento nutricional</li>
+</ul>
+</div>
+</div>
+</div>`;
+}
+
+function generateProposal(programName) {
+const p = PROGRAMS.find(pr => pr.name === programName);
+if (!p) return;
+const content = `
+<div style="text-align:center;margin-bottom:20px">
+<div style="font-size:20px;font-weight:700">ELEVEN ACADEMY<span style="color:var(--gold)">.</span></div>
+<div style="font-size:12px;color:var(--text2)">Vilanova i la Geltru, Barcelona</div>
+</div>
+<h3 style="text-align:center;margin-bottom:20px">PROPUESTA COMERCIAL</h3>
+<h4>Programa: ${esc(p.name)}</h4>
+<p><strong>Duracion:</strong> ${esc(p.duration)}</p>
+${p.priceTraining ? `<p><strong>Precio solo training:</strong> ${esc(p.priceTraining)}</p>` : ''}
+${p.priceAccom ? `<p><strong>Precio con alojamiento:</strong> ${esc(p.priceAccom)}</p>` : ''}
+<p style="margin:12px 0">${esc(p.desc)}</p>
+<h4 style="margin-top:16px">Incluye:</h4>
+<ul>${p.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+<h4 style="margin-top:16px">Condiciones:</h4>
+<ul>
+<li>Reserva con senal de 300 EUR</li>
+<li>Pago completo 30 dias antes del inicio</li>
+<li>Cancelacion gratuita hasta 15 dias antes</li>
+<li>Seguro medico obligatorio</li>
+</ul>
+<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text2)">
+Eleven Academy | Vilanova i la Geltru, Barcelona | info@elevenacademy.com
+</div>`;
+document.getElementById('proposalContent').innerHTML = content;
+openModal('proposalModal');
+}
+
+function copyProposal() {
+const text = document.getElementById('proposalContent').innerText;
+navigator.clipboard.writeText(text).then(() => toast('Propuesta copiada'));
+}
+
+// ============================= SETTINGS =============================
+function loadSettings() {
+document.getElementById('setMcKey').value = state.settings.mcKey||'';
+document.getElementById('setMcServer').value = state.settings.mcServer||'';
+document.getElementById('setMcList').value = state.settings.mcList||'';
+document.getElementById('setProxy').value = state.settings.proxy||'';
+document.getElementById('setSenderName').value = state.settings.senderName||'';
+document.getElementById('setSenderEmail').value = state.settings.senderEmail||'';
+document.getElementById('setAnthropicKey').value = state.settings.anthropicKey||'';
+}
+
+function saveSettings() {
+state.settings.mcKey = document.getElementById('setMcKey').value.trim();
+state.settings.mcServer = document.getElementById('setMcServer').value.trim();
+state.settings.mcList = document.getElementById('setMcList').value.trim();
+state.settings.proxy = document.getElementById('setProxy').value.trim();
+state.settings.senderName = document.getElementById('setSenderName').value.trim();
+state.settings.senderEmail = document.getElementById('setSenderEmail').value.trim();
+state.settings.anthropicKey = document.getElementById('setAnthropicKey').value.trim();
+saveState();
+toast('Ajustes guardados');
+}
+
+function setTheme(theme) {
+state.settings.theme = theme;
+saveState();
+applyTheme();
+toast('Tema cambiado');
+}
+
+function applyTheme() {
+if (state.settings.theme==='dark') document.body.setAttribute('data-theme','dark');
+else document.body.removeAttribute('data-theme');
+}
+
+function exportData() {
+const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url; a.download = 'eleven_academy_data.json'; a.click();
+URL.revokeObjectURL(url);
+toast('Datos exportados');
+}
+
+function importData(event) {
+const file = event.target.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = function(e) {
+try {
+const data = JSON.parse(e.target.result);
+Object.assign(state, data);
+saveState();
+toast('Datos importados');
+location.reload();
+} catch(err) {
+toast('Error al importar: archivo invalido','error');
+}
+};
+reader.readAsText(file);
+}
+
+function resetData() {
+if (!confirm('Esto eliminara todos los datos. Continuar?')) return;
+localStorage.removeItem('eleven_state');
+location.reload();
+}
+
+// ============================= UTILS =============================
+function esc(s) {
+if (!s) return '';
+const d = document.createElement('div');
+d.textContent = s;
+return d.innerHTML;
+}
+
+// ============================= INIT =============================
+loadState();
+initProspectorFilters();
+refreshDashboard();
+renderEmails();
+</script>
+</body>
+</html>

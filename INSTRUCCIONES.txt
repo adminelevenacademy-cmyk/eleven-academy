@@ -1,0 +1,146 @@
+╔════════════════════════════════════════════════════════════════╗
+║   ELEVEN ACADEMY - APP DE CAPTACIÓN DE CLIENTES                ║
+║   Instrucciones de inicio rápido                               ║
+╚════════════════════════════════════════════════════════════════╝
+
+PASO 1: INSTALAR DEPENDENCIAS
+═════════════════════════════════════════════════════════════════
+
+Abre la Terminal/PowerShell en esta carpeta y ejecuta:
+
+    npm install
+
+Esto instalará Express y las herramientas necesarias (solo una vez).
+
+
+PASO 2: INICIAR EL SERVIDOR
+═════════════════════════════════════════════════════════════════
+
+Ejecuta:
+
+    npm start
+
+Deberías ver esto:
+    ╔════════════════════════════════════════╗
+    ║   ELEVEN ACADEMY - CAPTATION SERVER    ║
+    ╚════════════════════════════════════════╝
+
+    ✓ Servidor corriendo en http://localhost:3000
+    ✓ Abre en el navegador: http://localhost:3000
+
+
+PASO 3: ABRIR LA APP EN EL NAVEGADOR
+═════════════════════════════════════════════════════════════════
+
+En Chrome (o tu navegador), ve a:
+
+    http://localhost:3000
+
+¡Listo! La app debería cargar.
+
+
+PASO 4: CONFIGURAR MAILCHIMP (GRATUITO)
+═════════════════════════════════════════════════════════════════
+
+A. Crea cuenta gratis:
+    https://mailchimp.com
+    - 500 contactos
+    - 1,000 envíos/mes
+    - NO requiere tarjeta de crédito
+
+B. Obtén tus credenciales:
+
+    1. API Key:
+       - Ve a Settings → Account & billing → Extras → API keys
+       - Copia tu API Key (ejemplo: xxxxxxxx-us21)
+
+    2. Server Prefix:
+       - Es el final de tu API Key
+       - Si tu key es "abcd1234-us21", el servidor es "us21"
+
+    3. Audience ID:
+       - Ve a Audience → Settings → Audience name and campaign defaults
+       - Copia el Audience ID
+
+C. Configura en la app:
+    - Haz clic en "Configuración" (abajo a la izquierda)
+    - En "Mailchimp API", pega:
+      * API Key
+      * Server Prefix
+      * Audience / List ID
+    - Haz clic en "Guardar y Probar Conexión"
+
+
+PASO 5: USAR LA APP
+═════════════════════════════════════════════════════════════════
+
+Dashboard:
+    - Métricas de leads y conversión
+    - Gráficos de distribución
+
+Prospector:
+    - Busca contactos por país/categoría
+    - Agrega a CRM
+    - Sincroniza a Mailchimp
+
+CRM:
+    - Gestiona leads en tabla o Kanban
+    - Mueve entre etapas
+    - Edita detalles
+
+Emails:
+    - 7 emails B2C en español
+    - 3 emails B2B en inglés
+    - Copia y pega en tu email
+
+
+═════════════════════════════════════════════════════════════════
+NOTAS IMPORTANTES
+═════════════════════════════════════════════════════════════════
+
+1. El SERVIDOR debe estar siempre corriendo
+   - Si lo cierras (Ctrl+C), Mailchimp no funcionará
+   - Para volver a abrir: npm start
+
+2. Los datos se guardan en tu navegador
+   - Backup: Configuración → Exportar JSON
+   - Restaurar: Configuración → Importar JSON
+
+3. Mailchimp es GRATUITO
+   - 500 contactos
+   - 1,000 envíos/mes
+   - Perfecto para empezar
+
+4. Todos los contactos pre-cargados son datos de ejemplo
+   - Los puedes usar para probar
+   - Luego agrega tus propios contactos
+
+
+═════════════════════════════════════════════════════════════════
+AYUDA RÁPIDA
+═════════════════════════════════════════════════════════════════
+
+Error: "servidor no iniciado"
+→ Abre terminal, ejecuta: npm start
+
+Error: Mailchimp no conecta
+→ Verifica: API Key, Server Prefix, Audience ID
+→ Haz clic en "Guardar y Probar Conexión"
+
+¿Dónde están mis datos?
+→ En el navegador (localStorage)
+→ Backup con "Exportar JSON"
+
+¿Cómo envío emails?
+→ Copia el email desde "Emails de Captación"
+→ Pégalo en Gmail o tu cliente de email
+→ O sincroniza a Mailchimp para envío automático
+
+
+═════════════════════════════════════════════════════════════════
+
+¡Listo! Comienza prospectando en el Prospector.
+
+Preguntas: Abre la consola del navegador (F12) para ver errores.
+
+═════════════════════════════════════════════════════════════════
