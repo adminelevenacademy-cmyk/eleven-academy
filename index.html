@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eleven Academy - Captacion</title>
+<title>Eleven Academy - Dashboard</title>
+<script>
+// Verificar login
+if (!localStorage.getItem('eleven_user')) {
+  window.location.href = './app.html';
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -198,8 +204,10 @@ Ajustes
 <h1 id="pageTitle">Dashboard</h1>
 </div>
 <div class="topbar-actions">
+<span style="font-size:12px;color:var(--text2)">👤 <span id="userEmail"></span></span>
 <button class="btn btn-sm" onclick="exportData()" title="Exportar datos">Exportar</button>
 <button class="btn btn-gold btn-sm" onclick="openAddLeadModal()">+ Nuevo Lead</button>
+<button class="btn btn-sm" onclick="logout()" title="Cerrar sesión" style="color:#e74c3c">Logout</button>
 </div>
 </div>
 <div class="content">
@@ -1559,6 +1567,18 @@ const d = document.createElement('div');
 d.textContent = s;
 return d.innerHTML;
 }
+
+// ============================= AUTH =============================
+function logout() {
+if (confirm('¿Cerrar sesión?')) {
+  localStorage.removeItem('eleven_user');
+  localStorage.removeItem('eleven_session');
+  window.location.href = './app.html';
+}
+}
+
+// Mostrar email del usuario
+document.getElementById('userEmail').textContent = localStorage.getItem('eleven_user') || 'Usuario';
 
 // ============================= INIT =============================
 loadState();
