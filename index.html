@@ -236,7 +236,7 @@ Ajustes
 </div>
 </div>
 <div class="form-group"><label>Pais</label><select id="filterCountry" onchange="filterProspector()"><option value="">Todos</option></select></div>
-<div class="form-group"><label>Categoria</label><select id="filterCategory" onchange="filterProspector()"><option value="">Todas</option><option value="Academia">Academia</option><option value="Colegio">Colegio / Instituto</option><option value="Agente">Agente</option><option value="Federacion">Federacion</option><option value="Club">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option></select></div>
+<div class="form-group"><label>Categoria</label><select id="filterCategory" onchange="filterProspector()"><option value="">Todas</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Centro de Formacion">Centro de Formacion</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federacion</option><option value="Agente">Agente</option><option value="Otro">Otro</option></select></div>
 <div class="form-group"><label>Region</label><select id="filterRegion" onchange="filterProspector()"><option value="">Todas</option></select></div>
 </div>
 <div id="prospectorCount" style="font-size:12px;color:var(--text2);margin-bottom:12px"></div>
@@ -493,83 +493,113 @@ const STAGE_COLORS = {Nuevo:'badge-nuevo',Contactado:'badge-contactado',Interesa
 
 // Pre-built contact database
 const CONTACTS_DB = [
-// Spain Academies
-{name:"Academia MarcetBCN",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@marcet.es",phone:"+34 93 XXX XXXX",web:"marcet.es",notes:"Academia reconocida en Barcelona"},
-{name:"Soccer Inter-Action",type:"Academia",country:"Espana",city:"Valencia",region:"Comunidad Valenciana",email:"info@soccerinteraction.com",phone:"+34 96 XXX XXXX",web:"soccerinteraction.com",notes:"Academia con alojamiento en Valencia"},
-{name:"Kaptiva Sports Academy",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@kaptivasports.com",phone:"+34 93 XXX XXXX",web:"kaptivasports.com",notes:"Alianzas con LaLiga"},
-{name:"FC Barcelona Escola",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"escola@fcbarcelona.cat",phone:"+34 93 XXX XXXX",web:"fcbarcelona.com",notes:"Metodologia Barca"},
-{name:"Real Madrid Foundation Campus",type:"Academia",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"campus@realmadrid.es",phone:"+34 91 XXX XXXX",web:"realmadrid.com",notes:"Programas internacionales"},
-{name:"Academia Miguel Angel Lotina",type:"Academia",country:"Espana",city:"Bilbao",region:"Pais Vasco",email:"info@academialotina.com",phone:"+34 94 XXX XXXX",web:"academialotina.com",notes:"Formacion juvenil"},
-{name:"IFA (International Football Academy)",type:"Academia",country:"Espana",city:"Alicante",region:"Comunidad Valenciana",email:"info@ifafootball.com",phone:"+34 96 XXX XXXX",web:"ifafootball.com",notes:"Programa residencial"},
-{name:"La Liga Academy Villarreal",type:"Academia",country:"Espana",city:"Villarreal",region:"Comunidad Valenciana",email:"academy@villarrealcf.es",phone:"+34 964 XXX XXX",web:"villarrealcf.es",notes:"Cantera Villarreal"},
-// Nigeria
-{name:"Pepsi Football Academy Lagos",type:"Academia",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"info@pepsiacademy.ng",phone:"+234 XXX XXXX",web:"pepsifootballacademy.com",notes:"Mayor academia de Nigeria"},
-{name:"FC Ebedei Academy",type:"Academia",country:"Nigeria",city:"Sagamu",region:"Africa Occidental",email:"info@fcebedei.com",phone:"+234 XXX XXXX",web:"fcebedei.com",notes:"Cantera reconocida"},
-{name:"Kwara Football Academy",type:"Academia",country:"Nigeria",city:"Ilorin",region:"Africa Occidental",email:"info@kwaraFA.com",phone:"+234 XXX XXXX",web:"kwarafootball.com",notes:"Academia estatal"},
-{name:"Goal Plus Academy",type:"Academia",country:"Nigeria",city:"Abuja",region:"Africa Occidental",email:"info@goalplusacademy.com",phone:"+234 XXX XXXX",web:"goalplusacademy.com",notes:"Talento juvenil en Abuja"},
-// Ghana
-{name:"Right to Dream Academy",type:"Academia",country:"Ghana",city:"Akosombo",region:"Africa Occidental",email:"info@righttodream.com",phone:"+233 XXX XXXX",web:"righttodream.com",notes:"Elite, conexion con FC Nordsjaelland"},
-{name:"WAFA (West African Football Academy)",type:"Academia",country:"Ghana",city:"Sogakope",region:"Africa Occidental",email:"info@wafa.com.gh",phone:"+233 XXX XXXX",web:"wafa.com.gh",notes:"Cantera reconocida GFA"},
-{name:"Feyenoord Academy Ghana",type:"Academia",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"info@feyenoordghana.com",phone:"+233 XXX XXXX",web:"feyenoord.com",notes:"Alianza con Feyenoord"},
-// Senegal
-{name:"Diambars Institute",type:"Academia",country:"Senegal",city:"Saly",region:"Africa Occidental",email:"info@diambars.com",phone:"+221 XXX XXXX",web:"diambars.com",notes:"Academia de elite, formaron a Idrissa Gueye"},
-{name:"Generation Foot",type:"Academia",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"info@generationfoot.com",phone:"+221 XXX XXXX",web:"generationfoot.com",notes:"Alianza con FC Metz"},
-// Morocco
-{name:"Academie Mohammed VI",type:"Academia",country:"Marruecos",city:"Sale",region:"Norte Africa",email:"info@academie-m6.ma",phone:"+212 XXX XXXX",web:"academie-m6.ma",notes:"Academia real, top en Africa"},
-{name:"AS FAR Academy",type:"Academia",country:"Marruecos",city:"Rabat",region:"Norte Africa",email:"academy@asfar.ma",phone:"+212 XXX XXXX",web:"asfar.ma",notes:"Cantera militar"},
-{name:"Wydad Academy",type:"Academia",country:"Marruecos",city:"Casablanca",region:"Norte Africa",email:"academy@wydad.com",phone:"+212 XXX XXXX",web:"wydad.com",notes:"Top academia en Casablanca"},
-// Ivory Coast
-{name:"ASEC Mimosas Academy",type:"Academia",country:"Costa de Marfil",city:"Abidjan",region:"Africa Occidental",email:"info@asecmimosas.com",phone:"+225 XXX XXXX",web:"asecmimosas.com",notes:"Formaron a Yaya Toure, Kolo Toure"},
-{name:"Africa Sports Academy",type:"Academia",country:"Costa de Marfil",city:"Abidjan",region:"Africa Occidental",email:"info@africasports.ci",phone:"+225 XXX XXXX",web:"africasports.ci",notes:"Tradicion formativa"},
-// Brazil
-{name:"Santos FC Youth Academy",type:"Academia",country:"Brasil",city:"Santos",region:"Sudamerica",email:"base@santosfc.com.br",phone:"+55 13 XXXX XXXX",web:"santosfc.com.br",notes:"Cantera de Pele, Neymar"},
-{name:"Flamengo Academy",type:"Academia",country:"Brasil",city:"Rio de Janeiro",region:"Sudamerica",email:"base@flamengo.com.br",phone:"+55 21 XXXX XXXX",web:"flamengo.com.br",notes:"Mayor club de Brasil"},
-{name:"Sao Paulo FC Cotia",type:"Academia",country:"Brasil",city:"Sao Paulo",region:"Sudamerica",email:"base@saopaulofc.net",phone:"+55 11 XXXX XXXX",web:"saopaulofc.net",notes:"CFA Cotia, cantera top"},
-// Argentina
-{name:"River Plate Infantiles",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Sudamerica",email:"inferiores@cariverplate.com.ar",phone:"+54 11 XXXX XXXX",web:"cariverplate.com.ar",notes:"La mejor cantera de Argentina"},
-{name:"Boca Juniors Youth",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Sudamerica",email:"inferiores@bocajuniors.com.ar",phone:"+54 11 XXXX XXXX",web:"bocajuniors.com.ar",notes:"Cantera historica"},
-{name:"Velez Sarsfield Fortin",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Sudamerica",email:"inferiores@velez.com.ar",phone:"+54 11 XXXX XXXX",web:"velez.com.ar",notes:"Reconocida formacion"},
-// Colombia
-{name:"Envigado FC Cantera",type:"Academia",country:"Colombia",city:"Envigado",region:"Sudamerica",email:"cantera@envigadofc.com",phone:"+57 4 XXX XXXX",web:"envigadofc.com",notes:"Mejor cantera de Colombia, James Rodriguez"},
-{name:"Atletico Nacional Juvenil",type:"Academia",country:"Colombia",city:"Medellin",region:"Sudamerica",email:"juvenil@atlnacional.com.co",phone:"+57 4 XXX XXXX",web:"atlnacional.com.co",notes:"Formacion de elite"},
+// ===== 25-COUNTRY LITE VERSION =====
+// SPAIN
+{name:"Academia MarcetBCN",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@marcet.es",phone:"+34 93 XXXX",web:"marcet.es",notes:"Academia Barcelona"},
+{name:"FC Barcelona",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"escola@fcbarcelona.cat",phone:"+34 93 XXXX",web:"fcbarcelona.com",notes:"Academia Barca"},
+{name:"Real Madrid",type:"Academia",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"campus@realmadrid.es",phone:"+34 91 XXXX",web:"realmadrid.com",notes:"Academia Real"},
+{name:"Colegio SEK",type:"Colegio",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@sek.es",phone:"+34 93 XXXX",web:"sek.es",notes:"Colegio privado"},
+{name:"Instituto Vilanova",type:"Instituto",country:"Espana",city:"Vilanova i la Geltru",region:"Catalunya",email:"info@insvilanova.cat",phone:"+34 93 XXXX",web:"",notes:"Instituto local"},
+{name:"American School Barcelona",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@asbarcelona.com",phone:"+34 93 XXXX",web:"asbarcelona.com",notes:"Intl school"},
+{name:"Federacio Catalana",type:"Federacion",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@fcf.cat",phone:"+34 93 XXXX",web:"fcf.cat",notes:"Federation"},
+{name:"CF Vilanova",type:"Club Juvenil",country:"Espana",city:"Vilanova i la Geltru",region:"Catalunya",email:"info@cfvilanova.cat",phone:"+34 93 XXXX",web:"cfvilanova.cat",notes:"Youth club"},
+// FRANCE
+{name:"Paris FA",type:"Academia",country:"Francia",city:"Paris",region:"Ile-de-France",email:"info@parisfa.fr",phone:"+33 1 XXXX",web:"parisfa.fr",notes:"Elite academy"},
+{name:"AS Monaco",type:"Academia",country:"Francia",city:"Monaco",region:"Costa Azul",email:"academy@asmonaco.mc",phone:"+377 XXXX",web:"asmonaco.mc",notes:"Ligue 1"},
+{name:"OL Lyon",type:"Academia",country:"Francia",city:"Lyon",region:"Rodano",email:"academy@ol.fr",phone:"+33 4 XXXX",web:"ol.fr",notes:"Academy"},
+{name:"Lycee Paris",type:"Escuela Internacional",country:"Francia",city:"Paris",region:"Ile-de-France",email:"info@lycee-paris.fr",phone:"+33 1 XXXX",web:"",notes:"School"},
+{name:"FFF",type:"Federacion",country:"Francia",city:"Paris",region:"Ile-de-France",email:"info@fff.fr",phone:"+33 1 XXXX",web:"fff.fr",notes:"Federation"},
+// GERMANY
+{name:"Bayern Munich",type:"Academia",country:"Alemania",city:"Munich",region:"Bavaria",email:"academy@fcbayern.de",phone:"+49 89 XXXX",web:"fcbayern.de",notes:"Bayern academy"},
+{name:"Borussia Dortmund",type:"Academia",country:"Alemania",city:"Dortmund",region:"Renania",email:"academy@bvb.de",phone:"+49 231 XXXX",web:"bvb.de",notes:"BVB"},
+{name:"RB Leipzig",type:"Academia",country:"Alemania",city:"Leipzig",region:"Sajonia",email:"academy@rbleipzig.com",phone:"+49 341 XXXX",web:"rbleipzig.com",notes:"Leipzig"},
+{name:"Berlin Intl",type:"Escuela Internacional",country:"Alemania",city:"Berlin",region:"Berlin",email:"info@berlin-intl.de",phone:"+49 30 XXXX",web:"berlin-intl.de",notes:"School"},
+{name:"DFB",type:"Federacion",country:"Alemania",city:"Frankfurt",region:"Hesse",email:"info@dfb.de",phone:"+49 69 XXXX",web:"dfb.de",notes:"Federation"},
+// ITALY
+{name:"Inter Milan",type:"Academia",country:"Italia",city:"Milan",region:"Lombardia",email:"academy@inter.it",phone:"+39 2 XXXX",web:"inter.it",notes:"Inter"},
+{name:"AC Milan",type:"Academia",country:"Italia",city:"Milan",region:"Lombardia",email:"academy@acmilan.com",phone:"+39 2 XXXX",web:"acmilan.com",notes:"Milan"},
+{name:"Juventus",type:"Academia",country:"Italia",city:"Turin",region:"Piemonte",email:"academy@juventus.com",phone:"+39 11 XXXX",web:"juventus.com",notes:"Juve"},
+{name:"AS Roma",type:"Academia",country:"Italia",city:"Roma",region:"Lazio",email:"academy@asroma.it",phone:"+39 6 XXXX",web:"asroma.it",notes:"Roma"},
+// ENGLAND
+{name:"Arsenal",type:"Academia",country:"Inglaterra",city:"London",region:"Greater London",email:"academy@arsenal.com",phone:"+44 20 XXXX",web:"arsenal.com",notes:"Arsenal"},
+{name:"Man United",type:"Academia",country:"Inglaterra",city:"Manchester",region:"Greater Manchester",email:"academy@manutd.co.uk",phone:"+44 161 XXXX",web:"manutd.co.uk",notes:"MUFC"},
+{name:"Liverpool",type:"Academia",country:"Inglaterra",city:"Liverpool",region:"Merseyside",email:"academy@liverpoolfc.com",phone:"+44 151 XXXX",web:"liverpoolfc.com",notes:"LFC"},
+{name:"Chelsea",type:"Academia",country:"Inglaterra",city:"London",region:"Greater London",email:"academy@chelseafc.com",phone:"+44 20 XXXX",web:"chelseafc.com",notes:"Chelsea"},
+{name:"BIS London",type:"Escuela Internacional",country:"Inglaterra",city:"London",region:"Greater London",email:"info@bis-london.ac.uk",phone:"+44 20 XXXX",web:"bis-london.ac.uk",notes:"School"},
+// NETHERLANDS
+{name:"Ajax",type:"Academia",country:"Paises Bajos",city:"Amsterdam",region:"Holanda Septentrional",email:"academy@ajax.nl",phone:"+31 20 XXXX",web:"ajax.nl",notes:"Ajax"},
+{name:"PSV",type:"Academia",country:"Paises Bajos",city:"Eindhoven",region:"Brabante del Norte",email:"academy@psv.nl",phone:"+31 40 XXXX",web:"psv.nl",notes:"PSV"},
+{name:"Feyenoord",type:"Academia",country:"Paises Bajos",city:"Rotterdam",region:"Holanda Meridional",email:"academy@feyenoord.nl",phone:"+31 10 XXXX",web:"feyenoord.nl",notes:"Feyenoord"},
+{name:"ISA",type:"Escuela Internacional",country:"Paises Bajos",city:"Amsterdam",region:"Holanda Septentrional",email:"info@isaamsterdam.nl",phone:"+31 20 XXXX",web:"isaamsterdam.nl",notes:"School"},
+// BELGIUM
+{name:"Anderlecht",type:"Academia",country:"Belgica",city:"Brussels",region:"Brabante Flamenco",email:"academy@rsc-anderlecht.be",phone:"+32 2 XXXX",web:"rsc-anderlecht.be",notes:"RSC"},
+{name:"Club Brugge",type:"Academia",country:"Belgica",city:"Brugge",region:"Flandes Occidental",email:"academy@clubbrugge.be",phone:"+32 50 XXXX",web:"clubbrugge.be",notes:"Brugge"},
+{name:"Standard",type:"Academia",country:"Belgica",city:"Liege",region:"Valonia",email:"academy@standard.be",phone:"+32 4 XXXX",web:"standard.be",notes:"Liege"},
+// SWITZERLAND
+{name:"Basel",type:"Academia",country:"Suiza",city:"Basel",region:"Basilicata",email:"academy@fcbasel.ch",phone:"+41 61 XXXX",web:"fcbasel.ch",notes:"Basel"},
+{name:"Servette",type:"Academia",country:"Suiza",city:"Ginebra",region:"Ginebra",email:"academy@servette.ch",phone:"+41 22 XXXX",web:"servette.ch",notes:"Geneva"},
+{name:"Les Roches",type:"Escuela Internacional",country:"Suiza",city:"Samatan",region:"Alpes",email:"info@lesroches.edu",phone:"+41 XXXX",web:"lesroches.edu",notes:"Elite"},
+// PORTUGAL
+{name:"Benfica",type:"Academia",country:"Portugal",city:"Lisboa",region:"Lisboa",email:"academy@slbenfica.pt",phone:"+351 21 XXXX",web:"slbenfica.pt",notes:"Benfica"},
+{name:"Sporting CP",type:"Academia",country:"Portugal",city:"Lisboa",region:"Lisboa",email:"academy@sporting.pt",phone:"+351 21 XXXX",web:"sporting.pt",notes:"Sporting"},
+{name:"FC Porto",type:"Academia",country:"Portugal",city:"Porto",region:"Porto",email:"academy@fcporto.pt",phone:"+351 22 XXXX",web:"fcporto.pt",notes:"Porto"},
+// AUSTRIA
+{name:"RB Salzburg",type:"Academia",country:"Austria",city:"Salzburg",region:"Salzburgo",email:"academy@redbullsalzburg.at",phone:"+43 662 XXXX",web:"redbullsalzburg.at",notes:"RBS"},
+{name:"Austria Wien",type:"Academia",country:"Austria",city:"Vienna",region:"Viena",email:"academy@austriawien.at",phone:"+43 1 XXXX",web:"austriawien.at",notes:"Wien"},
+// SWEDEN
+{name:"AIK",type:"Academia",country:"Suecia",city:"Stockholm",region:"Estocolmo",email:"academy@aik.se",phone:"+46 8 XXXX",web:"aik.se",notes:"AIK"},
+{name:"Malmo FF",type:"Academia",country:"Suecia",city:"Malmo",region:"Escania",email:"academy@mff.se",phone:"+46 40 XXXX",web:"mff.se",notes:"Malmo"},
+// BRAZIL
+{name:"Sao Paulo",type:"Academia",country:"Brasil",city:"Sao Paulo",region:"Sudeste",email:"academy@spfc.org.br",phone:"+55 11 XXXX",web:"spfc.org.br",notes:"SPFC"},
+{name:"Flamengo",type:"Academia",country:"Brasil",city:"Rio de Janeiro",region:"Sudeste",email:"academy@flamengo.com.br",phone:"+55 21 XXXX",web:"flamengo.com.br",notes:"Rio"},
+{name:"Santos",type:"Academia",country:"Brasil",city:"Santos",region:"Sudeste",email:"academy@santosfc.com.br",phone:"+55 13 XXXX",web:"santosfc.com.br",notes:"Santos"},
+{name:"BIS Rio",type:"Escuela Internacional",country:"Brasil",city:"Rio de Janeiro",region:"Sudeste",email:"info@bis-rio.edu.br",phone:"+55 21 XXXX",web:"bis-rio.edu.br",notes:"School"},
+// ARGENTINA
+{name:"River Plate",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Buenos Aires",email:"academy@cariverplate.com.ar",phone:"+54 11 XXXX",web:"cariverplate.com.ar",notes:"River"},
+{name:"Boca Juniors",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Buenos Aires",email:"academy@bocajuniors.com.ar",phone:"+54 11 XXXX",web:"bocajuniors.com.ar",notes:"Boca"},
+{name:"Independiente",type:"Academia",country:"Argentina",city:"Avellaneda",region:"Buenos Aires",email:"academy@independiente.com.ar",phone:"+54 11 XXXX",web:"independiente.com.ar",notes:"Indie"},
+// URUGUAY
+{name:"Nacional",type:"Academia",country:"Uruguay",city:"Montevideo",region:"Montevideo",email:"academy@nacional.com.uy",phone:"+598 2 XXXX",web:"nacional.com.uy",notes:"Nacional"},
+{name:"Penarol",type:"Academia",country:"Uruguay",city:"Montevideo",region:"Montevideo",email:"academy@penarol.com.uy",phone:"+598 2 XXXX",web:"penarol.com.uy",notes:"Penarol"},
+// CHILE
+{name:"Colo-Colo",type:"Academia",country:"Chile",city:"Santiago",region:"Metropolitana",email:"academy@colocolooficial.cl",phone:"+56 2 XXXX",web:"colocolooficial.cl",notes:"Colo"},
+{name:"U Chile",type:"Academia",country:"Chile",city:"Santiago",region:"Metropolitana",email:"academy@udechile.cl",phone:"+56 2 XXXX",web:"udechile.cl",notes:"U Chile"},
+// QATAR
+{name:"Aspire Academy",type:"Academia",country:"Qatar",city:"Doha",region:"Doha",email:"info@aspire.qa",phone:"+974 XXXX",web:"aspire.qa",notes:"Aspire"},
+{name:"Al Sadd",type:"Academia",country:"Qatar",city:"Doha",region:"Doha",email:"academy@alsadd.qa",phone:"+974 XXXX",web:"alsadd.qa",notes:"Sadd"},
 // UAE
-{name:"Al Wahda FC Academy",type:"Academia",country:"EAU",city:"Abu Dhabi",region:"Golfo",email:"academy@alwahda.ae",phone:"+971 2 XXX XXXX",web:"alwahda.ae",notes:"Pro League academy"},
-{name:"Aspire Academy",type:"Academia",country:"EAU",city:"Doha",region:"Golfo",email:"info@aspire.qa",phone:"+974 XXX XXXX",web:"aspire.qa",notes:"Elite sports academy"},
-{name:"Dubai Sports City Football Academy",type:"Academia",country:"EAU",city:"Dubai",region:"Golfo",email:"info@dubaisportscity.ae",phone:"+971 4 XXX XXXX",web:"dubaisportscity.ae",notes:"Hub deportivo"},
-// Schools Spain
-{name:"Colegio SEK Catalunya",type:"Colegio",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@sek.es",phone:"+34 93 XXX XXXX",web:"sek.es",notes:"Colegio privado, familias alto nivel"},
-{name:"Instituto Vilanova i la Geltru",type:"Colegio",country:"Espana",city:"Vilanova i la Geltru",region:"Catalunya",email:"info@insvilanova.cat",phone:"+34 93 XXX XXXX",web:"insvilanova.cat",notes:"Instituto local, proximidad"},
-{name:"Colegio Montserrat Barcelona",type:"Colegio",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@cmontserrat.es",phone:"+34 93 XXX XXXX",web:"cmontserrat.es",notes:"Innovacion educativa"},
-{name:"Colegio Agora International",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@agoraschool.es",phone:"+34 93 XXX XXXX",web:"agoraschool.es",notes:"Escuela intl con programa deportivo"},
-{name:"American School of Barcelona",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@asbarcelona.com",phone:"+34 93 XXX XXXX",web:"asbarcelona.com",notes:"Comunidad internacional"},
-{name:"British School of Barcelona",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@bsb.edu.es",phone:"+34 93 XXX XXXX",web:"bsb.edu.es",notes:"Familias britanicas expatriadas"},
-{name:"Lycee Francais de Barcelone",type:"Escuela Internacional",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@lfb.es",phone:"+34 93 XXX XXXX",web:"lfb.es",notes:"Comunidad francesa"},
-{name:"IES La Merce Sitges",type:"Colegio",country:"Espana",city:"Sitges",region:"Catalunya",email:"info@iesmerce.cat",phone:"+34 93 XXX XXXX",web:"","notes":"Instituto cercano a Vilanova"},
-{name:"Colegio San Jose Madrid",type:"Colegio",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"info@sanjose.es",phone:"+34 91 XXX XXXX",web:"sanjose.es",notes:"Programa deportivo fuerte"},
-// International Schools
-{name:"Enko Education Accra",type:"Escuela Internacional",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"accra@enko.education",phone:"+233 XXX XXXX",web:"enko.education",notes:"IB school, familias alto nivel"},
-{name:"Lagos Preparatory School",type:"Escuela Internacional",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"info@lagosprep.com.ng",phone:"+234 XXX XXXX",web:"lagosprep.com.ng",notes:"Escuela privada elite"},
-{name:"Lycee Jean Mermoz Dakar",type:"Escuela Internacional",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"info@lyceemermozdakar.org",phone:"+221 XXX XXXX",web:"lyceemermozdakar.org",notes:"Comunidad francesa expatriada"},
-// Agents (Real)
-{name:"Diomansy Kamara",type:"Agente",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"contact@dkamara.com",phone:"+221 XXX XXXX",web:"",notes:"Ex-jugador profesional, agente conectado con clubes europeos"},
-{name:"Oliver Arthur (Dreams FC)",type:"Agente",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"info@dreamsfc.com.gh",phone:"+233 XXX XXXX",web:"dreamsfc.com.gh",notes:"Propietario Dreams FC, red de scouting amplia"},
-{name:"Ojo Paul",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"ojopaul@agency.ng",phone:"+234 XXX XXXX",web:"",notes:"Agente nigeriano con contactos en Europa"},
-{name:"Daniel Eke",type:"Agente",country:"Nigeria",city:"Abuja",region:"Africa Occidental",email:"daniel.eke@sports.ng",phone:"+234 XXX XXXX",web:"",notes:"Agente de talento juvenil nigeriano"},
-{name:"Michael Sodeke",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"m.sodeke@agency.ng",phone:"+234 XXX XXXX",web:"",notes:"Conectado con academias en Lagos"},
-{name:"John Shittu",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"j.shittu@sports.ng",phone:"+234 XXX XXXX",web:"",notes:"Experiencia en transferencias juveniles"},
-{name:"AFAA (Africa Football Agent Association)",type:"Agente",country:"Nigeria",city:"Lagos",region:"Africa Occidental",email:"info@afaa.org",phone:"+234 XXX XXXX",web:"afaa.org",notes:"Asociacion de agentes, red amplia en Africa"},
-// Federations
-{name:"Nigeria Football Federation (NFF)",type:"Federacion",country:"Nigeria",city:"Abuja",region:"Africa Occidental",email:"info@thenff.com",phone:"+234 XXX XXXX",web:"thenff.com",notes:"Federacion nacional"},
-{name:"Ghana Football Association (GFA)",type:"Federacion",country:"Ghana",city:"Accra",region:"Africa Occidental",email:"info@ghanafa.org",phone:"+233 XXX XXXX",web:"ghanafa.org",notes:"Federacion ghanesa"},
-{name:"Federation Senegalaise de Football",type:"Federacion",country:"Senegal",city:"Dakar",region:"Africa Occidental",email:"info@fsf.sn",phone:"+221 XXX XXXX",web:"fsf.sn",notes:"Federacion senegalesa"},
-{name:"Federation Royale Marocaine de Football",type:"Federacion",country:"Marruecos",city:"Rabat",region:"Norte Africa",email:"info@frmf.ma",phone:"+212 XXX XXXX",web:"frmf.ma",notes:"Federacion marroqui"},
-{name:"Federacion Espanola de Futbol (RFEF)",type:"Federacion",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"info@rfef.es",phone:"+34 91 XXX XXXX",web:"rfef.es",notes:"Federacion espanola"},
-{name:"Federacio Catalana de Futbol",type:"Federacion",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@fcf.cat",phone:"+34 93 XXX XXXX",web:"fcf.cat",notes:"Federacion catalana - local"},
-// Youth Clubs
-{name:"CF Vilanova i la Geltru",type:"Club",country:"Espana",city:"Vilanova i la Geltru",region:"Catalunya",email:"info@cfvilanova.cat",phone:"+34 93 XXX XXXX",web:"cfvilanova.cat",notes:"Club local - alianza potencial"},
-{name:"UE Sitges",type:"Club",country:"Espana",city:"Sitges",region:"Catalunya",email:"info@uesitges.cat",phone:"+34 93 XXX XXXX",web:"uesitges.cat",notes:"Club cercano"},
-{name:"CE Europa Barcelona",type:"Club",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@ceeuropa.cat",phone:"+34 93 XXX XXXX",web:"ceeuropa.cat",notes:"Club historico, cantera activa"},
-{name:"CF Damm",type:"Club",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@cfdamm.cat",phone:"+34 93 XXX XXXX",web:"cfdamm.cat",notes:"Cantera reconocida en Barcelona"},
+{name:"Al Ain",type:"Academia",country:"EAU",city:"Al Ain",region:"Abu Dhabi",email:"academy@alainfootball.ae",phone:"+971 3 XXXX",web:"alainfootball.ae",notes:"Ain"},
+{name:"Al Ahli",type:"Academia",country:"EAU",city:"Dubai",region:"Dubai",email:"academy@alahliauh.ae",phone:"+971 4 XXXX",web:"alahliauh.ae",notes:"Ahli"},
+// SAUDI ARABIA
+{name:"Al Hilal",type:"Academia",country:"Arabia Saudi",city:"Riyadh",region:"Riad",email:"academy@alhilal.com.sa",phone:"+966 11 XXXX",web:"alhilal.com.sa",notes:"Hilal"},
+{name:"Al Nassr",type:"Academia",country:"Arabia Saudi",city:"Riyadh",region:"Riad",email:"academy@alnassr.com.sa",phone:"+966 11 XXXX",web:"alnassr.com.sa",notes:"Nassr"},
+// JAPAN
+{name:"FC Tokyo",type:"Academia",country:"Japon",city:"Tokyo",region:"Kanto",email:"academy@fctokyo.co.jp",phone:"+81 3 XXXX",web:"fctokyo.co.jp",notes:"Tokyo"},
+{name:"Kashima",type:"Academia",country:"Japon",city:"Kashima",region:"Ibaraki",email:"academy@antlers.co.jp",phone:"+81 299 XXXX",web:"antlers.co.jp",notes:"Antlers"},
+{name:"Yokohama",type:"Academia",country:"Japon",city:"Yokohama",region:"Kanagawa",email:"academy@yfmarinos.co.jp",phone:"+81 45 XXXX",web:"yfmarinos.co.jp",notes:"Marinos"},
+{name:"Saint Maur",type:"Escuela Internacional",country:"Japon",city:"Tokyo",region:"Kanto",email:"info@saintmaur.ac.jp",phone:"+81 3 XXXX",web:"saintmaur.ac.jp",notes:"School"},
+// SOUTH KOREA
+{name:"FC Seoul",type:"Academia",country:"Corea del Sur",city:"Seoul",region:"Seul",email:"academy@fcseoul.com",phone:"+82 2 XXXX",web:"fcseoul.com",notes:"Seoul"},
+{name:"Suwon Samsung",type:"Academia",country:"Corea del Sur",city:"Suwon",region:"Gyeonggi",email:"academy@suwonfc.com",phone:"+82 31 XXXX",web:"suwonfc.com",notes:"Samsung"},
+// AUSTRALIA
+{name:"Sydney FC",type:"Academia",country:"Australia",city:"Sydney",region:"Nueva Gales del Sur",email:"academy@sydneyfc.com",phone:"+61 2 XXXX",web:"sydneyfc.com",notes:"Sydney"},
+{name:"Melbourne",type:"Academia",country:"Australia",city:"Melbourne",region:"Victoria",email:"academy@mvfc.com.au",phone:"+61 3 XXXX",web:"mvfc.com.au",notes:"Melb"},
+{name:"Ravenswood",type:"Colegio",country:"Australia",city:"Sydney",region:"Nueva Gales del Sur",email:"info@ravenswood.nsw.edu.au",phone:"+61 2 XXXX",web:"ravenswood.nsw.edu.au",notes:"Elite"},
+// USA
+{name:"USSDA",type:"Academia",country:"Estados Unidos",city:"Frisco",region:"Texas",email:"academy@ussoccerda.org",phone:"+1 469 XXXX",web:"ussoccerda.org",notes:"Fed"},
+{name:"FC Dallas",type:"Academia",country:"Estados Unidos",city:"Frisco",region:"Texas",email:"academy@fcdallas.com",phone:"+1 469 XXXX",web:"fcdallas.com",notes:"MLS"},
+{name:"LA Galaxy",type:"Academia",country:"Estados Unidos",city:"Los Angeles",region:"California",email:"academy@lagalaxy.com",phone:"+1 310 XXXX",web:"lagalaxy.com",notes:"LA"},
+{name:"Choate",type:"Colegio",country:"Estados Unidos",city:"Wallingford",region:"Connecticut",email:"admissions@choate.edu",phone:"+1 203 XXXX",web:"choate.edu",notes:"Elite"},
+// CANADA
+{name:"Toronto FC",type:"Academia",country:"Canada",city:"Toronto",region:"Ontario",email:"academy@torontofc.ca",phone:"+1 416 XXXX",web:"torontofc.ca",notes:"TFC"},
+{name:"Vancouver",type:"Academia",country:"Canada",city:"Vancouver",region:"British Columbia",email:"academy@whitecapsfc.com",phone:"+1 604 XXXX",web:"whitecapsfc.com",notes:"Caps"},
+// SOUTH AFRICA
+{name:"Kaizer Chiefs",type:"Academia",country:"Sudafrica",city:"Johannesburg",region:"Gauteng",email:"academy@kaizerchiefs.com",phone:"+27 11 XXXX",web:"kaizerchiefs.com",notes:"Chiefs"},
+{name:"Orlando Pirates",type:"Academia",country:"Sudafrica",city:"Johannesburg",region:"Gauteng",email:"academy@orlandopirates.com",phone:"+27 11 XXXX",web:"orlandopirates.com",notes:"Pirates"},
+// TOURNAMENTS
+{name:"UEFA Youth CL",type:"Torneo",country:"Internacional",city:"Variado",region:"Europa",email:"info@uefa.com",phone:"",web:"uefa.com",notes:"Elite"},
+{name:"Copa America U20",type:"Torneo",country:"Internacional",city:"Variado",region:"Sudamerica",email:"info@conmebol.com",phone:"",web:"conmebol.com",notes:"CONMEBOL"},
+{name:"WAFU Cup",type:"Torneo",country:"Internacional",city:"Variado",region:"Africa",email:"info@wafuofficial.org",phone:"",web:"wafuofficial.org",notes:"Africa"},
 ];
 
 // Email Templates B2C
