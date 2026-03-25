@@ -1,0 +1,119 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║            ✅ SISTEMA DE LOGIN IMPLEMENTADO                   ║
+║                                                                ║
+║        Email:     comunicacion@elevenacademy.pro              ║
+║        Password:  Eleven2026                                  ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+🚀 AHORA TIENES 2 FORMAS DE ACCEDER
+═════════════════════════════════════════════════════════════════
+
+OPCIÓN 1: LOCALMENTE (EN TU PC)
+───────────────────────────────
+1. Abre: app.html (doble clic)
+2. Login con:
+   Email: comunicacion@elevenacademy.pro
+   Contraseña: Eleven2026
+3. ¡Accedes a la app!
+
+
+OPCIÓN 2: EN INTERNET (VERCEL)
+───────────────────────────────
+Cuando despliegues en Vercel:
+
+1. Ve a: https://eleven-academy.vercel.app
+2. Login con:
+   Email: comunicacion@elevenacademy.pro
+   Contraseña: Eleven2026
+3. ¡Accedes desde cualquier lugar!
+
+
+═════════════════════════════════════════════════════════════════
+📋 CREDENCIALES
+═════════════════════════════════════════════════════════════════
+
+Usuario (Email):
+   comunicacion@elevenacademy.pro
+
+Contraseña:
+   Eleven2026
+
+(Puedes cambiarlas después editando app.html si quieres)
+
+
+═════════════════════════════════════════════════════════════════
+🔐 CARACTERÍSTICAS DE SEGURIDAD
+═════════════════════════════════════════════════════════════════
+
+✓ Sesión guardada en localStorage
+✓ Si cierras y abres de nuevo: sigue logueado
+✓ Botón "Logout" en la app para cerrar sesión
+✓ Los datos NO se sincronizan entre dispositivos (aún)
+✓ Cada PC/móvil tiene su propia copia de datos
+
+
+═════════════════════════════════════════════════════════════════
+📱 ¿QUIERES SINCRONIZAR DATOS EN LA NUBE?
+═════════════════════════════════════════════════════════════════
+
+Para que tus datos se sincronicen entre dispositivos:
+(Ejemplo: cambios en PC se ven en móvil)
+
+Necesito agregar:
+   ✓ Base de datos en la nube (Supabase, Firebase)
+   ✓ API para sincronizar datos
+   ✓ Backend real (Node.js en Vercel)
+
+¿Quieres que lo haga? Podría hacerlo en la próxima versión.
+
+
+═════════════════════════════════════════════════════════════════
+🌐 DESPLEGAR EN VERCEL
+═════════════════════════════════════════════════════════════════
+
+Cuando estés listo para poner la app en internet:
+
+1. Crea cuenta GitHub (si no la tienes)
+2. Sube el código a GitHub
+3. Conecta Vercel a GitHub
+4. ¡Despliega!
+
+Lee el archivo: DEPLOY_LINK.txt (pasos completos)
+
+Una vez desplegado:
+   URL: https://eleven-academy.vercel.app
+   Login con tus credenciales
+   ¡Acceso desde cualquier lugar!
+
+
+═════════════════════════════════════════════════════════════════
+✨ AHORA PRUEBA
+═════════════════════════════════════════════════════════════════
+
+Opción 1 - Test local:
+   1. Doble clic en: app.html
+   2. Login
+   3. ¡Funciona!
+
+Opción 2 - Desplegar en Vercel:
+   1. Sigue pasos en: DEPLOY_LINK.txt
+   2. Accede desde internet
+   3. ¡Funciona desde cualquier lado!
+
+
+═════════════════════════════════════════════════════════════════
+
+CREDENCIALES DE ACCESO:
+
+📧 Email:     comunicacion@elevenacademy.pro
+🔐 Password:  Eleven2026
+
+═════════════════════════════════════════════════════════════════
+
+Eleven Academy © 2026
+elevenacademy.pro
+
+═════════════════════════════════════════════════════════════════
