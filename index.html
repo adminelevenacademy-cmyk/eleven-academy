@@ -6,6 +6,7 @@
 <title>Eleven Academy - Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.38.4"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#F8F7F4;--sidebar-bg:#FFFFFF;--border:#E8E6E0;--card:#FFFFFF;--text:#1a1a1a;--text2:#6B6965;--gold:#C9A84C;--hover:#F3F1EC;--shadow:0 1px 3px rgba(0,0,0,0.08);--danger:#e74c3c;--success:#27ae60;--info:#3498db;--radius:8px}
@@ -476,6 +477,16 @@ Ajustes
 </div>
 
 <script>
+// ============================= SUPABASE CONFIG =============================
+const SUPABASE_URL = 'https://eazktktauhcbwtjwpwqy.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhemt0a3RhdWhjYnd0andwd3F5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0MzIzNzksImV4cCI6MjA5MDAwODM3OX0.Xajj7rZqpekufXcMxIanXu7HdvpMCYy-0kNG2OEZzvA';
+
+// Inicializar Supabase
+const { createClient } = window.supabase;
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+console.log('✓ Supabase conectado');
+
 // ============================= DATA =============================
 const STAGES = ['Nuevo','Contactado','Interesado','Negociacion','Inscrito'];
 const STAGE_COLORS = {Nuevo:'badge-nuevo',Contactado:'badge-contactado',Interesado:'badge-interesado',Negociacion:'badge-negociacion',Inscrito:'badge-inscrito'};
@@ -800,6 +811,56 @@ applyTheme();
 
 function saveState() {
 localStorage.setItem('eleven_state', JSON.stringify(state));
+// También guardar en Supabase (sincronización)
+syncToSupabase();
+}
+
+// Sincronizar leads a Supabase
+async function syncToSupabase() {
+try {
+  for (const lead of state.leads) {
+    const { data, error } = await supabase
+      .from('leads')
+      .upsert({
+        id: lead.id,
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        country: lead.country,
+        program: lead.program,
+        source: lead.source,
+        stage: lead.stage,
+        notes: lead.notes,
+        updated_at: new Date()
+      }, { onConflict: 'id' });
+
+    if (error) console.log('Sync error:', error);
+  }
+  console.log('✓ Datos sincronizados con Supabase');
+} catch(e) {
+  console.log('Sync error (no critical):', e.message);
+}
+}
+
+// Cargar leads desde Supabase
+async function loadFromSupabase() {
+try {
+  const { data, error } = await supabase
+    .from('leads')
+    .select('*');
+
+  if (error) throw error;
+
+  if (data && data.length > 0) {
+    state.leads = data;
+    saveState();
+    console.log('✓ Leads cargados desde Supabase:', data.length);
+    return true;
+  }
+} catch(e) {
+  console.log('Load error (using local):', e.message);
+  return false;
+}
 }
 
 function seedDemoLeads() {
@@ -1562,9 +1623,11 @@ return d.innerHTML;
 
 // ============================= INIT =============================
 loadState();
-initProspectorFilters();
-refreshDashboard();
-renderEmails();
+loadFromSupabase().then(() => {
+  initProspectorFilters();
+  refreshDashboard();
+  renderEmails();
+});
 </script>
 </body>
 </html>
