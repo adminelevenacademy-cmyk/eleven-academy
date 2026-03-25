@@ -1,0 +1,92 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║        ✅ SUPABASE INTEGRADO EN LA APP                        ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+🎉 ¡LISTO! LA APP YA ESTÁ CONECTADA CON SUPABASE
+
+Tu URL:    https://eazktktauhcbwtjwpwqy.supabase.co
+Tu Key:    eyJhbGci... (guardada en la app)
+
+
+═════════════════════════════════════════════════════════════════
+⚙️ PASO FINAL: CREAR LAS TABLAS EN SUPABASE
+═════════════════════════════════════════════════════════════════
+
+1. Ve a tu Supabase: https://supabase.com/dashboard/project/eazktktauhcbwtjwpwqy
+
+2. Click en: "SQL Editor" (izquierda)
+
+3. Click: "New Query"
+
+4. Copia TODO el contenido del archivo: supabase-init.sql
+
+5. Pégalo en el editor de SQL
+
+6. Click: "Run"
+
+7. ¡Listo! Las tablas están creadas
+
+
+═════════════════════════════════════════════════════════════════
+✨ AHORA TODO FUNCIONA
+═════════════════════════════════════════════════════════════════
+
+Cuando abras index.html:
+
+✅ La app se conecta automáticamente a Supabase
+✅ Todos tus leads se guardan en la nube
+✅ Se sincroniza automáticamente
+✅ Puedes acceder desde cualquier dispositivo
+✅ Los datos están seguros en servidores profesionales
+
+
+═════════════════════════════════════════════════════════════════
+🔄 CÓMO FUNCIONA LA SINCRONIZACIÓN
+═════════════════════════════════════════════════════════════════
+
+1. AGREGAS UN LEAD en la app
+   ↓
+2. Se guarda en localStorage (tu PC)
+   ↓
+3. Se sincroniza a Supabase (nube) automáticamente
+   ↓
+4. Si abres la app en otro dispositivo
+   ↓
+5. Los datos se cargan desde Supabase
+
+
+═════════════════════════════════════════════════════════════════
+📋 ARCHIVOS IMPORTANTES
+═════════════════════════════════════════════════════════════════
+
+- index.html: La app (YA INTEGRADA CON SUPABASE)
+- supabase-init.sql: El SQL para crear las tablas
+
+
+═════════════════════════════════════════════════════════════════
+🚀 PASOS FINALES
+═════════════════════════════════════════════════════════════════
+
+1. Abre Supabase: https://supabase.com/dashboard/project/eazktktauhcbwtjwpwqy
+
+2. SQL Editor → New Query
+
+3. Copia el contenido de supabase-init.sql
+
+4. Pégalo y haz click "Run"
+
+5. Abre index.html en tu PC
+
+6. ¡La app está lista! Todos tus datos se guardan en Supabase
+
+
+═════════════════════════════════════════════════════════════════
+
+ARCHIVO SQL: supabase-init.sql
+
+COMANDO: Copia → Pega en Supabase SQL Editor → Run
+
+═════════════════════════════════════════════════════════════════
