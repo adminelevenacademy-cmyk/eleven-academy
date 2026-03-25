@@ -219,49 +219,34 @@ Ajustes
 </div>
 <div class="card" style="margin-top:4px"><div class="card-title">Tendencia Mensual de Captacion</div><div class="chart-container"><canvas id="chartTrend"></canvas></div></div>
 <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-<button class="btn btn-gold" onclick="showSection('prospector')">Buscar Contactos</button>
-<button class="btn btn-gold" onclick="showSection('realsearch')">🔍 Búsqueda en Tiempo Real</button>
+<button class="btn btn-gold" onclick="showSection('search')">Buscar Contactos</button>
 <button class="btn" onclick="showSection('emails')">Enviar Campana</button>
 <button class="btn" onclick="showSection('crm')">Ver Pipeline</button>
 </div>
 </div>
 
-<!-- ==================== PROSPECTOR ==================== -->
-<div class="section" id="sec-prospector">
-<div class="filters">
-<div class="form-group" style="flex:2;min-width:250px">
-<label>Buscar</label>
-<div class="search-box">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-<input type="text" id="prospectorSearch" placeholder="Buscar por nombre, pais, ciudad..." oninput="filterProspector()">
-</div>
-</div>
-<div class="form-group"><label>Pais</label><select id="filterCountry" onchange="filterProspector()"><option value="">Todos</option></select></div>
-<div class="form-group"><label>Categoria</label><select id="filterCategory" onchange="filterProspector()"><option value="">Todas</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Centro de Formacion">Centro de Formacion</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federacion</option><option value="Agente">Agente</option><option value="Otro">Otro</option></select></div>
-<div class="form-group"><label>Region</label><select id="filterRegion" onchange="filterProspector()"><option value="">Todas</option></select></div>
-</div>
-<div id="prospectorCount" style="font-size:12px;color:var(--text2);margin-bottom:12px"></div>
-<div class="grid grid-3" id="prospectorGrid"></div>
+<!-- ==================== BUSCAR CONTACTOS ==================== -->
+<div class="section" id="sec-search">
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">🔍 Buscar Contactos</div>
+<p style="font-size:13px;color:var(--text2);margin:8px 0">Encuentra academias, institutos, torneos y más en cualquier país y región</p>
 </div>
 
-<!-- ==================== BÚSQUEDA EN TIEMPO REAL ==================== -->
-<div class="section" id="sec-realsearch">
-<div class="card" style="margin-bottom:16px">
-<div class="card-title">🔍 Búsqueda en Tiempo Real</div>
-<p style="font-size:13px;color:var(--text2);margin:8px 0">Busca contactos reales: academias, institutos, torneos, etc. en cualquier país y región</p>
-</div>
 <div class="filters">
-<div class="form-group"><label>País</label><select id="rsCountry"><option value="">Seleccionar país...</option></select></div>
-<div class="form-group"><label>Región</label><input type="text" id="rsRegion" placeholder="ej: Catalunya, Bavaria"></div>
-<div class="form-group"><label>Tipo de búsqueda</label><select id="rsType"><option value="">Seleccionar tipo...</option><option value="Academia">Academia</option><option value="Instituto">Instituto</option><option value="Colegio">Colegio</option><option value="Torneo">Torneo</option><option value="Federacion">Federación</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option></select></div>
-<button class="btn btn-gold" onclick="performRealSearch()" style="align-self:flex-end">🔎 Buscar ahora</button>
+<div class="form-group" style="flex:2;min-width:250px">
+<label>Búsqueda rápida</label>
+<div class="search-box">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<input type="text" id="searchText" placeholder="Nombre, ciudad, palabra clave..." oninput="updateSearch()">
 </div>
-<div id="searchLoading" style="display:none;text-align:center;padding:20px">
-<div style="font-size:14px;color:var(--text2)">⏳ Buscando en internet...</div>
-<div style="margin-top:10px;font-size:12px">Consultando OpenStreetMap, Wikipedia, y otras fuentes...</div>
 </div>
-<div id="searchResults"></div>
-<div id="searchError" style="display:none;padding:16px;background:rgba(255,0,0,0.1);border-radius:8px;color:var(--danger)"></div>
+<div class="form-group"><label>País</label><select id="searchCountry" onchange="updateSearch()"><option value="">Todos</option></select></div>
+<div class="form-group"><label>Región</label><select id="searchRegion" onchange="updateSearch()"><option value="">Todas</option></select></div>
+<div class="form-group"><label>Tipo</label><select id="searchType" onchange="updateSearch()"><option value="">Todos</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federación</option><option value="Centro de Formacion">Centro de Formación</option></select></div>
+</div>
+
+<div id="searchCount" style="font-size:13px;color:var(--text2);margin:12px 0;font-weight:bold"></div>
+<div class="grid grid-3" id="searchResults"></div>
 </div>
 
 <!-- ==================== CRM ==================== -->
@@ -1091,215 +1076,120 @@ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:fals
 });
 }
 
-// ============================= PROSPECTOR =============================
-function getUniqueCountries() {
-return [...new Set(CONTACTS_DB.map(c => c.country))].sort();
-}
-function getUniqueRegions() {
-return [...new Set(CONTACTS_DB.map(c => c.region))].sort();
-}
+// ============================= BUSCAR CONTACTOS (UNIFIED SEARCH) =============================
+function initSearch() {
+  const countries = [...new Set(CONTACTS_DB.map(c => c.country))].sort();
+  const regions = [...new Set(CONTACTS_DB.map(c => c.region))].sort();
 
-function initProspectorFilters() {
-const cs = document.getElementById('filterCountry');
-getUniqueCountries().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cs.appendChild(o); });
-const rs = document.getElementById('filterRegion');
-getUniqueRegions().forEach(r => { const o=document.createElement('option'); o.value=r; o.textContent=r; rs.appendChild(o); });
-// CRM country filter
-const cc = document.getElementById('crmFilterCountry');
-[...new Set(state.leads.map(l=>l.country))].sort().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cc.appendChild(o); });
-}
+  const countrySelect = document.getElementById('searchCountry');
+  const regionSelect = document.getElementById('searchRegion');
 
-function filterProspector() {
-const search = document.getElementById('prospectorSearch').value.toLowerCase();
-const country = document.getElementById('filterCountry').value;
-const category = document.getElementById('filterCategory').value;
-const region = document.getElementById('filterRegion').value;
-const filtered = CONTACTS_DB.filter(c => {
-if (country && c.country !== country) return false;
-if (category && c.type !== category) return false;
-if (region && c.region !== region) return false;
-if (search) {
-const hay = (c.name+c.country+c.city+c.type+c.notes+c.region).toLowerCase();
-if (!hay.includes(search)) return false;
-}
-return true;
-});
-renderProspectorCards(filtered);
-}
-
-function renderProspector() {
-filterProspector();
-}
-
-function renderProspectorCards(contacts) {
-const grid = document.getElementById('prospectorGrid');
-document.getElementById('prospectorCount').textContent = contacts.length + ' contactos encontrados';
-grid.innerHTML = contacts.map(c => {
-const contacted = state.contactedProspectors[c.name] ? ' style="border-left:3px solid var(--success)"' : '';
-return `<div class="contact-card"${contacted}>
-<h4>${esc(c.name)}</h4>
-<div class="meta">${esc(c.type)} &middot; ${esc(c.country)}, ${esc(c.city)}</div>
-${c.region?`<div class="meta">${esc(c.region)}</div>`:''}
-<div style="font-size:12px;margin:4px 0"><strong>Email:</strong> ${esc(c.email)}</div>
-<div style="font-size:12px;margin:2px 0"><strong>Tel:</strong> ${esc(c.phone)}</div>
-${c.web?`<div style="font-size:12px;margin:2px 0"><strong>Web:</strong> <a href="https://${esc(c.web)}" target="_blank">${esc(c.web)}</a></div>`:''}
-${c.notes?`<div style="font-size:11px;color:var(--text2);margin-top:6px">${esc(c.notes)}</div>`:''}
-<div class="actions">
-<button class="btn btn-sm btn-gold" onclick="addContactToLead('${esc(c.name)}','${esc(c.email)}','${esc(c.country)}','${esc(c.type)}')">+ CRM</button>
-<button class="btn btn-sm" onclick="composeEmailTo('${esc(c.email)}','${esc(c.name)}')">Email</button>
-<button class="btn btn-sm" onclick="mcAddFromProspector('${esc(c.email)}','${esc(c.name)}')">Mailchimp</button>
-<button class="btn btn-sm ${state.contactedProspectors[c.name]?'btn-success':''}" onclick="markContacted('${esc(c.name)}')">${state.contactedProspectors[c.name]?'Contactado':'Marcar'}</button>
-</div>
-</div>`;
-}).join('');
-}
-
-function addContactToLead(name, email, country, type) {
-document.getElementById('leadEditId').value = '';
-document.getElementById('leadModalTitle').textContent = 'Nuevo Lead desde Prospector';
-document.getElementById('leadName').value = name;
-document.getElementById('leadEmail').value = email;
-document.getElementById('leadCountry').value = country;
-document.getElementById('leadPhone').value = '';
-document.getElementById('leadProgram').value = 'Trial 1 Semana';
-document.getElementById('leadSource').value = type==='Agente'?'Agente':'Prospector';
-document.getElementById('leadStage').value = 'Nuevo';
-document.getElementById('leadNotes').value = 'Anadido desde Prospector - ' + type;
-openModal('leadModal');
-}
-
-function composeEmailTo(email, name) {
-showSection('emails');
-setEmailTab('composer');
-document.getElementById('compTo').value = email;
-document.getElementById('compBody').value = `Hola ${name},\n\nEscribo desde Eleven Academy...\n\nUn saludo,\n${state.settings.senderName}`;
-}
-
-function markContacted(name) {
-state.contactedProspectors[name] = true;
-saveState();
-renderProspector();
-toast('Contacto marcado');
-}
-
-function mcAddFromProspector(email, name) {
-if (!state.settings.mcKey) { toast('Configura Mailchimp en Ajustes primero','error'); return; }
-mcApiCall('POST', `/lists/${state.settings.mcList}/members`, {
-email_address: email,
-status: 'subscribed',
-merge_fields: {FNAME: name}
-}).then(r => {
-if (r.ok || r.status===400) toast('Contacto enviado a Mailchimp');
-else toast('Error al enviar a Mailchimp','error');
-}).catch(() => toast('Error de conexion','error'));
-}
-
-// ============================= BÚSQUEDA EN TIEMPO REAL =============================
-function initRealSearch() {
-  // Poblar dropdown de países
-  const countries = getUniqueCountries();
-  const countrySelect = document.getElementById('rsCountry');
   countries.forEach(c => {
-    const option = document.createElement('option');
-    option.value = c;
-    option.textContent = c;
-    countrySelect.appendChild(option);
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    countrySelect.appendChild(opt);
   });
+
+  regions.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r;
+    opt.textContent = r;
+    regionSelect.appendChild(opt);
+  });
+
+  // CRM country filter
+  const cc = document.getElementById('crmFilterCountry');
+  [...new Set(state.leads.map(l=>l.country))].sort().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cc.appendChild(o); });
+
+  // Initial render
+  updateSearch();
 }
 
-async function performRealSearch() {
-  const country = document.getElementById('rsCountry').value;
-  const region = document.getElementById('rsRegion').value;
-  const type = document.getElementById('rsType').value;
-  const loading = document.getElementById('searchLoading');
-  const results = document.getElementById('searchResults');
-  const error = document.getElementById('searchError');
+function updateSearch() {
+  const search = document.getElementById('searchText').value.toLowerCase();
+  const country = document.getElementById('searchCountry').value;
+  const region = document.getElementById('searchRegion').value;
+  const type = document.getElementById('searchType').value;
 
-  // Validar entrada
-  if (!country || !type) {
-    error.textContent = '⚠️ Debes seleccionar País y Tipo de búsqueda';
-    error.style.display = 'block';
-    return;
-  }
-
-  // Mostrar loading
-  loading.style.display = 'block';
-  results.innerHTML = '';
-  error.style.display = 'none';
-
-  try {
-    // Llamar a Netlify Function
-    const response = await fetch(`/.netlify/functions/search?country=${encodeURIComponent(country)}&region=${encodeURIComponent(region)}&type=${encodeURIComponent(type)}`);
-
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const data = await response.json();
-
-    loading.style.display = 'none';
-
-    if (!data.results || data.results.length === 0) {
-      error.textContent = '❌ No se encontraron resultados. Intenta con otro país o tipo.';
-      error.style.display = 'block';
-      return;
+  const filtered = CONTACTS_DB.filter(c => {
+    if (country && c.country !== country) return false;
+    if (region && c.region !== region) return false;
+    if (type && c.type !== type) return false;
+    if (search) {
+      const haystack = (c.name+c.country+c.city+c.type+c.notes+c.region).toLowerCase();
+      if (!haystack.includes(search)) return false;
     }
+    return true;
+  });
 
-    // Renderizar resultados
-    renderSearchResults(data);
-
-  } catch (err) {
-    loading.style.display = 'none';
-    error.textContent = `❌ Error en búsqueda: ${err.message}`;
-    error.style.display = 'block';
-    console.error('Search error:', err);
-  }
+  renderSearchCards(filtered);
 }
 
-function renderSearchResults(data) {
-  const resultsContainer = document.getElementById('searchResults');
+function renderSearchCards(contacts) {
+  const grid = document.getElementById('searchResults');
+  const count = document.getElementById('searchCount');
 
-  const html = `
-    <div style="margin:16px 0;padding:12px;background:rgba(201,168,76,0.1);border-radius:8px">
-      <div style="font-size:13px;color:var(--text2)">
-        <strong>✓ ${data.resultsCount} resultados encontrados</strong> en ${data.country}${data.region ? ', ' + data.region : ''}
-      </div>
-      <div style="font-size:12px;color:var(--text2);margin-top:4px">
-        Consultadas: OpenStreetMap, Wikipedia, DuckDuckGo
-      </div>
-    </div>
-    ${data.results.map((r, i) => `
-      <div class="contact-card" style="margin-bottom:12px">
-        <h4>${esc(r.name)}</h4>
-        <div class="meta">${esc(r.type)} • ${esc(r.source)}</div>
-        <div class="meta">${esc(r.location)}</div>
-        ${r.description ? `<div style="font-size:12px;margin:8px 0;color:var(--text2)">${esc(r.description.substring(0, 100))}</div>` : ''}
-        <div style="margin-top:8px">
-          ${r.website ? `<div style="font-size:12px;margin:4px 0"><strong>Web:</strong> <a href="${esc(r.website)}" target="_blank" style="color:#C9A84C">${esc(r.website.replace(/^https?:\/\//, ''))}</a></div>` : ''}
-          ${r.phone ? `<div style="font-size:12px;margin:4px 0"><strong>Tel:</strong> ${esc(r.phone)}</div>` : ''}
-          ${r.email ? `<div style="font-size:12px;margin:4px 0"><strong>Email:</strong> ${esc(r.email)}</div>` : ''}
-        </div>
-        <div class="actions" style="margin-top:8px">
-          ${r.email ? `<button class="btn btn-sm btn-gold" onclick="addFromSearch('${esc(r.name)}','${esc(r.email)}','${esc(data.country)}')">+ CRM</button>` : ''}
-          ${r.website ? `<button class="btn btn-sm" onclick="window.open('${esc(r.website)}','_blank')">Visitar</button>` : ''}
-        </div>
-      </div>
-    `).join('')}
-  `;
+  count.textContent = `📊 ${contacts.length} contactos encontrados`;
 
-  resultsContainer.innerHTML = html;
+  grid.innerHTML = contacts.map(c => {
+    const contacted = state.contactedProspectors[c.name] ? ' style="border-left:3px solid var(--success)"' : '';
+    return `<div class="contact-card"${contacted}>
+      <h4>${esc(c.name)}</h4>
+      <div class="meta">${esc(c.type)} · ${esc(c.country)}, ${esc(c.city)}</div>
+      ${c.region?`<div class="meta">${esc(c.region)}</div>`:''}
+      <div style="font-size:12px;margin:4px 0"><strong>Email:</strong> ${esc(c.email)}</div>
+      <div style="font-size:12px;margin:2px 0"><strong>Tel:</strong> ${esc(c.phone)}</div>
+      ${c.web?`<div style="font-size:12px;margin:2px 0"><strong>Web:</strong> <a href="https://${esc(c.web)}" target="_blank">${esc(c.web)}</a></div>`:''}
+      ${c.notes?`<div style="font-size:11px;color:var(--text2);margin-top:6px">${esc(c.notes)}</div>`:''}
+      <div class="actions">
+        <button class="btn btn-sm btn-gold" onclick="addToLead('${esc(c.name)}','${esc(c.email)}','${esc(c.country)}','${esc(c.type)}')">+ CRM</button>
+        <button class="btn btn-sm" onclick="composeEmailTo('${esc(c.email)}','${esc(c.name)}')">Email</button>
+        <button class="btn btn-sm" onclick="addToMailchimp('${esc(c.email)}','${esc(c.name)}')">Mailchimp</button>
+        <button class="btn btn-sm ${state.contactedProspectors[c.name]?'btn-success':''}" onclick="markContacted('${esc(c.name)}')">${state.contactedProspectors[c.name]?'Contactado':'Marcar'}</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function addFromSearch(name, email, country) {
+function addToLead(name, email, country, type) {
   document.getElementById('leadEditId').value = '';
-  document.getElementById('leadModalTitle').textContent = 'Nuevo Lead desde Búsqueda';
+  document.getElementById('leadModalTitle').textContent = 'Nuevo Lead';
   document.getElementById('leadName').value = name;
   document.getElementById('leadEmail').value = email;
   document.getElementById('leadCountry').value = country;
   document.getElementById('leadPhone').value = '';
   document.getElementById('leadProgram').value = 'Trial 1 Semana';
-  document.getElementById('leadSource').value = 'Búsqueda Avanzada';
+  document.getElementById('leadSource').value = 'Búsqueda';
   document.getElementById('leadStage').value = 'Nuevo';
-  document.getElementById('leadNotes').value = 'Añadido desde búsqueda en tiempo real';
+  document.getElementById('leadNotes').value = 'Añadido desde búsqueda - ' + type;
   openModal('leadModal');
+}
+
+function composeEmailTo(email, name) {
+  showSection('emails');
+  setEmailTab('composer');
+  document.getElementById('compTo').value = email;
+  document.getElementById('compBody').value = `Hola ${name},\n\nEscribo desde Eleven Academy...\n\nUn saludo,\n${state.settings.senderName}`;
+}
+
+function markContacted(name) {
+  state.contactedProspectors[name] = true;
+  saveState();
+  updateSearch();
+  toast('Contacto marcado');
+}
+
+function addToMailchimp(email, name) {
+  if (!state.settings.mcKey) { toast('Configura Mailchimp en Ajustes primero','error'); return; }
+  mcApiCall('POST', `/lists/${state.settings.mcList}/members`, {
+    email_address: email,
+    status: 'subscribed',
+    merge_fields: {FNAME: name}
+  }).then(r => {
+    if (r.ok || r.status===400) toast('Contacto enviado a Mailchimp');
+    else toast('Error al enviar a Mailchimp','error');
+  }).catch(() => toast('Error de conexion','error'));
 }
 
 // ============================= CRM =============================

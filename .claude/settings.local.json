@@ -20,7 +20,8 @@
       "Bash(cmd.exe /c \"node --version\")",
       "Bash(grep -o section-[a-z]* '/c/Users/Pirri/Desktop/CAPTACIÓN ELEVEN CLAUDE/index.html')",
       "Bash(\"/c/Program Files/nodejs/node.exe\" --version)",
-      "Bash(python scripts/office/unpack.py \"C:\\\\Users\\\\Pirri\\\\Downloads\\\\Eleven_Academy_Documento_Maestro_Traspaso.docx\" /tmp/unpacked_doc)"
+      "Bash(python scripts/office/unpack.py \"C:\\\\Users\\\\Pirri\\\\Downloads\\\\Eleven_Academy_Documento_Maestro_Traspaso.docx\" /tmp/unpacked_doc)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
