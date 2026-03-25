@@ -220,6 +220,7 @@ Ajustes
 <div class="card" style="margin-top:4px"><div class="card-title">Tendencia Mensual de Captacion</div><div class="chart-container"><canvas id="chartTrend"></canvas></div></div>
 <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
 <button class="btn btn-gold" onclick="showSection('prospector')">Buscar Contactos</button>
+<button class="btn btn-gold" onclick="showSection('realsearch')">🔍 Búsqueda en Tiempo Real</button>
 <button class="btn" onclick="showSection('emails')">Enviar Campana</button>
 <button class="btn" onclick="showSection('crm')">Ver Pipeline</button>
 </div>
@@ -241,6 +242,26 @@ Ajustes
 </div>
 <div id="prospectorCount" style="font-size:12px;color:var(--text2);margin-bottom:12px"></div>
 <div class="grid grid-3" id="prospectorGrid"></div>
+</div>
+
+<!-- ==================== BÚSQUEDA EN TIEMPO REAL ==================== -->
+<div class="section" id="sec-realsearch">
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">🔍 Búsqueda en Tiempo Real</div>
+<p style="font-size:13px;color:var(--text2);margin:8px 0">Busca contactos reales: academias, institutos, torneos, etc. en cualquier país y región</p>
+</div>
+<div class="filters">
+<div class="form-group"><label>País</label><select id="rsCountry"><option value="">Seleccionar país...</option></select></div>
+<div class="form-group"><label>Región</label><input type="text" id="rsRegion" placeholder="ej: Catalunya, Bavaria"></div>
+<div class="form-group"><label>Tipo de búsqueda</label><select id="rsType"><option value="">Seleccionar tipo...</option><option value="Academia">Academia</option><option value="Instituto">Instituto</option><option value="Colegio">Colegio</option><option value="Torneo">Torneo</option><option value="Federacion">Federación</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option></select></div>
+<button class="btn btn-gold" onclick="performRealSearch()" style="align-self:flex-end">🔎 Buscar ahora</button>
+</div>
+<div id="searchLoading" style="display:none;text-align:center;padding:20px">
+<div style="font-size:14px;color:var(--text2)">⏳ Buscando en internet...</div>
+<div style="margin-top:10px;font-size:12px">Consultando OpenStreetMap, Wikipedia, y otras fuentes...</div>
+</div>
+<div id="searchResults"></div>
+<div id="searchError" style="display:none;padding:16px;background:rgba(255,0,0,0.1);border-radius:8px;color:var(--danger)"></div>
 </div>
 
 <!-- ==================== CRM ==================== -->
@@ -1173,6 +1194,114 @@ else toast('Error al enviar a Mailchimp','error');
 }).catch(() => toast('Error de conexion','error'));
 }
 
+// ============================= BÚSQUEDA EN TIEMPO REAL =============================
+function initRealSearch() {
+  // Poblar dropdown de países
+  const countries = getUniqueCountries();
+  const countrySelect = document.getElementById('rsCountry');
+  countries.forEach(c => {
+    const option = document.createElement('option');
+    option.value = c;
+    option.textContent = c;
+    countrySelect.appendChild(option);
+  });
+}
+
+async function performRealSearch() {
+  const country = document.getElementById('rsCountry').value;
+  const region = document.getElementById('rsRegion').value;
+  const type = document.getElementById('rsType').value;
+  const loading = document.getElementById('searchLoading');
+  const results = document.getElementById('searchResults');
+  const error = document.getElementById('searchError');
+
+  // Validar entrada
+  if (!country || !type) {
+    error.textContent = '⚠️ Debes seleccionar País y Tipo de búsqueda';
+    error.style.display = 'block';
+    return;
+  }
+
+  // Mostrar loading
+  loading.style.display = 'block';
+  results.innerHTML = '';
+  error.style.display = 'none';
+
+  try {
+    // Llamar a Netlify Function
+    const response = await fetch(`/.netlify/functions/search?country=${encodeURIComponent(country)}&region=${encodeURIComponent(region)}&type=${encodeURIComponent(type)}`);
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+
+    loading.style.display = 'none';
+
+    if (!data.results || data.results.length === 0) {
+      error.textContent = '❌ No se encontraron resultados. Intenta con otro país o tipo.';
+      error.style.display = 'block';
+      return;
+    }
+
+    // Renderizar resultados
+    renderSearchResults(data);
+
+  } catch (err) {
+    loading.style.display = 'none';
+    error.textContent = `❌ Error en búsqueda: ${err.message}`;
+    error.style.display = 'block';
+    console.error('Search error:', err);
+  }
+}
+
+function renderSearchResults(data) {
+  const resultsContainer = document.getElementById('searchResults');
+
+  const html = `
+    <div style="margin:16px 0;padding:12px;background:rgba(201,168,76,0.1);border-radius:8px">
+      <div style="font-size:13px;color:var(--text2)">
+        <strong>✓ ${data.resultsCount} resultados encontrados</strong> en ${data.country}${data.region ? ', ' + data.region : ''}
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:4px">
+        Consultadas: OpenStreetMap, Wikipedia, DuckDuckGo
+      </div>
+    </div>
+    ${data.results.map((r, i) => `
+      <div class="contact-card" style="margin-bottom:12px">
+        <h4>${esc(r.name)}</h4>
+        <div class="meta">${esc(r.type)} • ${esc(r.source)}</div>
+        <div class="meta">${esc(r.location)}</div>
+        ${r.description ? `<div style="font-size:12px;margin:8px 0;color:var(--text2)">${esc(r.description.substring(0, 100))}</div>` : ''}
+        <div style="margin-top:8px">
+          ${r.website ? `<div style="font-size:12px;margin:4px 0"><strong>Web:</strong> <a href="${esc(r.website)}" target="_blank" style="color:#C9A84C">${esc(r.website.replace(/^https?:\/\//, ''))}</a></div>` : ''}
+          ${r.phone ? `<div style="font-size:12px;margin:4px 0"><strong>Tel:</strong> ${esc(r.phone)}</div>` : ''}
+          ${r.email ? `<div style="font-size:12px;margin:4px 0"><strong>Email:</strong> ${esc(r.email)}</div>` : ''}
+        </div>
+        <div class="actions" style="margin-top:8px">
+          ${r.email ? `<button class="btn btn-sm btn-gold" onclick="addFromSearch('${esc(r.name)}','${esc(r.email)}','${esc(data.country)}')">+ CRM</button>` : ''}
+          ${r.website ? `<button class="btn btn-sm" onclick="window.open('${esc(r.website)}','_blank')">Visitar</button>` : ''}
+        </div>
+      </div>
+    `).join('')}
+  `;
+
+  resultsContainer.innerHTML = html;
+}
+
+function addFromSearch(name, email, country) {
+  document.getElementById('leadEditId').value = '';
+  document.getElementById('leadModalTitle').textContent = 'Nuevo Lead desde Búsqueda';
+  document.getElementById('leadName').value = name;
+  document.getElementById('leadEmail').value = email;
+  document.getElementById('leadCountry').value = country;
+  document.getElementById('leadPhone').value = '';
+  document.getElementById('leadProgram').value = 'Trial 1 Semana';
+  document.getElementById('leadSource').value = 'Búsqueda Avanzada';
+  document.getElementById('leadStage').value = 'Nuevo';
+  document.getElementById('leadNotes').value = 'Añadido desde búsqueda en tiempo real';
+  openModal('leadModal');
+}
+
 // ============================= CRM =============================
 let crmView = 'list';
 
@@ -1655,6 +1784,7 @@ return d.innerHTML;
 loadState();
 loadFromSupabase().then(() => {
   initProspectorFilters();
+  initRealSearch();
   refreshDashboard();
   renderEmails();
 });
