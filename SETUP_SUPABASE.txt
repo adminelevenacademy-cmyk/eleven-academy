@@ -1,0 +1,140 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║              SETUP SUPABASE (5 MINUTOS)                       ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+PASO 1: CREAR CUENTA SUPABASE
+═════════════════════════════════════════════════════════════════
+
+1. Ve a: https://supabase.com
+2. Click: "Start your project"
+3. Click: "Sign up with GitHub" (más fácil)
+   O: Sign up con email
+4. Completa datos
+5. ¡Listo! Tienes cuenta
+
+
+PASO 2: CREAR PROYECTO
+═════════════════════════════════════════════════════════════════
+
+1. En Supabase, click: "New Project"
+2. Nombre: eleven-academy
+3. Database Password: crea una contraseña segura
+4. Region: europe-west1 (Europa - más rápido)
+5. Click: "Create new project"
+6. ¡Espera 2 minutos! (se está creando)
+
+
+PASO 3: OBTENER CREDENCIALES
+═════════════════════════════════════════════════════════════════
+
+Una vez creado el proyecto:
+
+1. Ve a: Settings > API
+2. En "Project URL" verás algo como:
+   https://xxxxxxxxxxxxx.supabase.co
+
+3. En "Project API keys" verás:
+   - anon (public) key
+   - service_role (secret) key
+
+4. COPIA ESTOS 2 DATOS:
+   - Project URL
+   - anon key (public)
+
+
+PASO 4: CREAR TABLAS EN SUPABASE
+═════════════════════════════════════════════════════════════════
+
+En Supabase:
+
+1. Click en: "SQL Editor" (izquierda)
+2. Click: "New Query"
+3. Pega este código:
+
+───────────────────────────────────────────────────────────────
+-- Tabla de Leads
+CREATE TABLE leads (
+  id BIGSERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE,
+  phone TEXT,
+  country TEXT,
+  program TEXT,
+  source TEXT,
+  stage TEXT,
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  user_id TEXT
+);
+
+-- Tabla de Contactos Prospector
+CREATE TABLE contacts (
+  id BIGSERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  type TEXT,
+  country TEXT,
+  city TEXT,
+  region TEXT,
+  email TEXT,
+  phone TEXT,
+  web TEXT,
+  notes TEXT,
+  status TEXT DEFAULT 'nuevo',
+  created_at TIMESTAMP DEFAULT NOW(),
+  user_id TEXT
+);
+
+-- Tabla de Emails
+CREATE TABLE emails (
+  id BIGSERIAL PRIMARY KEY,
+  template_name TEXT,
+  subject TEXT,
+  body TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  user_id TEXT
+);
+
+-- Habilitar RLS (Row Level Security)
+ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
+ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE emails ENABLE ROW LEVEL SECURITY;
+───────────────────────────────────────────────────────────────
+
+4. Click: "Run"
+5. ¡Listo! Las tablas están creadas
+
+
+PASO 5: DAR ME TUS CREDENCIALES
+═════════════════════════════════════════════════════════════════
+
+Una vez tengas Supabase creado, dame:
+
+1. Project URL (https://xxxxxxxxxxxxx.supabase.co)
+2. anon key (la key pública)
+
+Yo integraré Supabase en la app automáticamente.
+
+
+═════════════════════════════════════════════════════════════════
+✨ UNA VEZ HECHO:
+═════════════════════════════════════════════════════════════════
+
+✅ Todos tus datos en la nube
+✅ Sincronización automática
+✅ Acceso desde cualquier dispositivo
+✅ Backups automáticos
+✅ Gratis (hasta 500 MB)
+
+
+═════════════════════════════════════════════════════════════════
+
+1. Ve a: https://supabase.com
+2. Crea proyecto "eleven-academy"
+3. Dame las credenciales (URL + key)
+4. Yo integro todo
+
+═════════════════════════════════════════════════════════════════
