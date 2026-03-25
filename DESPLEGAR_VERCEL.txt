@@ -1,0 +1,235 @@
+╔════════════════════════════════════════════════════════════════╗
+║         CÓMO DESPLEGAR EN VERCEL (5 MINUTOS)                   ║
+║                                                                ║
+║  Tu app en internet:                                           ║
+║  https://eleven-academy.vercel.app                            ║
+║  (o tu propio dominio)                                        ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+PASO 1: CREAR CUENTA GITHUB (2 minutos)
+═════════════════════════════════════════════════════════════════
+
+1. Ve a: https://github.com
+2. Click: "Sign up"
+3. Email: tu email
+4. Password: tu contraseña
+5. Verifica tu email
+6. ¡Listo! Tienes cuenta GitHub
+
+
+PASO 2: CREAR REPOSITORIO EN GITHUB (3 minutos)
+═════════════════════════════════════════════════════════════════
+
+1. En GitHub, haz clic en "+" (arriba derecha)
+2. Click: "New repository"
+3. Nombre: eleven-academy (o el que prefieras)
+4. Descripción: "App de captacion de clientes para Eleven Academy"
+5. Elige: Public (para que sea visible)
+6. Click: "Create repository"
+7. Copiar la URL que aparece (https://github.com/TU_USUARIO/eleven-academy.git)
+
+
+PASO 3: SUBIR EL CÓDIGO A GITHUB (3 minutos)
+═════════════════════════════════════════════════════════════════
+
+Abre PowerShell/Terminal en la carpeta del proyecto:
+
+   cd "C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE"
+
+Luego ejecuta estos comandos:
+
+   git remote add origin https://github.com/TU_USUARIO/eleven-academy.git
+   git branch -M main
+   git push -u origin main
+
+Sustituye TU_USUARIO por tu usuario de GitHub.
+
+Si te pide autenticación:
+   - Usa tu email de GitHub
+   - En lugar de contraseña: crea un token en GitHub
+     Settings > Developer settings > Personal access tokens > Generate token
+
+
+PASO 4: CONECTAR VERCEL A GITHUB (2 minutos)
+═════════════════════════════════════════════════════════════════
+
+1. Ve a: https://vercel.com
+2. Click: "Sign Up"
+3. Click: "Continue with GitHub"
+4. Autoriza Vercel a acceder a tu GitHub
+5. ¡Listo!
+
+
+PASO 5: DESPLEGAR EN VERCEL (1 minuto)
+═════════════════════════════════════════════════════════════════
+
+1. En Vercel, click: "Add New Project"
+2. Busca: "eleven-academy" (tu repositorio)
+3. Click: "Import"
+4. Deja las configuraciones por defecto
+5. Click: "Deploy"
+6. ¡Espera 30 segundos!
+7. Verás: "Congratulations! Your site is live"
+8. Copia tu URL (https://eleven-academy.vercel.app)
+
+
+PASO 6: ¡ABRE TU APP EN INTERNET!
+═════════════════════════════════════════════════════════════════
+
+Tu app está en vivo en:
+
+   https://eleven-academy.vercel.app
+
+(O la URL que te dé Vercel)
+
+Ahora puedes:
+   ✓ Abrir desde cualquier dispositivo
+   ✓ Compartir el link con el equipo
+   ✓ Acceder desde móvil, tablet, PC
+   ✓ Funciona 100% igual que localmente
+
+
+PASO 7: CÓMO ACTUALIZAR LA APP (Cuando hagas cambios)
+═════════════════════════════════════════════════════════════════
+
+1. Haz cambios en los archivos
+2. Abre terminal en la carpeta
+3. Ejecuta:
+
+   git add .
+   git commit -m "Descripcion del cambio"
+   git push
+
+4. Vercel se actualiza automáticamente en 1-2 minutos
+5. Tu app en internet ya tiene los cambios
+
+
+═════════════════════════════════════════════════════════════════
+🎯 RESUMEN RÁPIDO
+═════════════════════════════════════════════════════════════════
+
+1. GitHub: Crear repo y subir código (5 min)
+2. Vercel: Conectar y desplegar (3 min)
+3. ¡Listo! Tu app en internet
+
+TOTAL: 8 minutos
+
+
+═════════════════════════════════════════════════════════════════
+❓ PREGUNTAS FRECUENTES
+═════════════════════════════════════════════════════════════════
+
+P: ¿Cuesta dinero?
+R: NO. GitHub es gratis, Vercel es gratis (hasta cierto límite).
+
+P: ¿Mis datos se pierden?
+R: NO. Se guardan en tu navegador (localStorage), igual que localmente.
+
+P: ¿Se ve igual que en mi PC?
+R: SÍ. 100% igual. Funciona igual.
+
+P: ¿Puedo usar mi propio dominio?
+R: SÍ. En Vercel Settings > Domains puedes agregar tu dominio.
+
+P: ¿Está seguro?
+R: SÍ. Vercel es seguro, datos en tu navegador (no en servidor).
+
+P: ¿Puedo compartir el link?
+R: SÍ. Cualquiera puede abrir la URL y usar la app.
+
+P: ¿Qué pasa si cierro sesión?
+R: Nada. La app no tiene login. Tus datos están en localStorage.
+
+P: ¿Puedo editar la app?
+R: SÍ. Edita en tu PC, haz git push, Vercel se actualiza solo.
+
+
+═════════════════════════════════════════════════════════════════
+🆘 SI ALGO NO FUNCIONA
+═════════════════════════════════════════════════════════════════
+
+ERROR: "fatal: 'origin' already exists"
+SOLUCIÓN:
+   git remote remove origin
+   git remote add origin https://github.com/TU_USUARIO/eleven-academy.git
+
+ERROR: "Permission denied" en git push
+SOLUCIÓN:
+   Crea token en GitHub:
+   Settings > Developer settings > Personal access tokens > Generate token
+   En lugar de contraseña, pega el token
+
+ERROR: Vercel dice "Build failed"
+SOLUCIÓN:
+   Vercel no necesita build. Solo sirve archivos HTML/CSS/JS.
+   Si falla, asegúrate que index.html está en la raíz.
+
+ERROR: La app se ve mal en mobile
+SOLUCIÓN:
+   La app es responsive. Abre en Chrome mobile y actualiza (F5).
+
+
+═════════════════════════════════════════════════════════════════
+📱 ACCEDER DESDE MÓVIL
+═════════════════════════════════════════════════════════════════
+
+Una vez desplegada en Vercel:
+
+1. Abre Chrome en tu móvil
+2. Ve a: https://eleven-academy.vercel.app
+3. ¡Funciona igual que en PC!
+4. Puedes compartir el link por WhatsApp, email, etc
+
+Para que sea una "app" en el móvil:
+1. Chrome > Menú (3 puntos)
+2. "Instalar aplicación"
+3. Aparece en tu pantalla como una app
+
+
+═════════════════════════════════════════════════════════════════
+🎁 PRÓXIMOS PASOS (OPCIONAL)
+═════════════════════════════════════════════════════════════════
+
+DOMINIO PERSONALIZADO:
+   • Compra dominio: namecheap.com, godaddy.com
+   • Ej: elevenacademy.pro
+   • En Vercel: Settings > Domains > Agregar
+   • ¡Tu app en https://elevenacademy.pro!
+
+ENVÍO DE EMAILS AUTOMÁTICO:
+   • Usa SendGrid, Mailgun, AWS SES
+   • Integra en el backend (Node.js)
+   • Los emails se envían automáticamente
+
+BASE DE DATOS EN NUBE:
+   • Usa Supabase (PostgreSQL gratis)
+   • Los datos se sincronizan automáticamente
+   • Acceso desde múltiples dispositivos
+
+MÚLTIPLES USUARIOS:
+   • Agrega autenticación (NextAuth, Auth0)
+   • Cada usuario tiene sus propios datos
+   • Panel de administración
+
+
+═════════════════════════════════════════════════════════════════
+✨ ¡LISTO!
+═════════════════════════════════════════════════════════════════
+
+Tu app estará en internet en menos de 10 minutos.
+
+Sigue los pasos arriba y tendrás:
+
+   https://eleven-academy.vercel.app
+
+Compartible, accesible desde cualquier lado, 100% funcional.
+
+
+═════════════════════════════════════════════════════════════════
+
+Eleven Academy © 2026
+elevenacademy.pro
+
+═════════════════════════════════════════════════════════════════

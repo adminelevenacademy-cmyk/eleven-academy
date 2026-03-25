@@ -1,0 +1,78 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║              TU APP EN INTERNET EN 10 MINUTOS                 ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+🚀 PASOS (COPIAR Y PEGAR)
+═════════════════════════════════════════════════════════════════
+
+PASO 1: GITHUB
+   1. Ve a https://github.com y crea cuenta (gratis)
+   2. Crea nuevo repo: https://github.com/new
+      - Nombre: eleven-academy
+      - Privado o Público (elige)
+      - Create repository
+
+   3. Copia la URL que aparece. Será algo como:
+      https://github.com/TU_USUARIO/eleven-academy.git
+
+PASO 2: SUBIR EL CÓDIGO
+   Abre PowerShell/Terminal en:
+   C:\Users\Pirri\Desktop\CAPTACIÓN ELEVEN CLAUDE
+
+   Ejecuta (sustituye TU_USUARIO y tu URL):
+
+   ───────────────────────────────────────────────────
+   git remote add origin https://github.com/TU_USUARIO/eleven-academy.git
+   git branch -M main
+   git push -u origin main
+   ───────────────────────────────────────────────────
+
+   Si pide contraseña: en lugar de contraseña, usa un token de GitHub
+   (GitHub > Settings > Developer settings > Personal access tokens)
+
+PASO 3: VERCEL
+   1. Ve a https://vercel.com
+   2. Sign up with GitHub
+   3. Click: "Add New Project"
+   4. Selecciona: eleven-academy
+   5. Click: "Import"
+   6. Click: "Deploy"
+   7. ¡Espera 1 minuto!
+
+PASO 4: ¡LISTO!
+   Vercel te dará una URL como:
+
+   https://eleven-academy.vercel.app
+
+   ¡ESA ES TU APP EN INTERNET!
+
+
+═════════════════════════════════════════════════════════════════
+✨ LO QUE TENDRÁS
+═════════════════════════════════════════════════════════════════
+
+✅ App online accesible desde cualquier PC/móvil
+✅ Compartible por link
+✅ 100% funcional (igual que en tu PC)
+✅ Mailchimp integrado
+✅ Datos guardados en navegador (seguros)
+✅ Gratis (Vercel + GitHub)
+✅ Actualizaciones automáticas (push a GitHub = update)
+
+
+═════════════════════════════════════════════════════════════════
+📞 SI NECESITAS AYUDA
+═════════════════════════════════════════════════════════════════
+
+Lee: DESPLEGAR_VERCEL.txt (en la misma carpeta)
+Ahí está todo explicado paso a paso.
+
+
+═════════════════════════════════════════════════════════════════
+
+¡AHORA SIGUE LOS PASOS Y TENDRÁS TU APP ONLINE!
+
+═════════════════════════════════════════════════════════════════
