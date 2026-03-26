@@ -240,14 +240,15 @@ Ajustes
 <p style="font-size:13px;color:var(--text2);margin:8px 0">Filtra por País, Región y Tipo. Haz clic en los resultados para acceder a información real</p>
 </div>
 
-<div class="filters" style="gap:12px;margin-bottom:16px">
-<div class="form-group"><label>País</label><select id="searchCountry"><option value="">Todos</option></select></div>
-<div class="form-group"><label>Región</label><select id="searchRegion"><option value="">Todas</option></select></div>
-<div class="form-group"><label>Tipo</label><select id="searchType"><option value="">Todos</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federación</option><option value="Centro de Formacion">Centro de Formación</option></select></div>
+<div class="filters" style="gap:12px;margin-bottom:16px;display:flex;flex-wrap:wrap;align-items:flex-end">
+<div class="form-group" style="flex:1;min-width:180px"><label>🌍 País</label><select id="searchCountry"><option value="">Todos</option></select></div>
+<div class="form-group" style="flex:1;min-width:180px"><label>🗺️ Región</label><select id="searchRegion"><option value="">Todas</option></select></div>
+<div class="form-group" style="flex:1;min-width:180px"><label>⚽ Tipo</label><select id="searchType"><option value="">Todos</option><option value="Equipo">Equipo</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Tienda">Tienda</option><option value="Torneo">Torneo</option></select></div>
+<button id="searchBtn" class="btn btn-gold" style="padding:8px 24px;font-size:14px;font-weight:600;width:auto">🔍 BUSCAR</button>
 </div>
 
-<div id="searchCount" style="font-size:13px;color:var(--text2);margin:12px 0;font-weight:bold"></div>
-<button id="loadMoreBtn" class="btn btn-gold" style="display:none;margin-bottom:16px;width:100%;">📥 Cargar 10 más resultados</button>
+<div id="searchCount" style="font-size:14px;color:var(--text2);margin:16px 0;font-weight:bold"></div>
+<button id="loadMoreBtn" class="btn btn-gold" style="display:none;margin-bottom:16px;width:100%;padding:10px;font-weight:600">📥 Cargar 10 más resultados</button>
 <div class="grid grid-3" id="searchResults"></div>
 </div>
 
