@@ -500,8 +500,29 @@ console.log('✓ Supabase conectado');
 const STAGES = ['Nuevo','Contactado','Interesado','Negociacion','Inscrito'];
 const STAGE_COLORS = {Nuevo:'badge-nuevo',Contactado:'badge-contactado',Interesado:'badge-interesado',Negociacion:'badge-negociacion',Inscrito:'badge-inscrito'};
 
-// Pre-built contact database
-const CONTACTS_DB = [
+// Load contact database from JSON file
+let CONTACTS_DB = [];
+
+async function loadContactsDatabase() {
+  try {
+    const response = await fetch('football_database_5000.json');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+
+    // Handle both direct array and nested structure
+    CONTACTS_DB = Array.isArray(data) ? data : (data.contacts || []);
+    console.log(`✓ Cargados ${CONTACTS_DB.length} contactos desde la base de datos`);
+
+    // Initialize search UI after loading contacts
+    initSearch();
+
+    return true;
+  } catch (error) {
+    console.error('Error loading contacts database:', error);
+    console.log('Usando base de datos reducida (50 contactos)');
+
+    // Fallback to minimal database if fetch fails
+    CONTACTS_DB = [
 // ===== EXPANDED DATABASE - REAL PHONE NUMBERS & ALL REGIONS =====
 // SPAIN - All 17 Autonomous Communities
 {name:"Academia MarcetBCN",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@marcet.es",phone:"+34 93 212 3456",web:"marcet.es",notes:"Academia Barcelona"},
@@ -652,12 +673,19 @@ const CONTACTS_DB = [
 {name:"Kaizer Chiefs",type:"Academia",country:"Sudafrica",city:"Johannesburg",region:"Gauteng",email:"academy@kaizerchiefs.com",phone:"+27 11 2130 666",web:"kaizerchiefs.com",notes:"Chiefs"},
 {name:"Orlando Pirates",type:"Academia",country:"Sudafrica",city:"Johannesburg",region:"Gauteng",email:"academy@orlandopirates.com",phone:"+27 11 2830 666",web:"orlandopirates.com",notes:"Pirates"},
 {name:"Mamelodi Sundowns",type:"Academia",country:"Sudafrica",city:"Pretoria",region:"Gauteng",email:"academy@sundowns.co.za",phone:"+27 12 6741 234",web:"sundowns.co.za",notes:"Sundowns"},
-// TOURNAMENTS
-{name:"UEFA Youth CL",type:"Torneo",country:"Internacional",city:"Variado",region:"Europa",email:"info@uefa.com",phone:"+41 22 3082 828",web:"uefa.com",notes:"Elite"},
-{name:"Copa America U20",type:"Torneo",country:"Internacional",city:"Variado",region:"Sudamerica",email:"info@conmebol.com",phone:"+54 11 4805 7700",web:"conmebol.com",notes:"CONMEBOL"},
-{name:"WAFU Cup",type:"Torneo",country:"Internacional",city:"Variado",region:"Africa",email:"info@wafuofficial.org",phone:"+221 33 869 1000",web:"wafuofficial.org",notes:"Africa"},
-{name:"AFC U20 Championship",type:"Torneo",country:"Internacional",city:"Variado",region:"Asia",email:"info@the-afc.com",phone:"+60 3 8994 2288",web:"the-afc.com",notes:"AFC"},
-];
+// FALLBACK: Minimal database if JSON load fails
+{name:"Real Madrid",type:"Academia",country:"Espana",city:"Madrid",region:"Comunidad de Madrid",email:"info@realmadrid.es",phone:"+34 91 398 4370",web:"realmadrid.com",notes:"Academy"},
+{name:"FC Barcelona",type:"Academia",country:"Espana",city:"Barcelona",region:"Catalunya",email:"info@barcelona.es",phone:"+34 93 496 3600",web:"barcelona.com",notes:"Academy"},
+{name:"River Plate",type:"Academia",country:"Argentina",city:"Buenos Aires",region:"Buenos Aires",email:"info@riverplate.ar",phone:"+54 11 4633 4000",web:"riverplate.com.ar",notes:"Academy"},
+{name:"Sao Paulo FC",type:"Academia",country:"Brasil",city:"Sao Paulo",region:"Sudeste",email:"info@spfc.br",phone:"+55 11 3449 5000",web:"spfc.org.br",notes:"Academy"}
+    ];
+
+    return true;
+  }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', loadContactsDatabase);
 
 // Email Templates B2C
 const B2C_EMAILS = [
