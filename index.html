@@ -159,9 +159,9 @@ tr:hover{background:var(--hover)}
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
 Dashboard
 </div>
-<div class="nav-item" data-section="prospector" onclick="showSection('prospector')">
+<div class="nav-item" data-section="search" onclick="showSection('search')">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-Prospector
+Búsquedas
 </div>
 <div class="nav-item" data-section="crm" onclick="showSection('crm')">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
@@ -237,15 +237,30 @@ Ajustes
 <label>Búsqueda rápida</label>
 <div class="search-box">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-<input type="text" id="searchText" placeholder="Nombre, ciudad, palabra clave..." oninput="updateSearch()">
+<input type="text" id="searchText" placeholder="Nombre, ciudad, palabra clave...">
 </div>
 </div>
-<div class="form-group"><label>País</label><select id="searchCountry" onchange="updateSearch()"><option value="">Todos</option></select></div>
-<div class="form-group"><label>Región</label><select id="searchRegion" onchange="updateSearch()"><option value="">Todas</option></select></div>
-<div class="form-group"><label>Tipo</label><select id="searchType" onchange="updateSearch()"><option value="">Todos</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federación</option><option value="Centro de Formacion">Centro de Formación</option></select></div>
+<div class="form-group"><label>País</label><select id="searchCountry"><option value="">Todos</option></select></div>
+<div class="form-group"><label>Región</label><select id="searchRegion"><option value="">Todas</option></select></div>
+<div class="form-group"><label>Tipo</label><select id="searchType"><option value="">Todos</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federación</option><option value="Centro de Formacion">Centro de Formación</option></select></div>
+</div>
+
+<div class="filters" style="gap:8px;margin-top:12px">
+<button class="btn btn-gold" id="searchButton" style="min-width:120px">🔍 Buscar</button>
+<div class="form-group" style="margin-bottom:0;min-width:150px">
+<label>Ordenar por</label>
+<select id="sortBy">
+<option value="">Ninguno</option>
+<option value="name-asc">Nombre (A-Z)</option>
+<option value="name-desc">Nombre (Z-A)</option>
+<option value="country-asc">País (A-Z)</option>
+<option value="type-asc">Tipo (A-Z)</option>
+</select>
+</div>
 </div>
 
 <div id="searchCount" style="font-size:13px;color:var(--text2);margin:12px 0;font-weight:bold"></div>
+<button id="loadMoreBtn" class="btn btn-gold" style="display:none;margin-bottom:16px;width:100%;">📥 Cargar 10 más resultados</button>
 <div class="grid grid-3" id="searchResults"></div>
 </div>
 
@@ -921,8 +936,67 @@ saveState();
 
 function genId() { return 'id_' + Date.now().toString(36) + Math.random().toString(36).substr(2,6); }
 
+// ============================= SEARCH PAGINATION =============================
+let currentSearchResults = [];
+let displayedCount = 0;
+const RESULTS_PER_PAGE = 10;
+
+function displayResults(startIndex) {
+  const endIndex = Math.min(startIndex + RESULTS_PER_PAGE, currentSearchResults.length);
+  const resultsToShow = currentSearchResults.slice(0, endIndex);
+  renderSearchCards(resultsToShow);
+  displayedCount = endIndex;
+
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (loadMoreBtn) {
+    if (endIndex < currentSearchResults.length) {
+      loadMoreBtn.style.display = 'block';
+    } else {
+      loadMoreBtn.style.display = 'none';
+    }
+  }
+
+  const count = document.getElementById('searchCount');
+  if (count) {
+    count.textContent = `📊 ${resultsToShow.length} de ${currentSearchResults.length} contactos`;
+  }
+}
+
+function updateRegionOptions() {
+  const country = document.getElementById('searchCountry').value;
+  const regionSelect = document.getElementById('searchRegion');
+
+  regionSelect.innerHTML = '<option value="">Todas</option>';
+
+  if (country) {
+    const regionsForCountry = [...new Set(
+      CONTACTS_DB
+        .filter(c => c.country === country)
+        .map(c => c.region)
+        .filter(r => r)
+    )].sort();
+
+    regionsForCountry.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r;
+      opt.textContent = r;
+      regionSelect.appendChild(opt);
+    });
+  } else {
+    const regions = [...new Set(CONTACTS_DB.map(c => c.region).filter(r => r))].sort();
+    regions.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r;
+      opt.textContent = r;
+      regionSelect.appendChild(opt);
+    });
+  }
+
+  regionSelect.value = '';
+}
+
 // ============================= NAVIGATION =============================
-const pageTitles = {dashboard:'Dashboard',prospector:'Buscador de Contactos',crm:'CRM / Gestion de Leads',emails:'Campanas de Email',mailchimp:'Integracion Mailchimp',programs:'Catalogo de Programas',settings:'Ajustes'};
+const pageTitles = {dashboard:'Dashboard',search:'Búsquedas de Contactos',crm:'CRM / Gestion de Leads',emails:'Campanas de Email',mailchimp:'Integracion Mailchimp',programs:'Catalogo de Programas',settings:'Ajustes'};
 
 function showSection(id) {
 document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -931,7 +1005,6 @@ document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active',
 document.getElementById('pageTitle').textContent = pageTitles[id] || id;
 document.getElementById('sidebar').classList.remove('open');
 if (id==='dashboard') refreshDashboard();
-if (id==='prospector') renderProspector();
 if (id==='crm') renderCRM();
 if (id==='emails') renderEmails();
 if (id==='programs') renderPrograms();
@@ -1102,6 +1175,25 @@ function initSearch() {
   const cc = document.getElementById('crmFilterCountry');
   [...new Set(state.leads.map(l=>l.country))].sort().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cc.appendChild(o); });
 
+  // Add event listener to search button
+  const searchButton = document.getElementById('searchButton');
+  if (searchButton) {
+    searchButton.addEventListener('click', updateSearch);
+  }
+
+  // Add event listener to load more button
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      displayResults(displayedCount);
+    });
+  }
+
+  // Add event listener to country filter
+  if (countrySelect) {
+    countrySelect.addEventListener('change', updateRegionOptions);
+  }
+
   // Initial render
   updateSearch();
 }
@@ -1111,8 +1203,9 @@ function updateSearch() {
   const country = document.getElementById('searchCountry').value;
   const region = document.getElementById('searchRegion').value;
   const type = document.getElementById('searchType').value;
+  const sort = document.getElementById('sortBy').value;
 
-  const filtered = CONTACTS_DB.filter(c => {
+  let filtered = CONTACTS_DB.filter(c => {
     if (country && c.country !== country) return false;
     if (region && c.region !== region) return false;
     if (type && c.type !== type) return false;
@@ -1123,7 +1216,29 @@ function updateSearch() {
     return true;
   });
 
-  renderSearchCards(filtered);
+  // Apply sorting
+  if (sort) {
+    filtered = filtered.slice(); // Create a copy to avoid mutating original
+    switch(sort) {
+      case 'name-asc':
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'name-desc':
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'country-asc':
+        filtered.sort((a, b) => a.country.localeCompare(b.country));
+        break;
+      case 'type-asc':
+        filtered.sort((a, b) => a.type.localeCompare(b.type));
+        break;
+    }
+  }
+
+  // Store results and display first page
+  currentSearchResults = filtered;
+  displayedCount = 0;
+  displayResults(0);
 }
 
 function renderSearchCards(contacts) {
