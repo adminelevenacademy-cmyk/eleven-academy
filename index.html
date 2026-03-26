@@ -260,6 +260,7 @@ Ajustes
 </div>
 
 <div id="searchCount" style="font-size:13px;color:var(--text2);margin:12px 0;font-weight:bold"></div>
+<button id="loadMoreBtn" class="btn btn-gold" style="display:none;margin-bottom:16px;width:100%;">📥 Cargar 10 más resultados</button>
 <div class="grid grid-3" id="searchResults"></div>
 </div>
 
@@ -935,6 +936,65 @@ saveState();
 
 function genId() { return 'id_' + Date.now().toString(36) + Math.random().toString(36).substr(2,6); }
 
+// ============================= SEARCH PAGINATION =============================
+let currentSearchResults = [];
+let displayedCount = 0;
+const RESULTS_PER_PAGE = 10;
+
+function displayResults(startIndex) {
+  const endIndex = Math.min(startIndex + RESULTS_PER_PAGE, currentSearchResults.length);
+  const resultsToShow = currentSearchResults.slice(0, endIndex);
+  renderSearchCards(resultsToShow);
+  displayedCount = endIndex;
+
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (loadMoreBtn) {
+    if (endIndex < currentSearchResults.length) {
+      loadMoreBtn.style.display = 'block';
+    } else {
+      loadMoreBtn.style.display = 'none';
+    }
+  }
+
+  const count = document.getElementById('searchCount');
+  if (count) {
+    count.textContent = `📊 ${resultsToShow.length} de ${currentSearchResults.length} contactos`;
+  }
+}
+
+function updateRegionOptions() {
+  const country = document.getElementById('searchCountry').value;
+  const regionSelect = document.getElementById('searchRegion');
+
+  regionSelect.innerHTML = '<option value="">Todas</option>';
+
+  if (country) {
+    const regionsForCountry = [...new Set(
+      CONTACTS_DB
+        .filter(c => c.country === country)
+        .map(c => c.region)
+        .filter(r => r)
+    )].sort();
+
+    regionsForCountry.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r;
+      opt.textContent = r;
+      regionSelect.appendChild(opt);
+    });
+  } else {
+    const regions = [...new Set(CONTACTS_DB.map(c => c.region).filter(r => r))].sort();
+    regions.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r;
+      opt.textContent = r;
+      regionSelect.appendChild(opt);
+    });
+  }
+
+  regionSelect.value = '';
+}
+
 // ============================= NAVIGATION =============================
 const pageTitles = {dashboard:'Dashboard',search:'Búsquedas de Contactos',crm:'CRM / Gestion de Leads',emails:'Campanas de Email',mailchimp:'Integracion Mailchimp',programs:'Catalogo de Programas',settings:'Ajustes'};
 
@@ -1121,6 +1181,20 @@ function initSearch() {
     searchButton.addEventListener('click', updateSearch);
   }
 
+  // Add event listener to load more button
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      displayResults(displayedCount);
+    });
+  }
+
+  // Add event listener to country filter
+  const countrySelect = document.getElementById('searchCountry');
+  if (countrySelect) {
+    countrySelect.addEventListener('change', updateRegionOptions);
+  }
+
   // Initial render
   updateSearch();
 }
@@ -1162,7 +1236,10 @@ function updateSearch() {
     }
   }
 
-  renderSearchCards(filtered);
+  // Store results and display first page
+  currentSearchResults = filtered;
+  displayedCount = 0;
+  displayResults(0);
 }
 
 function renderSearchCards(contacts) {
