@@ -232,31 +232,10 @@ Ajustes
 <p style="font-size:13px;color:var(--text2);margin:8px 0">Encuentra academias, institutos, torneos y más en cualquier país y región</p>
 </div>
 
-<div class="filters">
-<div class="form-group" style="flex:2;min-width:250px">
-<label>Búsqueda rápida</label>
-<div class="search-box">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-<input type="text" id="searchText" placeholder="Nombre, ciudad, palabra clave...">
-</div>
-</div>
+<div class="filters" style="gap:12px;margin-bottom:16px">
 <div class="form-group"><label>País</label><select id="searchCountry"><option value="">Todos</option></select></div>
 <div class="form-group"><label>Región</label><select id="searchRegion"><option value="">Todas</option></select></div>
 <div class="form-group"><label>Tipo</label><select id="searchType"><option value="">Todos</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federación</option><option value="Centro de Formacion">Centro de Formación</option></select></div>
-</div>
-
-<div class="filters" style="gap:8px;margin-top:12px">
-<button class="btn btn-gold" id="searchButton" style="min-width:120px">🔍 Buscar</button>
-<div class="form-group" style="margin-bottom:0;min-width:150px">
-<label>Ordenar por</label>
-<select id="sortBy">
-<option value="">Ninguno</option>
-<option value="name-asc">Nombre (A-Z)</option>
-<option value="name-desc">Nombre (Z-A)</option>
-<option value="country-asc">País (A-Z)</option>
-<option value="type-asc">Tipo (A-Z)</option>
-</select>
-</div>
 </div>
 
 <div id="searchCount" style="font-size:13px;color:var(--text2);margin:12px 0;font-weight:bold"></div>
@@ -1175,12 +1154,6 @@ function initSearch() {
   const cc = document.getElementById('crmFilterCountry');
   [...new Set(state.leads.map(l=>l.country))].sort().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cc.appendChild(o); });
 
-  // Add event listener to search button
-  const searchButton = document.getElementById('searchButton');
-  if (searchButton) {
-    searchButton.addEventListener('click', updateSearch);
-  }
-
   // Add event listener to load more button
   const loadMoreBtn = document.getElementById('loadMoreBtn');
   if (loadMoreBtn) {
@@ -1189,9 +1162,22 @@ function initSearch() {
     });
   }
 
-  // Add event listener to country filter
+  // Add automatic search on filter changes
   if (countrySelect) {
-    countrySelect.addEventListener('change', updateRegionOptions);
+    countrySelect.addEventListener('change', () => {
+      updateRegionOptions();
+      updateSearch();
+    });
+  }
+
+  const regionSelect = document.getElementById('searchRegion');
+  if (regionSelect) {
+    regionSelect.addEventListener('change', updateSearch);
+  }
+
+  const typeSelect = document.getElementById('searchType');
+  if (typeSelect) {
+    typeSelect.addEventListener('change', updateSearch);
   }
 
   // Initial render
@@ -1199,41 +1185,19 @@ function initSearch() {
 }
 
 function updateSearch() {
-  const search = document.getElementById('searchText').value.toLowerCase();
   const country = document.getElementById('searchCountry').value;
   const region = document.getElementById('searchRegion').value;
   const type = document.getElementById('searchType').value;
-  const sort = document.getElementById('sortBy').value;
 
   let filtered = CONTACTS_DB.filter(c => {
     if (country && c.country !== country) return false;
     if (region && c.region !== region) return false;
     if (type && c.type !== type) return false;
-    if (search) {
-      const haystack = (c.name+c.country+c.city+c.type+c.notes+c.region).toLowerCase();
-      if (!haystack.includes(search)) return false;
-    }
     return true;
   });
 
-  // Apply sorting
-  if (sort) {
-    filtered = filtered.slice(); // Create a copy to avoid mutating original
-    switch(sort) {
-      case 'name-asc':
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'name-desc':
-        filtered.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-      case 'country-asc':
-        filtered.sort((a, b) => a.country.localeCompare(b.country));
-        break;
-      case 'type-asc':
-        filtered.sort((a, b) => a.type.localeCompare(b.type));
-        break;
-    }
-  }
+  // Sort by name alphabetically
+  filtered.sort((a, b) => a.name.localeCompare(b.name));
 
   // Store results and display first page
   currentSearchResults = filtered;
@@ -1249,13 +1213,25 @@ function renderSearchCards(contacts) {
 
   grid.innerHTML = contacts.map(c => {
     const contacted = state.contactedProspectors[c.name] ? ' style="border-left:3px solid var(--success)"' : '';
+
+    // Build the web link with proper URL format
+    let webLink = '';
+    if (c.web && c.web.trim()) {
+      let url = c.web.trim();
+      // Add https:// if not present
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+      webLink = `<div style="font-size:12px;margin:2px 0"><strong>Web:</strong> <a href="${esc(url)}" target="_blank" rel="noopener noreferrer" style="color:var(--primary);cursor:pointer;text-decoration:underline">${esc(c.web)}</a></div>`;
+    }
+
     return `<div class="contact-card"${contacted}>
       <h4>${esc(c.name)}</h4>
       <div class="meta">${esc(c.type)} · ${esc(c.country)}, ${esc(c.city)}</div>
       ${c.region?`<div class="meta">${esc(c.region)}</div>`:''}
       <div style="font-size:12px;margin:4px 0"><strong>Email:</strong> ${esc(c.email)}</div>
       <div style="font-size:12px;margin:2px 0"><strong>Tel:</strong> ${esc(c.phone)}</div>
-      ${c.web?`<div style="font-size:12px;margin:2px 0"><strong>Web:</strong> <a href="https://${esc(c.web)}" target="_blank">${esc(c.web)}</a></div>`:''}
+      ${webLink}
       ${c.notes?`<div style="font-size:11px;color:var(--text2);margin-top:6px">${esc(c.notes)}</div>`:''}
       <div class="actions">
         <button class="btn btn-sm btn-gold" onclick="addToLead('${esc(c.name)}','${esc(c.email)}','${esc(c.country)}','${esc(c.type)}')">+ CRM</button>
