@@ -159,9 +159,9 @@ tr:hover{background:var(--hover)}
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
 Dashboard
 </div>
-<div class="nav-item" data-section="prospector" onclick="showSection('prospector')">
+<div class="nav-item" data-section="search" onclick="showSection('search')">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-Prospector
+Búsquedas
 </div>
 <div class="nav-item" data-section="crm" onclick="showSection('crm')">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
@@ -936,7 +936,7 @@ saveState();
 function genId() { return 'id_' + Date.now().toString(36) + Math.random().toString(36).substr(2,6); }
 
 // ============================= NAVIGATION =============================
-const pageTitles = {dashboard:'Dashboard',prospector:'Buscador de Contactos',crm:'CRM / Gestion de Leads',emails:'Campanas de Email',mailchimp:'Integracion Mailchimp',programs:'Catalogo de Programas',settings:'Ajustes'};
+const pageTitles = {dashboard:'Dashboard',search:'Búsquedas de Contactos',crm:'CRM / Gestion de Leads',emails:'Campanas de Email',mailchimp:'Integracion Mailchimp',programs:'Catalogo de Programas',settings:'Ajustes'};
 
 function showSection(id) {
 document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -945,7 +945,6 @@ document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active',
 document.getElementById('pageTitle').textContent = pageTitles[id] || id;
 document.getElementById('sidebar').classList.remove('open');
 if (id==='dashboard') refreshDashboard();
-if (id==='prospector') renderProspector();
 if (id==='crm') renderCRM();
 if (id==='emails') renderEmails();
 if (id==='programs') renderPrograms();
