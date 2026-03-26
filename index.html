@@ -237,12 +237,26 @@ Ajustes
 <label>Búsqueda rápida</label>
 <div class="search-box">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-<input type="text" id="searchText" placeholder="Nombre, ciudad, palabra clave..." oninput="updateSearch()">
+<input type="text" id="searchText" placeholder="Nombre, ciudad, palabra clave...">
 </div>
 </div>
-<div class="form-group"><label>País</label><select id="searchCountry" onchange="updateSearch()"><option value="">Todos</option></select></div>
-<div class="form-group"><label>Región</label><select id="searchRegion" onchange="updateSearch()"><option value="">Todas</option></select></div>
-<div class="form-group"><label>Tipo</label><select id="searchType" onchange="updateSearch()"><option value="">Todos</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federación</option><option value="Centro de Formacion">Centro de Formación</option></select></div>
+<div class="form-group"><label>País</label><select id="searchCountry"><option value="">Todos</option></select></div>
+<div class="form-group"><label>Región</label><select id="searchRegion"><option value="">Todas</option></select></div>
+<div class="form-group"><label>Tipo</label><select id="searchType"><option value="">Todos</option><option value="Academia">Academia</option><option value="Colegio">Colegio</option><option value="Instituto">Instituto</option><option value="Torneo">Torneo</option><option value="Club Juvenil">Club Juvenil</option><option value="Escuela Internacional">Escuela Internacional</option><option value="Federacion">Federación</option><option value="Centro de Formacion">Centro de Formación</option></select></div>
+</div>
+
+<div class="filters" style="gap:8px;margin-top:12px">
+<button class="btn btn-gold" id="searchButton" style="min-width:120px">🔍 Buscar</button>
+<div class="form-group" style="margin-bottom:0;min-width:150px">
+<label>Ordenar por</label>
+<select id="sortBy">
+<option value="">Ninguno</option>
+<option value="name-asc">Nombre (A-Z)</option>
+<option value="name-desc">Nombre (Z-A)</option>
+<option value="country-asc">País (A-Z)</option>
+<option value="type-asc">Tipo (A-Z)</option>
+</select>
+</div>
 </div>
 
 <div id="searchCount" style="font-size:13px;color:var(--text2);margin:12px 0;font-weight:bold"></div>
@@ -1102,6 +1116,12 @@ function initSearch() {
   const cc = document.getElementById('crmFilterCountry');
   [...new Set(state.leads.map(l=>l.country))].sort().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cc.appendChild(o); });
 
+  // Add event listener to search button
+  const searchButton = document.getElementById('searchButton');
+  if (searchButton) {
+    searchButton.addEventListener('click', updateSearch);
+  }
+
   // Initial render
   updateSearch();
 }
@@ -1111,8 +1131,9 @@ function updateSearch() {
   const country = document.getElementById('searchCountry').value;
   const region = document.getElementById('searchRegion').value;
   const type = document.getElementById('searchType').value;
+  const sort = document.getElementById('sortBy').value;
 
-  const filtered = CONTACTS_DB.filter(c => {
+  let filtered = CONTACTS_DB.filter(c => {
     if (country && c.country !== country) return false;
     if (region && c.region !== region) return false;
     if (type && c.type !== type) return false;
@@ -1122,6 +1143,25 @@ function updateSearch() {
     }
     return true;
   });
+
+  // Apply sorting
+  if (sort) {
+    filtered = filtered.slice(); // Create a copy to avoid mutating original
+    switch(sort) {
+      case 'name-asc':
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'name-desc':
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'country-asc':
+        filtered.sort((a, b) => a.country.localeCompare(b.country));
+        break;
+      case 'type-asc':
+        filtered.sort((a, b) => a.type.localeCompare(b.type));
+        break;
+    }
+  }
 
   renderSearchCards(filtered);
 }
