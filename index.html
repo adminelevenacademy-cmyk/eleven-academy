@@ -1211,6 +1211,15 @@ function initSearch() {
   const cc = document.getElementById('crmFilterCountry');
   [...new Set(state.leads.map(l=>l.country))].sort().forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; cc.appendChild(o); });
 
+  // Add event listener to SEARCH button
+  const searchBtn = document.getElementById('searchBtn');
+  if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+      displayedCount = 0;
+      updateSearch();
+    });
+  }
+
   // Add event listener to load more button
   const loadMoreBtn = document.getElementById('loadMoreBtn');
   if (loadMoreBtn) {
@@ -1219,25 +1228,18 @@ function initSearch() {
     });
   }
 
-  // Add automatic search on filter changes
+  // Country change triggers region update
   if (countrySelect) {
     countrySelect.addEventListener('change', () => {
       updateRegionOptions();
-      updateSearch();
     });
   }
 
-  if (regionSelect) {
-    regionSelect.addEventListener('change', updateSearch);
-  }
+  // Do NOT auto-search - wait for BUSCAR button click
+  // Just update region options when country changes
 
   const typeSelect = document.getElementById('searchType');
-  if (typeSelect) {
-    typeSelect.addEventListener('change', updateSearch);
-  }
-
-  // Initial render
-  updateSearch();
+  // Removed auto-search listeners - now only search on BUSCAR button click
 }
 
 function updateSearch() {
