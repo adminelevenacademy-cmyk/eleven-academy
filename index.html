@@ -1673,8 +1673,7 @@ return d.innerHTML;
 // ============================= INIT =============================
 loadState();
 loadFromSupabase().then(() => {
-  initProspectorFilters();
-  initRealSearch();
+  initSearch();
   refreshDashboard();
   renderEmails();
 });
